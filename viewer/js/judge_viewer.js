@@ -6,8 +6,10 @@
   const css = document.createElement("style");
   css.textContent =
     "#jv-play{position:absolute;left:16px;bottom:252px;z-index:20;font:inherit;font-size:20px;font-weight:700;" +
-    "padding:12px 28px;border-radius:999px;border:2px solid #fff;background:#1c1f24;color:#fff;cursor:pointer;" +
-    "box-shadow:0 4px 18px rgba(0,0,0,.35)}#jv-play:hover{background:#2c3138}";
+    "padding:12px 28px;border-radius:999px;border:2px solid #fff;background:#d3352b;color:#fff;cursor:pointer;" +
+    "box-shadow:0 4px 18px rgba(0,0,0,.35)}#jv-play:hover{background:#b02a21}" +
+    // while it plays the button is dark, so the red asks only for the first press
+    "#jv-play.on{background:#1c1f24}#jv-play.on:hover{background:#2c3138}";
   document.head.appendChild(css);
 
   const big = document.createElement("button");
@@ -18,7 +20,9 @@
     const p = $("play"), t = $("time");
     if (!p || !t) return;
     big.style.display = +t.max > 0 ? "" : "none";   // a field with one moment has nothing to play
-    big.textContent = /停止/.test(p.textContent) ? "❚❚ 止める" : "▶ 動きを再生";
+    const on = /停止/.test(p.textContent);
+    big.textContent = on ? "❚❚ 止める" : "▶ 動きを再生";
+    big.classList.toggle("on", on);
   }
   // with ?data= the viewer reads nothing else, so only the open field has data; without it, a field has data when its
   // file (HV.fields[f].dataUrl, else data/<f>.js, as js/main.js loadData reads it) is on the server
