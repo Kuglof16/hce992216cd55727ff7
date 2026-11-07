@@ -57,6 +57,11 @@
       onlyFieldsWithData(); sync();
       new MutationObserver(sync).observe($("play"), { childList: true, characterData: true, subtree: true });
       new MutationObserver(sync).observe($("time"), { attributes: true, attributeFilter: ["max"] });
+      // the NVH field opens on its highest mode in the list (the frame's modes are the high ones; the first are the body on its springs)
+      const modes = document.querySelectorAll("#modelist div");
+      if (window.__field === "nvh" && modes.length > 1) modes[modes.length - 1].click();
+      // it plays as soon as it opens (a field with one moment has nothing to play)
+      setTimeout(() => { const t = $("time"), p = $("play"); if (t && p && +t.max > 0 && !/停止/.test(p.textContent)) p.click(); }, 300);
     }, 200);
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start); else start();
