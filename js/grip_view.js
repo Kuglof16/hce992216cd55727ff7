@@ -27,8 +27,8 @@ import { CSS2DObject } from "three/addons/renderers/CSS2DRenderer.js";
 import { LineMaterial } from "three/addons/lines/LineMaterial.js";
 import { LineSegments2 } from "three/addons/lines/LineSegments2.js";
 import { LineSegmentsGeometry } from "three/addons/lines/LineSegmentsGeometry.js";
-import { ANGLE, FORCE, LENGTH, lerpAt, nearestAt, nearestIndex, wheelName } from "./series.js?v=e2b2209bd489";
-import { esc, fmt } from "./labels.js?v=8576a93ebc08";
+import { ANGLE, FORCE, LENGTH, lerpAt, nearestAt, nearestIndex, wheelName } from "./series.js?v=4affcced9d05";
+import { esc, fmt } from "./labels.js?v=db073242a4ac";
 
 export const GRIP_COLORS = {
   limit: "#e9893a", // the friction circle and a sliding tyre (the caution orange)

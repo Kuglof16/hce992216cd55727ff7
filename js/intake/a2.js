@@ -1,8 +1,8 @@
 // A2 - hearing: the missing requirements asked once (left), the requirements and where each came from (right) (N14).
 
 import { fill, h } from "./dom.js?v=b644293c522f";
-import { ITEM_CHOICES, ITEM_CHOICES_ALT, ITEM_HELP } from "./data.js?v=86604a8fce06";
-import { assumptions, hearingRows, pastRounds, RULE_CHOICE_JA, ruleRows, showValue, SOURCE_JA, tradeoffChoiceJa, tradeoffRows, TRUST_JA } from "./model.js?v=d4bcf7b32292";
+import { ITEM_CHOICES, ITEM_CHOICES_ALT, ITEM_HELP } from "./data.js?v=69cf6a9dff99";
+import { assumptions, hearingRows, pastRounds, RULE_CHOICE_JA, ruleRows, showValue, SOURCE_JA, tradeoffChoiceJa, tradeoffRows, TRUST_JA } from "./model.js?v=1ea72531035b";
 
 const STATE_JA = { asking: "答えを待っています", answered: "答えました", defaulted: "標準の値のまま", open: "答えなしで進みました", ended: "実行が終わりました" };
 

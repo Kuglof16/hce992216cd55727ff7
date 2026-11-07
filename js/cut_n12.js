@@ -18,9 +18,9 @@
 // Positions, sizes, colours, the length and the times come from layout.json n12; a missing
 // key is named on the page.
 
-import { requireKeys, storyOf } from "./cut_n03.js?v=56e18e40c5dc";
-import { GREEN, MUTED, RED, panel, requestedSetting, textPx } from "./cut_panels.js?v=60e063a341a6";
-import { MATCH_WORD, MISMATCH_WORD, esc, fmtPct, fmtQ, fmtSigned, quantityName } from "./labels.js?v=8576a93ebc08";
+import { requireKeys, storyOf } from "./cut_n03.js?v=e28a5abfa7a5";
+import { GREEN, MUTED, RED, panel, requestedSetting, textPx } from "./cut_panels.js?v=da1e78683545";
+import { MATCH_WORD, MISMATCH_WORD, esc, fmtPct, fmtQ, fmtSigned, quantityName } from "./labels.js?v=db073242a4ac";
 
 // the fix's mark once the record says the cause is resolved (not a verdict: no OK)
 const RESOLVED_WORD = "✓ 解決";

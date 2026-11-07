@@ -41,9 +41,9 @@ import * as THREE from "three";
 import { BAND_COLORS, BANDS } from "./colormap.js?v=3da7f9194f51";
 import { clearOfBand } from "./compose.js?v=453a16e757af";
 import { FIELD_JA, contourOf, fieldsOf, onSharedScale, preferredField, sameField } from "./fields.js?v=f89cf047484b";
-import { OK_WORD, esc, fmt, unitLabel, verLabel } from "./labels.js?v=8576a93ebc08";
-import { OVERLAY, VIEWS, cutView, isoToThree } from "./workbench3d.js?v=e10d1ac8d1c8";
-import { storyOf } from "./cut_n03.js?v=56e18e40c5dc";
+import { OK_WORD, esc, fmt, unitLabel, verLabel } from "./labels.js?v=db073242a4ac";
+import { OVERLAY, VIEWS, cutView, isoToThree } from "./workbench3d.js?v=1e5764164332";
+import { storyOf } from "./cut_n03.js?v=e28a5abfa7a5";
 import { PACE_LIMIT_DEG_S } from "./pace.js?v=206021786fb2";
 
 const ZOOM_MAX_ELEV_DEG = 70;

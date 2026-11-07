@@ -7,9 +7,9 @@
 // field in the same unit (e.g. the shell's element von Mises beside the hot-spot stress) is
 // reference only, and is not held to the allowable value.
 
-import { JUDGED_JA, fmtVU } from "./labels.js?v=8576a93ebc08";
+import { JUDGED_JA, fmtVU } from "./labels.js?v=db073242a4ac";
 import { contourOf } from "./fields.js?v=f89cf047484b";
-import { judgedVerdict, loadCaseIn } from "./state.js?v=01ef3929e266";
+import { judgedVerdict, loadCaseIn } from "./state.js?v=785e17a042a3";
 
 // The tools judged on another result than the criterion's quantity (the same table as
 // hiraku/tools/judge.py JUDGED_QUANTITY: tool -> criterion quantity -> judged result).

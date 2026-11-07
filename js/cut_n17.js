@@ -19,8 +19,8 @@
 // words, and the sensitivities hold the present values only, so it would be a guess.
 
 import { clearOfBand } from "./compose.js?v=453a16e757af";
-import { storyOf } from "./cut_n03.js?v=56e18e40c5dc";
-import { DOMAIN_JA, designNumberName, esc, fmt, fmtVU, isYesNo, judgedWords, opLabel, plainName, verLabel } from "./labels.js?v=8576a93ebc08";
+import { storyOf } from "./cut_n03.js?v=e28a5abfa7a5";
+import { DOMAIN_JA, designNumberName, esc, fmt, fmtVU, isYesNo, judgedWords, opLabel, plainName, verLabel } from "./labels.js?v=db073242a4ac";
 
 // The words of the viewers (the review of the first cuts: the page was mostly English
 // internal names and test ids). A domain's line is made here from its verdicts (the

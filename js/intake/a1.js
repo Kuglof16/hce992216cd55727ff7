@@ -1,9 +1,9 @@
 // A1 - a new design: the request and the reply, the product's properties as chips, the domain cards (N09).
 
-import { FLAGS, SPEED_CLASSES } from "./data.js?v=86604a8fce06";
+import { FLAGS, SPEED_CLASSES } from "./data.js?v=69cf6a9dff99";
 import { fill, h } from "./dom.js?v=b644293c522f";
-import { askingPanel } from "./a2.js?v=d5bca513eb2c";
-import { DOMAIN_PLAIN, addedTests, domainCards, saidOf } from "./model.js?v=d4bcf7b32292";
+import { askingPanel } from "./a2.js?v=c3e7d13b7226";
+import { DOMAIN_PLAIN, addedTests, domainCards, saidOf } from "./model.js?v=1ea72531035b";
 
 const GLOW_S = 0.5; // seconds the glow of a newly lit card lasts
 export const REPLY_STEP_S = 0.5; // with a playback time, the domains answer one after another, this many seconds apart
@@ -146,7 +146,7 @@ export function renderA1(el, m, api, ui) {
   const review = reviewLine(m);
   // the lead's own pet beside the headline (ui.petSlots "lead"; the host mounts role lead): working while the choice is being made
   const thinking = !!(m.chat.length || m.want || m.domains?.want) && (draftN > 0 || waitN > 0 || !m.domains);
-  const leadSlot = petSlot({ domain: "lead", shownName: "まとめ役", state: thinking ? "wait" : m.domains ? "done" : "idle", litAt: null }, ui);
+  const leadSlot = petSlot({ domain: "lead", shownName: "まとめ", state: thinking ? "wait" : m.domains ? "done" : "idle", litAt: null }, ui);
   const ask = askingPanel(m, api, ui);
   el.classList?.[ask ? "add" : "remove"]("has-ask");
   const want = m.want || m.domains?.want || [...m.chat].reverse().find((c) => c.who === "user")?.text || "";
