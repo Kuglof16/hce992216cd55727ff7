@@ -7,7 +7,12 @@
     /[^。\n]*見せるための計算で[^。\n]*。?/g,
   ];
   const leftover = (s) => !s.replace(/[\s—\-:：、,]/g, "") || /^[\s—\-]*[^\s:：]{0,8}[:：][\s—\-]*$/.test(s);
+  // the agents' row says 「終わり」 by each name; the line 「仕事を終えた」 under it says the same again
+  const SAME = /^\s*仕事を終えた\s*$/;
   function trim(root) {
+    for (const el of root.querySelectorAll("div,span,small,p")) {
+      if (el.children.length === 0 && SAME.test(el.textContent) && el.style.display !== "none") el.style.display = "none";
+    }
     const walk = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
     const hits = [];
     for (let n = walk.nextNode(); n; n = walk.nextNode()) {
