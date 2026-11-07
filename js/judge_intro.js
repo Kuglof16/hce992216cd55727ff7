@@ -3,6 +3,9 @@
 // 「この記録を再生する」 button do the work; this only adds the card and presses them.
 (function () {
   const LP = "https://kuglof16.github.io/h860337f9b68847f246/";
+  // the bare address opens the record where every domain has a verdict, on ④ (the results)
+  const FIRST = "?run=20261105-150416-offroad-4w-scripted&tab=grid";
+  if (!location.search) { location.replace(location.pathname + FIRST + location.hash); return; }
   const params = new URLSearchParams(location.search);
   const run = params.get("run") || "";
   const scripted = /-scripted$/.test(run);
