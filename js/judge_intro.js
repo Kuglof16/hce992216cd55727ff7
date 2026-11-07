@@ -9,11 +9,12 @@
   const params = new URLSearchParams(location.search);
   const run = params.get("run") || "";
   const scripted = /-scripted$/.test(run);
+  const HEAD = "<b>HIRAKU</b> は、作りたいものを文で書くと、Claude が設計を作り、CAE の計算で確かめ、NG を直すまで繰り返すツールです。";
   const words = scripted
-    ? "<b>HIRAKU</b> は、作りたいものを文で書くと、Claude が設計を作り、CAE の計算で確かめ、NG を直すまで繰り返すツールです。" +
-      "これは台本の運転 (Claude を呼ばずに、同じ道を決まった手順でなぞる) の記録で、8 分野すべてが OK になった v5 の判定です。タイルを押すと、解析を 3D で見られます。"
-    : "<b>HIRAKU</b> は、作りたいものを文で書くと、Claude が設計を作り、CAE の計算で確かめ、NG を直すまで繰り返すツールです。" +
-      "下は、Claude が回した 2 人乗りの小さなオフロード車の記録です (v1 の NG を v7 で全部 OK にしました)。";
+    ? HEAD + "これは台本の運転 (Claude を呼ばずに、同じ道を決まった手順でなぞる) の記録で、8 分野すべてが OK になった v5 の判定です。タイルを押すと、解析を 3D で見られます。"
+    : run === "20261105-160725-offroad-4w"
+      ? HEAD + "下は、Claude が回した 2 人乗りの小さなオフロード車の記録です (v1 の NG を v7 で全部 OK にしました)。"
+      : HEAD + "下は、保存した記録の最後の判定です。タイルを押すと、解析を 3D で見られます。";
 
   const bar = document.createElement("div");
   bar.id = "judge-intro";
@@ -70,7 +71,22 @@
     new MutationObserver(() => { dock.style.display = document.getElementById("judge-intro") ? "none" : "flex"; })
       .observe(document.body, { childList: true });
   }
-  function start() { headerLinks(); if (!params.has("list")) openCard(); }
+  // the run list: each record opens on its last moment, ④ (the results), by a full page load so the card and the
+  // tab opener run; the page behind the list is covered so it does not look like an empty screen
+  function listLinks() {
+    if (!params.has("list")) return;
+    const st = document.createElement("style");
+    st.textContent = ".stage > *:not(#runlist){visibility:hidden}";
+    document.head.appendChild(st);
+    document.addEventListener("click", (e) => {
+      const a = e.target.closest && e.target.closest('#runlist a[href^="?run="]');
+      if (!a) return;
+      e.preventDefault(); e.stopPropagation();
+      const href = a.getAttribute("href");
+      location.href = href + (href.includes("tab=") ? "" : "&tab=grid");
+    }, true);
+  }
+  function start() { headerLinks(); listLinks(); if (!params.has("list")) openCard(); }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start); else start();
   // open on ④ once the tabs are there (not the run list; ?tab= from a link wins)
   if (!params.has("list") && !params.has("tab")) later(() => { const t = tab("解析結果"); if (t) { t.click(); return true; } return false; });
