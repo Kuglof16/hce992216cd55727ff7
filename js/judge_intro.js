@@ -7,7 +7,8 @@
     '<p class="ji-text"><b>HIRAKU</b> は、作りたいものを文で書くと、Claude が設計を作り、CAE の計算で確かめ、NG を直すまで繰り返すツールです。' +
     '下は、2 人乗りの小さなオフロード車の記録です (v1 の NG を v7 で全部 OK にしました)。</p>' +
     '<div class="ji-buttons"><button type="button" class="ji-play" id="ji-play">▶ 最初から再生して見る</button>' +
-    '<button type="button" class="ji-result" id="ji-result">結果を見る</button></div>' +
+    '<button type="button" class="ji-result" id="ji-result">結果を見る</button>' +
+    '<a class="ji-lp" href="https://kuglof16.github.io/h860337f9b68847f246/">HIRAKU の紹介ページへ</a></div>' +
     '<button type="button" class="ji-close" id="ji-close" title="閉じる">×</button>';
   const css = document.createElement("style");
   // fixed over the page, bottom left, so the page's own grid keeps its rows; × hides it
@@ -19,6 +20,8 @@
     "#judge-intro button{font:inherit;font-weight:700;border-radius:999px;padding:9px 20px;cursor:pointer;border:2px solid #fff}" +
     "#judge-intro .ji-play{background:#fff;color:#1c1f24;font-size:17px}" +
     "#judge-intro .ji-result{background:transparent;color:#fff}" +
+    "#judge-intro .ji-buttons{align-items:center}" +
+    "#judge-intro .ji-lp{color:#cfd6df;font-size:14px;margin-left:4px}" +
     "#judge-intro .ji-close{position:absolute;top:8px;right:10px;border:0;background:transparent;color:#aaa;font-size:18px;padding:2px 6px}";
   document.head.appendChild(css);
 
