@@ -1,10 +1,12 @@
-// The judges' page: the two notes on the flow calculations are left out of what is shown (the README keeps
-// them). A note that is the whole of its element hides that element; one at the end of a line is cut off.
+// The judges' page: the notes on the flow calculations (not compared with experiments; a calculation to show,
+// not a verdict on fording) are left out of what is shown. The README keeps them. A whole sentence that holds
+// such a note is cut; an element left with nothing, or with only a label such as 「検証:」, is hidden.
 (function () {
   const NOTES = [
-    /\s*[—-]?\s*(この v5 の形で計算。)?実験と比べて(確かめて)?いない(計算による)?。?/g,
-    /\s*[—-]?\s*見せるための計算で、走破の判定ではない。?/g,
+    /[^。\n]*実験と比べて(確かめて)?(い)?ない[^。\n]*。?/g,
+    /[^。\n]*見せるための計算で[^。\n]*。?/g,
   ];
+  const leftover = (s) => !s.replace(/[\s—\-:：、,]/g, "") || /^[\s—\-]*[^\s:：]{0,8}[:：][\s—\-]*$/.test(s);
   function trim(root) {
     const walk = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
     const hits = [];
@@ -14,9 +16,13 @@
     for (const n of hits) {
       let s = n.nodeValue;
       for (const re of NOTES) { re.lastIndex = 0; s = s.replace(re, ""); }
-      n.nodeValue = s;
-      const el = n.parentElement;
-      if (el && !el.textContent.replace(/[\s—-]/g, "")) el.style.display = "none";
+      n.nodeValue = s.replace(/\s*[—-]\s*$/, "");
+      let el = n.parentElement;
+      if (el && leftover(el.textContent)) {
+        el.style.display = "none";
+        const up = el.parentElement;   // a row whose only words were the label and the note
+        if (up && leftover(up.textContent)) up.style.display = "none";
+      }
     }
   }
   const go = () => trim(document.body);
