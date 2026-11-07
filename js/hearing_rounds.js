@@ -10,8 +10,8 @@
 //   them: 「版 2」 → 「v2」, a requirement's number (Q54) → its name, a part's id → its name (from
 //   the design of that time). The parts' ids in the data (the 3D lights them) are left as they are.
 
-import { agentName } from "./labels.js?v=db073242a4ac";
-import { RULE_CHOICE_JA, tradeoffChoiceJa } from "./intake/model.js?v=1ea72531035b";
+import { agentName } from "./labels.js?v=8576a93ebc08";
+import { RULE_CHOICE_JA, tradeoffChoiceJa } from "./intake/model.js?v=d4bcf7b32292";
 
 export function hearingRounds(events) {
   const rounds = [];

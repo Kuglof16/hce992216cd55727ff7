@@ -20,10 +20,10 @@
 // PetStage, its pixel ratio, its still pictures without a GPU unless ?petmotion=on), so a pet is
 // drawn again only when its pose or size changes, at most PET_FPS times a second while it moves.
 
-import { DOMAINS, DOMAIN_JA, agentName } from "./labels.js?v=db073242a4ac";
-import { MOTIONS, PET_FPS, petPose } from "./agent_pets.js?v=db2772c3edc5";
-import { inTurn, REPLY_STEP_S } from "./intake/a1.js?v=f6ec7151faac";
-import { domainCards } from "./intake/model.js?v=1ea72531035b";
+import { DOMAINS, DOMAIN_JA, agentName } from "./labels.js?v=8576a93ebc08";
+import { MOTIONS, PET_FPS, petPose } from "./agent_pets.js?v=dad33e2edb07";
+import { inTurn, REPLY_STEP_S } from "./intake/a1.js?v=f865ced2ea62";
+import { domainCards } from "./intake/model.js?v=d4bcf7b32292";
 
 // A1's card order (js/intake/a1.js renderA1 sorts the cards so before inTurn). As the cards show them at
 // t: lit, the time each picked domain answers (in turn, REPLY_STEP_S apart, only when the intake answers

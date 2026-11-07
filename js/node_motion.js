@@ -13,7 +13,7 @@ import * as THREE from "three";
 import { LineMaterial } from "three/addons/lines/LineMaterial.js";
 import { LineSegments2 } from "three/addons/lines/LineSegments2.js";
 import { LineSegmentsGeometry } from "three/addons/lines/LineSegmentsGeometry.js";
-import { esc } from "./labels.js?v=db073242a4ac";
+import { esc } from "./labels.js?v=8576a93ebc08";
 import { heavyPending } from "./heavy.js?v=141f2a9f5c50";
 
 // The analysis' whole time (0 .. 94.9 ms in the demo crash) is played over this many seconds of

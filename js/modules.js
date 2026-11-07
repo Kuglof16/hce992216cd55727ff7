@@ -16,9 +16,9 @@
 // move with it); nothing of the design or of the bench's materials is changed.
 
 import * as THREE from "three";
-import { MODULE_JA, esc, fmt, moduleName } from "./labels.js?v=db073242a4ac";
-import { OUTSIDE_COLOR, moduleColor } from "./proposals.js?v=37554121f851";
-import { keepLegendsApart } from "./joints.js?v=ab971e2dd2fd";
+import { MODULE_JA, esc, fmt, moduleName } from "./labels.js?v=8576a93ebc08";
+import { OUTSIDE_COLOR, moduleColor } from "./proposals.js?v=611994c557b9";
+import { keepLegendsApart } from "./joints.js?v=ae77cc8ea94f";
 import { getUrl } from "./source.js?v=e332c3f13242";
 
 export const ENVELOPE_TOL_MM = 0.5; // as k4_geometry.joints.ENVELOPE_TOL_MM

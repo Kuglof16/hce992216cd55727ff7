@@ -1,29 +1,27 @@
 // The judges' page: one sentence on what HIRAKU is, a large play button and two links in the header that stay
 // (the introduction page, and 「？ 使い方」 that brings the card back). The page's own tabs and its
 // 「この記録を再生する」 button do the work; this only adds the card and presses them.
-// Only on a static export's index.html (hiraku/webserve/export_static.py adds the script there): the screen
-// with a server and the film's pages (cut.html, ?video=1) are as they are.
 (function () {
-  if (document.querySelector('meta[name="hiraku-static"]')?.content !== "1") return;
-  if (/cut\.html$/.test(location.pathname) || new URLSearchParams(location.search).get("video") === "1") return;
-  // the introduction page: the export's --intro-url (a meta in the exported index.html); none, no links to it
-  const LP = document.querySelector('meta[name="hiraku-intro"]')?.content || "";
-  // (the bare address: app.js opens the export's first run (export_static --default-run) as it ended, on ④)
+  const LP = "https://kuglof16.github.io/h860337f9b68847f246/";
+  // the bare address opens the record where every domain has a verdict, on ④ (the results)
+  const FIRST = "?run=20261105-150416-offroad-4w-scripted&tab=grid";
+  if (!location.search) { location.replace(location.pathname + FIRST + location.hash); return; }
   const params = new URLSearchParams(location.search);
+  const run = params.get("run") || "";
+  const scripted = /-scripted$/.test(run);
   const HEAD = "<b>HIRAKU</b> は、作りたいものを文で書くと、Claude が設計を作り、CAE の計算で確かめ、NG を直すまで繰り返すツールです。";
-  const wordsFor = (run) =>
-    /-scripted$/.test(run)
-      ? HEAD + "これは台本の運転 (Claude を呼ばずに、同じ道を決まった手順でなぞる) の記録で、8 分野すべてが OK になった v5 の判定です。タイルを押すと、解析を 3D で見られます。"
-      : run === "20261105-160725-offroad-4w"
-        ? HEAD + "下は、Claude が回した 2 人乗りの小さなオフロード車の記録です (v1 の NG を v7 で全部 OK にしました)。"
-        : HEAD + "下は、保存した記録の最後の判定です。タイルを押すと、解析を 3D で見られます。";
+  const words = scripted
+    ? HEAD + "これは台本の運転 (Claude を呼ばずに、同じ道を決まった手順でなぞる) の記録で、8 分野すべてが OK になった v5 の判定です。タイルを押すと、解析を 3D で見られます。"
+    : run === "20261105-160725-offroad-4w"
+      ? HEAD + "下は、Claude が回した 2 人乗りの小さなオフロード車の記録です (v1 の NG を v7 で全部 OK にしました)。"
+      : HEAD + "下は、保存した記録の最後の判定です。タイルを押すと、解析を 3D で見られます。";
 
   const bar = document.createElement("div");
   bar.id = "judge-intro";
-  bar.innerHTML = '<p class="ji-text">' + wordsFor(params.get("run") || "") + "</p>" +
+  bar.innerHTML = '<p class="ji-text">' + words + "</p>" +
     '<div class="ji-buttons"><button type="button" class="ji-play" id="ji-play">▶ 最初から再生して見る</button>' +
     '<button type="button" class="ji-result" id="ji-result">結果を見る</button>' +
-    (LP ? '<a class="ji-lp" href="' + LP + '">HIRAKU の紹介ページへ</a>' : "") + "</div>" +
+    '<a class="ji-lp" href="' + LP + '">HIRAKU の紹介ページへ</a></div>' +
     '<button type="button" class="ji-close" id="ji-close" title="閉じる (右下の「？ 使い方」でまた開けます)">×</button>';
   const css = document.createElement("style");
   // fixed over the page, bottom right, so the page's own grid keeps its rows
@@ -66,12 +64,9 @@
     const help = document.createElement("button");
     help.type = "button"; help.id = "ji-help"; help.className = "ji-head dark"; help.textContent = "？ 使い方";
     help.onclick = openCard;
-    dock.append(help);
-    if (LP) {
-      const lp = document.createElement("a");
-      lp.className = "ji-head"; lp.href = LP; lp.textContent = "HIRAKU の紹介ページ";
-      dock.append(lp);
-    }
+    const lp = document.createElement("a");
+    lp.className = "ji-head"; lp.href = LP; lp.textContent = "HIRAKU の紹介ページ";
+    dock.append(help, lp);
     document.body.appendChild(dock);
     new MutationObserver(() => { dock.style.display = document.getElementById("judge-intro") ? "none" : "flex"; })
       .observe(document.body, { childList: true });
@@ -91,20 +86,7 @@
       location.href = href + (href.includes("tab=") ? "" : "&tab=grid");
     }, true);
   }
-  function start() {
-    headerLinks();
-    listLinks();
-    if (params.has("list")) return;
-    openCard();
-    // the bare address: the run is the export's first (data/static.json), whose words the card then says
-    if (!params.get("run")) {
-      fetch("data/static.json").then((r) => r.json()).then((j) => {
-        const run = j?.first?.run;
-        const p = bar.querySelector(".ji-text");
-        if (run && p) p.innerHTML = wordsFor(run);
-      }).catch(() => {});
-    }
-  }
+  function start() { headerLinks(); listLinks(); if (!params.has("list")) openCard(); }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start); else start();
   // open on ④ once the tabs are there (not the run list; ?tab= from a link wins)
   if (!params.has("list") && !params.has("tab")) later(() => { const t = tab("解析結果"); if (t) { t.click(); return true; } return false; });

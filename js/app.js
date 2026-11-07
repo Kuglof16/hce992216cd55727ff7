@@ -32,54 +32,52 @@
 // window.hiraku.seek(t) returns a promise that resolves once the frame at t is drawn;
 // window.hiraku.load(events, t) shows other events (already parsed) the same way.
 
-import { TAB_JA, tabWord, verLabel, judgedWords, MISMATCH_STATUS, RED_STATUS, DEMO_LINE_JA, DOMAINS, DOMAIN_JA, DRIVEN_JA, DRIVER_JA, PICK_DEMO_ID, runSummaryJa, stopWhyJa, isOlderRecord, RUN_STATE_JA, runState, RULES, STOP_CODE_JA, DESIGNER_ROLES, designerRole, agentLongName, agentName, BASE_JA, caseShortNames, esc, keepAsides, fmt, fmtMargin, fmtPct, fmtQ, fmtSigned, fmtTime, fmtUsd, fmtVU, opLabel, formulaInputName, plainToolName, quantityName, unitLabel } from "./labels.js?v=db073242a4ac";
+import { TAB_JA, tabWord, verLabel, judgedWords, MISMATCH_STATUS, RED_STATUS, DEMO_LINE_JA, DOMAINS, DOMAIN_JA, DRIVEN_JA, DRIVER_JA, PICK_DEMO_ID, runSummaryJa, isOlderRecord, RUN_STATE_JA, runState, RULES, STOP_CODE_JA, DESIGNER_ROLES, designerRole, agentLongName, agentName, BASE_JA, caseShortNames, esc, keepAsides, fmt, fmtMargin, fmtPct, fmtQ, fmtSigned, fmtTime, fmtUsd, fmtVU, opLabel, formulaInputName, plainToolName, quantityName, unitLabel } from "./labels.js?v=8576a93ebc08";
 import { BAND_COLORS, BANDS, OVER_COLOR } from "./colormap.js?v=3da7f9194f51";
-import { EventFeed, Player, parseJsonl } from "./player.js?v=2845e4d9b850";
-import { pathCheckedWhy } from "./why_line.js?v=302cd261e182";
-import { applyEvent, chainFor, domainVerdicts, initialState, isSafeSide, judgementState, roundsUsed, valueFromJa } from "./state.js?v=785e17a042a3";
-import { SeriesChart } from "./chart.js?v=e883dd9492cd";
+import { EventFeed, Player, parseJsonl } from "./player.js?v=7b78489a52f6";
+import { applyEvent, chainFor, domainVerdicts, initialState, isSafeSide, judgementState, roundsUsed, valueFromJa } from "./state.js?v=01ef3929e266";
+import { SeriesChart } from "./chart.js?v=5b4d5e8beac6";
 import { FIELD_JA, FIELD_ORDER, atFrame, contourOf, convergenceLine, fieldLabel, fieldsOf, frameIndex, onSharedScale, preferredField, sameField, variantName, variantOf } from "./fields.js?v=f89cf047484b";
-import { motionOf, motionSpan, nearestAt, wheelName, xSeriesOf } from "./series.js?v=4affcced9d05";
-import { NodeMotionView, nodeMotionAt, nodeMotionOf, nodeMotionPlaySpan, nodeMotionTau } from "./node_motion.js?v=c4e11fdce647";
-import { mountIntake } from "./intake/index.js?v=8cd573e4ce69";
-import { REPLY_STEP_S } from "./intake/a1.js?v=f6ec7151faac";
+import { motionOf, motionSpan, nearestAt, wheelName, xSeriesOf } from "./series.js?v=e2b2209bd489";
+import { NodeMotionView, nodeMotionAt, nodeMotionOf, nodeMotionPlaySpan, nodeMotionTau } from "./node_motion.js?v=c57b7ee51599";
+import { mountIntake } from "./intake/index.js?v=7955cbfa94f3";
+import { REPLY_STEP_S } from "./intake/a1.js?v=f865ced2ea62";
 import { lookFromParams, looksReady, qualityFromParams } from "./look.js?v=ea9123c575c2";
 import { DUMMY_NOTE_JA } from "./hybrid3.js?v=ba304c38166a"; // the workbench's くわしく under a dummy
-import { mountShelf } from "./shelf.js?v=d364cfd8a41e";
+import { mountShelf } from "./shelf.js?v=f6c29ff98787";
 import { parseZoom, zoomTransform } from "./zoom.js?v=2eaf5eae0f5b";
-import { liftIsLimit } from "./scene.js?v=fedaab148880";
-import { TileBoard, TILE_ORDER, headline, onlyTestsLine } from "./tiles.js?v=1c6273692732";
-import { TileViews } from "./tile3d.js?v=feff2b73e9a7";
-import { VIEWS, Workbench3D } from "./workbench3d.js?v=1e5764164332";
-import { AssemblyPanel, assemblyRecord } from "./assembly.js?v=06d6cdc38454";
-import { renderJointLegend } from "./joints.js?v=ab971e2dd2fd"; // joints:
-import { MODE_JA, MODE_ORDER, drawableMetrics, METRIC_JA, modeCardHtml, modeLegendParts, qualityContourOf, qualityOf, setupContourOf, setupOf, thicknessContourOf } from "./quality.js?v=70f5ce5e0276";
-import { AgentPets, PET_PAINTS, glRendererName, isSoftwareRenderer, petRowHtml, stopWhyHtml } from "./agent_pets.js?v=db2772c3edc5";
-import { IntakePets } from "./intake_pets.js?v=725834a45083"; // the CAE agents' pets on A1, the asker's on A2
-import { hearingRounds, plainHearingEvents, roundAt, roundLine, roundTitle } from "./hearing_rounds.js?v=391f647f3b45"; // ②: when each hearing was
-import { reportNextHtml } from "./report_next.js?v=4008d87c8aa9";
-import { analysisEdge, assumptionText, edgeFlips, edgeLineHtml, edgeRaw, edgeText, nearLineHtml } from "./edge_note.js?v=bf1b59b1184d";
-import { causeNoteHtml, hookWords, nowSentence, openCause, presentCardHtml, presentScene, resolvedHooks, verdictLine, verdictSentence } from "./present.js?v=fd375df160d5";
-import { judgedContour, judgedResult, referenceResults } from "./judged.js?v=bac514613e42";
-import { JUDGED_JA } from "./labels.js?v=db073242a4ac";
-import { heldAll, heldBandHtml, heldCases } from "./held.js?v=8a2a0fab46a3"; // held: load cases shown, not judged
-import { ModuleLayer, hasModules, loadModuleNames, renderModuleLegend, renderRoundCard } from "./modules.js?v=286c7e8e5a34"; // modules:
-import { designerColor, roundCardHtml } from "./proposals.js?v=37554121f851"; // modules:
-import { TabContent, mountTabs } from "./tabs.js?v=6aa562a99bf7";
-import { GripView } from "./grip_panel.js?v=85af478a468d"; // grip: the tyres of a driving record (toggle タイヤ, ?on=grip)
-import { hasGrip } from "./grip_view.js?v=e1842b4d7ca8"; // grip:
-import { kcFor } from "./kc_view.js?v=54f0acef80f5"; // grip:
-import { EnergyFlow } from "./energy_flow.js?v=eca5565b4ca5"; // heat: the energy's flow over the 3D
-import { VIEWER_WORDS, extraUrl, loadViewerInfo, viewerButtonHtml, viewerExtras, viewerInfo, viewerProvisional, viewerRunId, viewerTarget, viewerUrl } from "./viewer_link.js?v=fa87dabcdd40"; // 「ビューアで見る」
+import { liftIsLimit } from "./scene.js?v=991cd93a552f";
+import { TileBoard, TILE_ORDER, headline, onlyTestsLine } from "./tiles.js?v=d9934c246e34-dlc";
+import { TileViews } from "./tile3d.js?v=bff69a437e23";
+import { VIEWS, Workbench3D } from "./workbench3d.js?v=e10d1ac8d1c8";
+import { AssemblyPanel, assemblyRecord } from "./assembly.js?v=6491d2e3557e";
+import { renderJointLegend } from "./joints.js?v=ae77cc8ea94f"; // joints:
+import { MODE_JA, MODE_ORDER, drawableMetrics, METRIC_JA, modeCardHtml, modeLegendParts, qualityContourOf, qualityOf, setupContourOf, setupOf, thicknessContourOf } from "./quality.js?v=dd89949febfd";
+import { AgentPets, PET_PAINTS, glRendererName, isSoftwareRenderer, petRowHtml, stopWhyHtml } from "./agent_pets.js?v=dad33e2edb07";
+import { IntakePets } from "./intake_pets.js?v=476664fc0047"; // the CAE agents' pets on A1, the asker's on A2
+import { hearingRounds, plainHearingEvents, roundAt, roundLine, roundTitle } from "./hearing_rounds.js?v=e02e852e5109"; // ②: when each hearing was
+import { reportNextHtml } from "./report_next.js?v=0afcb0b8e8d8";
+import { analysisEdge, assumptionText, edgeFlips, edgeLineHtml, edgeRaw, edgeText, nearLineHtml } from "./edge_note.js?v=37d8bdc1194a";
+import { causeNoteHtml, hookWords, nowSentence, openCause, presentCardHtml, presentScene, resolvedHooks, verdictLine, verdictSentence } from "./present.js?v=2b7908ce9ab7";
+import { judgedContour, judgedResult, referenceResults } from "./judged.js?v=f87bbbefe926";
+import { JUDGED_JA } from "./labels.js?v=8576a93ebc08";
+import { heldAll, heldBandHtml, heldCases } from "./held.js?v=26f6d9e02fda"; // held: load cases shown, not judged
+import { ModuleLayer, hasModules, loadModuleNames, renderModuleLegend, renderRoundCard } from "./modules.js?v=13517e93e3b5"; // modules:
+import { designerColor, roundCardHtml } from "./proposals.js?v=611994c557b9"; // modules:
+import { TabContent, mountTabs } from "./tabs.js?v=978c9a5c589d";
+import { GripView } from "./grip_panel.js?v=b8cdc7dcb0ca"; // grip: the tyres of a driving record (toggle タイヤ, ?on=grip)
+import { hasGrip } from "./grip_view.js?v=98fffa3792de"; // grip:
+import { kcFor } from "./kc_view.js?v=77816399dc01"; // grip:
+import { EnergyFlow } from "./energy_flow.js?v=52110c00265f"; // heat: the energy's flow over the 3D
+import { VIEWER_WORDS, extraUrl, loadViewerInfo, viewerButtonHtml, viewerExtras, viewerInfo, viewerProvisional, viewerRunId, viewerTarget, viewerUrl } from "./viewer_link.js?v=5631f5f89b72"; // 「ビューアで見る」
 import { clampToSpan, domainLcAt, domainSpans } from "./domain_replay.js?v=5765330dc6ff";
-import { loopFromParams } from "./anim_loop.js?v=0f0b1d96b1e4"; // ?play=loop&analysis=: one analysis' motion over and over
+import { loopFromParams } from "./anim_loop.js?v=4d6db5748dc5"; // ?play=loop&analysis=: one analysis' motion over and over
 import { STATIC, getUrl } from "./source.js?v=e332c3f13242"; // a static export: its files in place of the server's routes, nothing POSTed
-import { domainIconSvg } from "./domain_icons.js?v=ccf3505069b3";
-import { footerActivity, hookLineText, mountHookLine, withoutRuleIds } from "./hookline.js?v=a0b3d0f2e2f6";
-import { mountBenchNote, noteKind } from "./benchnote.js?v=711568838cf8"; // ③'s sentence card under the 3D
-import { filmWords, isFilmWords, markRecordWords, plainLineHtml, plainWords, shownText } from "./plain.js?v=eec774d5e6e8"; // plain words: the card's, the footer's and the log's
-import { roundSeq } from "./proposals.js?v=37554121f851";
-import { boardHtml } from "./test_board.js?v=6c2977cb490d"; // ③'s tests at a glance
+import { domainIconSvg } from "./domain_icons.js?v=45df1eaa0b38";
+import { footerActivity, hookLineText, mountHookLine, withoutRuleIds } from "./hookline.js?v=45735f4685ce";
+import { markRecordWords, mountBenchNote, noteKind } from "./benchnote.js?v=b7d2a9ddc529"; // ③'s sentence card under the 3D
+import { roundSeq } from "./proposals.js?v=611994c557b9";
+import { boardHtml } from "./test_board.js?v=dfdb376a2bcf"; // ③'s tests at a glance
 import { askAll, heavyPending, heavyReady, heavyWaiting, onHeavy, prefetch, quietly, tracked } from "./heavy.js?v=141f2a9f5c50"; // a static export's heavy parts, read when drawn
 
 const $ = (id) => document.getElementById(id);
@@ -143,10 +141,7 @@ async function staticFirst() {
   }
 }
 const FIRST = STATIC && !location.search ? await staticFirst() : null;
-// (the first screen: the run as it ended, on ④ — what was judged and what the versions fixed —, every
-// tab at that moment; 「▶ 再生して見る」 plays it from its first design. ①'s request's moment stays for
-// ?tab=A1)
-const params = new URLSearchParams(FIRST ? `run=${encodeURIComponent(FIRST.run)}` : location.search);
+const params = new URLSearchParams(FIRST ? `run=${encodeURIComponent(FIRST.run)}&tab=A1` : location.search);
 // ?dev=1: the run list as the developers see it (files, run ids, cut numbers, cost lines); kept on the links
 // (and the tabs' titles add the screens' names inside HIRAKU)
 const DEV = params.get("dev") === "1";
@@ -158,7 +153,6 @@ if (STATIC) {
 const hookLine = mountHookLine($("stage"), { dev: DEV, showS: 5, avoid: () => [$("tests")] }); // the hooks' stop in one line (kept clear of ③'s board); the footer's list folded
 $("back-link").href = DEV ? "?list=1&dev=1" : "?list=1";
 document.body.classList.toggle("dev", DEV); // (③'s strip shows the record's ids and English words)
-filmWords(params.get("video") === "1"); // (?video=1: the film's words as filmed, plain.js)
 const benchNote = mountBenchNote($("benchnote"), $("viewport"));
 const tabContent = new TabContent();
 const withDev = (href) => (DEV ? `${href}${href.includes("?") ? "&" : "?"}dev=1` : href);
@@ -202,7 +196,7 @@ const ui = {
   gridVersion: null,
   gridViewer: null,
   gridNote: null,
-  pinnedTab: TABS.includes(params.get("tab")) ? params.get("tab") : FIRST ? "grid" : null,
+  pinnedTab: TABS.includes(params.get("tab")) ? params.get("tab") : null,
   tabPlan: parseTabPlan(params.get("tabs")), // ?tabs= (wins over ?tab=); a tab pressed by hand ends it
   toggles: { contour: true, arrows: true, cg: true, parts: true, names: false, limit: true, graph: true, joints: true, modules: false, spaces: false, heat: true, grip: false }, // joints: on at first (?off=joints); modules: modules, spaces (modules.js); heat: the energy's flow on a thermal analysis; grip: タイヤ (grip_panel.js)
   frozen: params.has("t"),
@@ -289,22 +283,10 @@ function resize3d() {
   const w = half ? Math.floor(viewport.clientWidth / 2) : viewport.clientWidth;
   const h = viewport.clientHeight;
   if (w > 0 && h > 0) {
-    const aspect = bench.camera.aspect;
     bench.resize(w, h, (window.devicePixelRatio || 1) * stageScale);
     grip.resize(w, h); // grip:
     if (half && cmpView) cmpView.bench.resize(w, h, (window.devicePixelRatio || 1) * stageScale);
-    if (bench.camera.aspect !== aspect) refitForSize();
   }
-}
-// ③'s framing left of the legend (Workbench3D.fit with fitWidth: by the outline's points in the
-// view's free width) depends on the view's shape: framed again when the 3D's size changes (the
-// strip under the 3D, benchnote.js, comes after the first framing), so the same t gives the same
-// picture however the page got there. Not a camera turned by hand, a focus, or the compare view.
-function refitForSize() {
-  if (!bench.fitWidth || !(bench.reserveRight > 0) || !bench.design || bench.focused || bench.handMoved) return;
-  if (viewport.classList.contains("compare")) return;
-  if (grip.reserved) grip.reserve(grip.reserved, true); // (its own view from higher up)
-  else bench.fit(VIEWS[bench.view ?? "default"]);
 }
 new ResizeObserver(resize3d).observe(viewport);
 window.addEventListener("resize", fitStage);
@@ -673,13 +655,8 @@ function showGridViewer(s) {
     el.dataset.extra = g.extra;
   } else {
     const ana = s?.analyses?.[g.ana];
-    const lc = (s?.project?.load_cases ?? []).find((c) => c.load_case_id === ana?.load_case_id);
-    const tid = lc?.test_id ?? ana?.load_case_id ?? g.ana;
-    // the test's id and the tool's id under ?dev=1 (and in the film); else the test's title and the tool's name
-    const ids = DEV || VIDEO_LAYOUT;
-    const test = ids ? tid : plainWords(String(lc?.title ?? "").split(/\s*[（(:：]/)[0]) || "";
-    const tool = ids ? ana?.tool ?? "" : ana?.tool ? toolShort(s, ana.tool) : "";
-    el.querySelector(".gv-title").textContent = [DOMAIN_JA[g.domain] ?? g.domain, test, tool].filter(Boolean).join("・") + ` (${verLabel(ana?.design_version ?? "")})`;
+    const tid = (s?.project?.load_cases ?? []).find((c) => c.load_case_id === ana?.load_case_id)?.test_id ?? ana?.load_case_id ?? g.ana;
+    el.querySelector(".gv-title").textContent = `${DOMAIN_JA[g.domain] ?? g.domain}・${tid}・${ana?.tool ?? ""} (${verLabel(ana?.design_version ?? "")})`;
     el.querySelector(".gv-sample").textContent = viewerProvisional(viewerRunId(s)) ? VIEWER_WORDS.sample : "";
     el.dataset.ana = g.ana;
     delete el.dataset.extra;
@@ -696,12 +673,8 @@ function showGridExtras(s) {
     const list = viewerExtras(run, tile.dataset.domain);
     tile.classList.toggle("has-extras", list.length > 0);
     if (!list.length) continue;
-    const rows = list.map((e) => `<li data-extra="${esc(e.id)}" title="押すと、ビューアで見ます"><b>${esc(e.label)}</b>${e.note ? ` <span>— ${esc(e.note)}</span>` : ""}</li>`).join("");
-    // in the tile's head, after the domain's name: off the 3D picture, and no height taken from it
-    const name = tile.querySelector(".th h3");
-    const html = `<ul class="vextras" data-role="viewer-extras">${rows}</ul>`;
-    if (name) name.insertAdjacentHTML("afterend", html);
-    else tile.insertAdjacentHTML("beforeend", html);
+    const rows = list.map((e) => `<li data-extra="${esc(e.id)}" title="押すと、ビューアで見ます"><b>${esc(e.label)}</b> <span>— ${esc(e.note)}</span></li>`).join("");
+    tile.insertAdjacentHTML("beforeend", `<ul class="vextras" data-role="viewer-extras">${rows}</ul>`);
   }
 }
 
@@ -1173,9 +1146,6 @@ $("view-intake").addEventListener("click", (ev) => {
   if (ev.target.closest("[data-static-replay]")) staticReplay();
 });
 
-// (A static export: what HIRAKU is and 「▶ 最初から再生して見る」 are the judges' card, js/judge_intro.js,
-// which export_static adds to the exported index.html.)
-
 // The picked domains are the final ones (the intake's picksFinal: its cards say 調べる, not
 // 候補 / 考えています, at any time of the replay) when the record is over and no later choice of
 // Claude's (a domains.picked with the flags' reasons) replaced the code's picks. The video's frames
@@ -1347,15 +1317,12 @@ function renderTop(s, domainAt = null) {
   $("pill-cost").hidden = !hasRun;
   const v = s.currentVersion;
   const limit = s.project?.round_limit;
-  // (no design yet: said in words, not v—, but under ?dev=1 and in the film)
-  $("pill-version").textContent = `${v == null && !DEV && !VIDEO_LAYOUT ? "設計はまだ" : verLabel(v)}・繰り返し ${roundsUsed(s)} / ${limit ?? "—"} 回`;
+  $("pill-version").textContent = `${verLabel(v)}・繰り返し ${roundsUsed(s)} / ${limit ?? "—"} 回`;
   // No cost to show (s.cost null: the user's own Claude Code pays, or a driver that gives none; a
   // scripted run, project.driver, calls no Claude): a dash only, no limit, never $0.00.
   const scripted = s.project?.driver === "scripted";
   const costKnown = !scripted && s.cost !== null && s.cost !== undefined;
   $("pill-cost").textContent = costKnown ? `費用 ${fmtUsd(s.cost)} / ${fmtUsd(s.project?.cost_limit_usd)}` : "費用 —";
-  // a record with no cost (a scripted run, the plugin's run): no pill at all (the dash stays under ?dev=1 and in the film)
-  if (!costKnown && !DEV && !VIDEO_LAYOUT) $("pill-cost").hidden = true;
   const live = player.live;
   // a replay says where the record is at the playhead (not that something runs now)
   // (a followed run that is over while the replay is still behind its end: said so, not 記録の途中)
@@ -1412,8 +1379,8 @@ const agentOrder = (s) => [...s.agentOrder].sort((a, b) => rank(a) - rank(b));
 // The agents: with pets (js/agent_pets.js), each its 3D pet, name, status and bubble; without
 // (no /pets/pet3d.js), or for an agent whose role has no pet, a circle and the name.
 // The agents of one role kind, bundled into one row in the list when there are two or more:
-// the module designers (and the designer) as 設計, the CAE roles as CAE (labels.js roleNames: no 「…役」).
-const AGENT_GROUP_JA = { designer: "設計", cae: "CAE" };
+// the module designers (and the designer) as 設計役, the CAE roles as CAE 役.
+const AGENT_GROUP_JA = { designer: "設計役", cae: "CAE 役" };
 const agentGroupOf = (id) => (id === "designer" || id.startsWith("designer.") ? "designer" : id.startsWith("cae.") ? "cae" : null);
 const AGENT_ALERT = [RED_STATUS, "解析が通らない"];
 const AGENT_HEED = ["止められた", MISMATCH_STATUS]; // attention (orange), not a NG judgement
@@ -1442,12 +1409,12 @@ function agentEntries(order) {
 function agentRowHtml(s, id, extra = "") {
   const a = s.agents[id];
   const cls = `${agentCls(a)}${extra}`;
-  // the role's name in full (操安の CAE), not the domain alone
+  // the role's name in full (操安の CAE 役), not the domain alone
   if (agentPets?.has(id)) return petRowHtml(id, a.status, { cls, name: agentLongName(id), why: a.stopWhy });
   return `<li class="${cls}"><span class="pet" style="--pet:${petColor(id)}"></span><span>${esc(agentLongName(id))}</span><span class="st">${esc(a.status)}</span>${stopWhyHtml(a.stopWhy)}</li>`;
 }
 
-// A bundle's row: 「設計 ×6」, pressed to show each one (ui.openGroups; closed by default, so the
+// A bundle's row: 「設計役 ×6」, pressed to show each one (ui.openGroups; closed by default, so the
 // picture at ?t= does not depend on what was pressed). Its look and status follow the members: an
 // alert first, then the ones at work (the same look as a single row at work), else all done, else
 // the status they share. Closed, it carries the pet (and bubble) of its first member at work, else
@@ -1512,50 +1479,26 @@ function hookLogItem(e, hook, resolved) {
   const mark = resolved ? `<span class="resolved">解決済み</span>` : "";
   return (
     `<li class="hook${resolved ? " done" : ""}" data-seq="${e.seq}">${mark}<b>${esc(w.what)}</b><span class="next">次に: ${esc(w.next)}</span>` +
-    `<details><summary title="${esc(DEV || VIDEO_LAYOUT ? `${w.id} ${w.ja}` : w.ja)}">詳しい記録${DEV || VIDEO_LAYOUT ? ` (${esc(w.id)})` : ""}<span class="tm">${fmtTime(e.tRec ?? e.t)}s</span></summary>${esc(e.text)}</details></li>`
+    `<details><summary title="${esc(`${w.id} ${w.ja}`)}">詳しい記録 (${esc(w.id)})<span class="tm">${fmtTime(e.tRec ?? e.t)}s</span></summary>${esc(e.text)}</details></li>`
   );
 }
 
-// The log's and the footer's words in plain words (plain.js: the record's ids and English words in
-// span.rec, hidden but under ?dev=1 and ?video=1; a tool's id by its short name), with each short
-// aside in brackets kept in one piece (as labels.js keepAsides).
-// (kept per text: the log is drawn again whole when a line is rewritten; the tools' names come
-// with tool.checked, so a new tool starts the cache again)
-const plainCache = { tools: -1, html: new Map() };
-function plainLine(s, text) {
-  if (isFilmWords()) return keepAsides(text);
-  const tools = Object.keys(s.tools ?? {}).length;
-  if (plainCache.tools !== tools || plainCache.html.size > 20000) {
-    plainCache.tools = tools;
-    plainCache.html.clear();
-  }
-  let html = plainCache.html.get(text);
-  if (html === undefined) {
-    html = plainLineHtml(s, text);
-    plainCache.html.set(text, html);
-  }
-  return html;
-}
-const plainHid = (s, text) => !!text && plainLine(s, text).includes('class="rec"');
+// Escaped text with each short aside in brackets kept in one piece (labels.js keepAsides).
 
 function logItem(e, ctx = null) {
   if (e.level === "hook" && ctx) return hookLogItem(e, ctx.hooks.get(e.seq), ctx.resolved.has(e.seq));
-  const s = ctx?.s ?? {};
   const who = e.level === "said" ? `<span class="who">${esc(agentLongName(e.agent))}:</span> ` : "";
-  // more: words too long for a note (an agent.stopped's stop_reason), folded under くわしく (as recorded)
+  // more: words too long for a note (an agent.stopped's stop_reason), folded under くわしく
   const note =
-    (e.note ? `<span class="note">${plainLine(s, e.note)}</span>` : "") +
+    (e.note ? `<span class="note">${keepAsides(e.note)}</span>` : "") +
     (e.more ? `<details class="more"><summary>くわしく</summary><span class="note">${keepAsides(e.more)}</span></details>` : "");
-  // the whole line as recorded under the pointer when plain words took something out
-  const hid = e.level !== "said" && !isFilmWords() && (plainHid(s, e.text) || plainHid(s, e.note));
-  const tip = hid ? ` title="${esc(e.text + (e.note ? `\n${e.note}` : ""))}"` : "";
   const upd = e.updatedT != null ? `<span class="tm">・更新 ${fmtTime(e.updatedT)}s</span>` : "";
   // What an agent said can run long: the line shows its first lines, the record keeps all of it.
   // A short aside in brackets stays on one line: not "(形の見 / 本)".
   // (an agent's own words, of any length, in the narrow log: an aside longer than the line has to
   // break somewhere, so the lint's one-letter and bracket checks are let off there: data-lint)
-  const text = e.level === "said" ? `<span class="tx" data-lint="lonely" title="${esc(e.text)}">${plainLine(s, e.text)}</span>` : plainLine(s, e.text);
-  return `<li class="${e.level}"${tip}>${who}${text}<span class="tm" title="記録の t (実行が始まってからの秒)">${fmtTime(e.tRec ?? e.t)}s</span>${upd}${note}</li>`;
+  const text = e.level === "said" ? `<span class="tx" data-lint="lonely" title="${esc(e.text)}">${keepAsides(e.text)}</span>` : keepAsides(e.text);
+  return `<li class="${e.level}">${who}${text}<span class="tm" title="記録の t (実行が始まってからの秒)">${fmtTime(e.tRec ?? e.t)}s</span>${upd}${note}</li>`;
 }
 
 function renderLog(s, resolved) {
@@ -1567,7 +1510,7 @@ function renderLog(s, resolved) {
     drawn.logLen = 0;
   }
   if (s.log.length > drawn.logLen) {
-    const ctx = { s, resolved, hooks: new Map([...s.hooks.denied, ...s.hooks.blockedStops].map((h) => [h.seq, h])) };
+    const ctx = { resolved, hooks: new Map([...s.hooks.denied, ...s.hooks.blockedStops].map((h) => [h.seq, h])) };
     ol.insertAdjacentHTML("beforeend", s.log.slice(drawn.logLen).map((e) => logItem(e, ctx)).join(""));
     ol.scrollTop = ol.scrollHeight;
   }
@@ -1626,8 +1569,7 @@ function renderTestChips(cases, lcId, span) {
 // The K0 formulas' Japanese titles (GET /api/formulas), once; until then (or without the route)
 // a prediction shows its formula as written.
 const formulaTitles = new Map();
-const formulaTitleOf = (id) => formulaTitles.get(id);
-const formulasIn = fetch(getUrl("/api/formulas"), { cache: "no-store" })
+fetch(getUrl("/api/formulas"), { cache: "no-store" })
   .then((r) => (r.ok ? r.json() : { formulas: [] }))
   .then((got) => {
     for (const f of got.formulas ?? []) if (f.title) formulaTitles.set(f.formula_id, f.title);
@@ -1693,7 +1635,7 @@ function renderChain(s, chain) {
     const title = formulaTitles.get(pred.formula_id);
     const formula = `<div class="expr">${esc(pred.expression)}</div><div class="kv">${inputs}</div>`;
     p.innerHTML =
-      `<h3>1. 予測<small>手計算の段${DEV || VIDEO_LAYOUT ? " (K0)" : ""}・${esc(agentLongName(pred.agent))}</small></h3>` +
+      `<h3>1. 予測<small>手計算の段 (K0)・${esc(agentLongName(pred.agent))}</small></h3>` +
       (title
         ? `<div class="sub">${esc(quantityName(pred.quantity))}</div><div class="fl-title" data-formula="${esc(pred.formula_id)}">${keepAsides(title)}</div>` +
           `<details class="more" data-keep="pred-formula"><summary>くわしく (式と入力)</summary><div class="sub">${esc(pred.formula_id)}</div>${formula}</details>`
@@ -1704,7 +1646,7 @@ function renderChain(s, chain) {
     keepOpen(p);
   } else {
     p.className = "card wait";
-    p.innerHTML = `<h3>1. 予測<small>手計算の段</small></h3><div>${loadCase ? `${esc(loadCase.test_id)} の予測はまだ。hooks は予測の無い解析を止める${DEV || VIDEO_LAYOUT ? " (HK1)" : ""}` : "試験がまだ無い"}</div>`;
+    p.innerHTML = `<h3>1. 予測<small>手計算の段</small></h3><div>${loadCase ? `${esc(loadCase.test_id)} の予測はまだ。hooks は予測の無い解析を止める (HK1)` : "試験がまだ無い"}</div>`;
   }
   // 2. analysis (with 「ビューアで見る」, viewer_link.js)
   const a = $("card-ana");
@@ -1726,8 +1668,8 @@ function renderChain(s, chain) {
     const anaAsm = (ana.assumptions ?? []).map((x) => `<li>${esc(assumptionText(x, anaDesign))}</li>`).join("");
     a.className = ana.status === "failed" ? "card bad" : "card";
     a.innerHTML =
-      `<h3>2. 解析<small>CAE の段 (${DEV || VIDEO_LAYOUT ? `${esc(ana.base)} ` : ""}${esc(BASE_JA[ana.base] ?? "")})</small></h3>` +
-      `<div class="sub" title="${esc(DEV ? ana.tool : "")}">${esc(toolShort(s, ana.tool))}${DEV || VIDEO_LAYOUT ? `・${esc(ana.load_case_id)}` : ""}${typeof ana.wall_time_s === "number" ? `・${fmt(ana.wall_time_s, 2)} 秒` : ""}</div>` +
+      `<h3>2. 解析<small>CAE の段 (${esc(ana.base)} ${esc(BASE_JA[ana.base] ?? "")})</small></h3>` +
+      `<div class="sub" title="${esc(ana.tool)}">${esc(toolShort(s, ana.tool))}・${esc(ana.load_case_id)}${typeof ana.wall_time_s === "number" ? `・${fmt(ana.wall_time_s, 2)} 秒` : ""}</div>` +
       (ana.status === "failed" ? `<div class="err">通らなかった: ${esc(ana.error ?? "")}</div>` : `<table>${res}</table>`) +
       (ana.mesh_convergence ? `<div class="conv">${esc(convergenceLine(ana.mesh_convergence))}</div>` : "") +
       (loadCase?.domain === "strength" ? `<div class="not-judged" data-role="not-judged">${esc(JUDGED_JA.mountsNotJudged)}</div>` : "") +
@@ -1782,8 +1724,7 @@ function renderChain(s, chain) {
     // Long words are cut to a few lines here; the log keeps them whole.
     const safeWhy = cause?.safe_side ? `<div class="safe-why clamp" title="${esc(judgedWords(cause.safe_side_reason ?? ""))}"><b>安全側で見られている:</b> ${esc(judgedWords(cause.safe_side_reason ?? ""))}</div>` : "";
     const cz = cause
-      // (the cause and the fix in plain words, as the log's: record ids by their kind, parts by their names)
-      ? `<div class="cause"><div class="clamp" title="${esc(judgedWords(cause.cause))}">原因: ${plainLine(s, judgedWords(cause.cause))}</div><div class="clamp c2" title="${esc(judgedWords(cause.fix))}">直し方: ${plainLine(s, judgedWords(cause.fix))}${cause.resolved ? " (解決)" : ""}</div>${safeWhy}</div>`
+      ? `<div class="cause"><div class="clamp" title="${esc(judgedWords(cause.cause))}">原因: ${esc(judgedWords(cause.cause))}</div><div class="clamp c2" title="${esc(judgedWords(cause.fix))}">直し方: ${esc(judgedWords(cause.fix))}${cause.resolved ? " (解決)" : ""}</div>${safeWhy}</div>`
       : ok
         ? ""
         : `<div class="cause">原因が書かれるまで、この分野は先に進めない (HK3)</div>`;
@@ -1819,7 +1760,7 @@ function nextStep(chain) {
   if (ana.status === "failed") return "解析が通らなかった: 条件を直して走らせ直す";
   if (!cmp) return "予測と解析を比べる";
   if (cmp.status !== "match" && !cause) return "不一致の原因を書く (書くまでこの分野は進めない)";
-  if (cmp.status !== "match" && cause && !cause.resolved && cause.fix) return `直し方: ${shownText(plainLine(player.state, judgedWords(cause.fix)))}`;
+  if (cmp.status !== "match" && cause && !cause.resolved && cause.fix) return `直し方: ${judgedWords(cause.fix)}`;
   if (!verdict) return loadCase.criterion ? "基準で OK / NG を決める" : "この試験には基準が無い (判定しない)";
   return verdict.pass ? "次の試験へ" : "設計を直して次の v へ";
 }
@@ -1845,13 +1786,9 @@ function renderChainHead(s, chain) {
   const edgeRow = edge && (edgeFlips(edge, verdict.quantity) || edgeFlips(edge, cmp?.quantity))
     ? `<div class="ch-row ch-edge" data-role="edge-head" title="${esc(edgeRaw(vAna))}"><small></small>${esc(edgeText(edge))}</div>`
     : "";
-  // why a verdict on the tool's value after the load path was checked by hand is OK / NG (why_line.js)
-  const why = verdict ? pathCheckedWhy(s, verdict, formulaTitleOf) : null;
-  const whyRow = why ? `<div class="ch-row ch-why" data-role="why" title="${esc(why.text)}"><small></small>${esc(why.text)}</div>` : "";
   const html =
     `<div class="ch-row ch-now clamp1" title="${esc(now)}"><small>いま</small>${esc(now.replace(/^いま: /, ""))}</div>` +
     `<div class="ch-row ch-judged" data-role="verdict"><small>判定</small>${judged}</div>` +
-    whyRow +
     edgeRow +
     `<div class="ch-row ch-next clamp1" title="${esc(nextStep(chain))}"><small>次</small>${esc(nextStep(chain))}</div>`;
   if (chainHeadHtml !== html) $("chain-head").innerHTML = chainHeadHtml = html;
@@ -1927,27 +1864,16 @@ const TAB_HEADS = {
       "ツールを選ぶと、確かめた問題と結果が右に出る",
     ];
   },
-  A7(s) {
+  A7() {
     const host = $("asm-host");
     const cap = host.querySelector(".asm-caption")?.textContent.trim() ?? "";
     const sum = host.querySelector(".asm-sum")?.textContent.trim() ?? "";
-    // the steps whose part does not fit (干渉 ✕), and the steps with only a tool's or a hand's ✕: those
-    // two are cautions that go into a verdict only when the record judges their quantity
-    // (steps_without_tool_clearance / steps_out_of_reach; the showcase runs judge neither)
-    const rows = [...host.querySelectorAll(".asm-steps li.has-ng")];
-    const hard = rows.filter((li) => li.querySelector(".ck-no_interference.is-ng")).length;
-    const reach = rows.length - hard;
-    const judgedReach = Object.values(s.verdicts ?? {}).some((v) => /^steps_(without_tool_clearance|out_of_reach)$/.test(v.quantity ?? ""));
-    const next = hard
-      ? `部品が入らない手順 ${hard}: 干渉しないように設計を直す${reach ? `・工具や手が届きにくい手順 ${reach}` : ""}`
-      : reach
-        ? judgedReach
-          ? `工具や手が届きにくい手順 ${reach}: 工具・手が届くように設計を直す`
-          : `工具や手が届きにくい手順 ${reach} (判定には入らない注意)`
-        : sum
-          ? "④ 解析結果で、ほかの分野と並べて見る"
-          : "組み立ての解析が終わるのを待つ";
-    return [cap || "組み立ての記録を待っている", ["組み立て", sum || "—", hard || (reach && judgedReach) ? "warn" : reach ? "" : sum ? "ok" : ""], next];
+    const ng = host.querySelectorAll(".asm-steps li.has-ng").length;
+    return [
+      cap || "組み立ての記録を待っている",
+      ["組み立て", sum || "—", ng ? "warn" : sum ? "ok" : ""],
+      ng ? `✕ のある手順 ${ng} つ: 工具・手が届くように設計を直す` : sum ? "④ 解析結果で、ほかの分野と並べて見る" : "組み立ての解析が終わるのを待つ",
+    ];
   },
 };
 const TAB_HEAD_EL = { A1: "tab-head-intake", A2: "tab-head-intake", A5: "tab-head-intake", A4: "tab-head-A4", A7: "tab-head-A7" };
@@ -2168,13 +2094,13 @@ function renderLegend(ct, s = null, shown = null, motion = null) {
     kindRow +
     (nButtons > 1
       ? `<div class="fields">${ct.variants
-          .map((g) => `<div class="kinds variants" data-analysis="${esc(g.ana)}">${g.buttons.map((v) => `<button data-variant="${esc(v.key)}" class="${v.on ? "on" : ""}" title="${esc(v.name)}">${esc(v.name)}</button>`).join("")}</div>`)
+          .map((g) => `<div class="kinds variants" data-analysis="${esc(g.ana)}">${g.buttons.map((v) => `<button data-variant="${esc(v.key)}" class="${v.on ? "on" : ""}">${esc(v.name)}</button>`).join("")}</div>`)
           .join("")}</div>`
       : "");
   const acts =
     zoomAct +
     (ct.canCompare ? `<button data-act="compare" class="${ct.compare ? "on" : ""}">${ct.compare ? "比べるのをやめる" : "1 つ前の設計と比べる"}</button>` : "");
-  const mesh = ct.mesh ? `・${DEV || VIDEO_LAYOUT ? `${esc(ct.mesh.rec.mesh_id)} ` : "メッシュ "}(要素 ${ct.mesh.rec.elements.length})` : "";
+  const mesh = ct.mesh ? `・${esc(ct.mesh.rec.mesh_id)} (要素 ${ct.mesh.rec.elements.length})` : "";
   const title = relative
     ? `${esc(fieldLabel(ct.field, DEV))}${ct.frequency ? ` ${fmt(ct.frequency, 4)} Hz` : ""}<br><small>動きの大きさ (相対)・揺れは見せるための速さ</small>`
     : `${ct.reference ? `${esc(JUDGED_JA.refBar)}: ` : ""}${esc(fieldLabel(ct.field, DEV))} [${esc(unit || "1")}]`;
@@ -2203,7 +2129,7 @@ function renderLegend(ct, s = null, shown = null, motion = null) {
     `<div class="bar">${bandRows(ct, relative)}</div>` +
     over +
     cmp +
-    `<div class="src">色の元: ${DEV || VIDEO_LAYOUT ? `${esc(ct.analysisId)}・` : ""}${esc(DEV || VIDEO_LAYOUT ? ct.toolTitle ?? "" : plainWords(ct.toolTitle ?? ""))}${mesh}${ct.limitKnown ? `・上端 = 許容 (${esc(ct.crit.basis)})` : relative ? "" : ct.compare ? "・上端 = 2 つの設計の最大値" : "・上端 = 最大値"}</div>`;
+    `<div class="src">色の元: ${esc(ct.analysisId)}・${esc(ct.toolTitle ?? "")}${mesh}${ct.limitKnown ? `・上端 = 許容 (${esc(ct.crit.basis)})` : relative ? "" : ct.compare ? "・上端 = 2 つの設計の最大値" : "・上端 = 最大値"}</div>`;
 }
 
 // ---- before / after (the previous version's same field beside the current one) ----
@@ -2296,47 +2222,13 @@ function fitOverlays() {
     for (const e of [tg, ex]) if (e.offsetParent === viewport && e.offsetWidth) top = Math.max(top, e.offsetTop + e.offsetHeight + 8);
     const bottom = parseFloat(getComputedStyle(lg).bottom) || 0;
     setStyle(lg, "maxHeight", `${Math.max(120, viewport.clientHeight - bottom - top)}px`);
-    // the line of where the colours come from is the first to give way when the legend does not fit
-    // (its words then the legend's tooltip), so no line is cut by the legend's frame (the film as before)
-    const src = lg.querySelector(":scope > .src");
-    if (src && !VIDEO_LAYOUT) {
-      if (src.hidden) src.hidden = false;
-      lg.classList.remove("squeeze");
-      // (measured without the list's minimum of the last fit: with it the column shrinks the list below its
-      // own height, the legend seems to fit, and the list then comes back past the frame; 1280 x 720)
-      const fl = lg.querySelector(".fields");
-      if (fl) setStyle(fl, "minHeight", "");
-      const tight = lg.scrollHeight > lg.clientHeight + 1;
-      src.hidden = tight;
-      const tip = tight ? src.textContent : "";
-      if (lg.title !== tip) lg.title = tip;
-      // still too tall without it: the list of fields is the next to give way (it scrolls, app.css .squeeze)
-      if (tight && lg.scrollHeight > lg.clientHeight + 1) lg.classList.add("squeeze");
-    }
     const f = lg.querySelector(".fields");
     const on = f?.querySelector("button.on");
-    // squeezed, the list keeps the height of the chosen button at least (52: app.css .squeeze's most), so it
-    // can be scrolled into sight whole (160725 at 1440 x 900: the list had 19 px for a 21 px button)
-    if (f) setStyle(f, "minHeight", on && lg.classList.contains("squeeze") ? `${Math.min(52, on.offsetHeight + 2)}px` : "");
-    // (but never past the legend's frame: what the minimum adds over the frame comes off it again; 1280 x 720)
-    if (f && f.style.minHeight && lg.scrollHeight > lg.clientHeight + 1) {
-      const over = lg.scrollHeight - lg.clientHeight;
-      setStyle(f, "minHeight", `${Math.max(0, Math.floor(parseFloat(f.style.minHeight) - over))}px`);
-    }
-    // (again when the box's height changes: squeezed after the first scroll, the button was left out of sight)
-    const shownKey = on ? `${on.dataset.variant}:${f.clientHeight}` : "";
-    if (f && on && f.dataset.shown !== shownKey) {
-      f.dataset.shown = shownKey;
+    if (f && on && f.dataset.shown !== on.dataset.variant) {
+      f.dataset.shown = on.dataset.variant;
       if (f.scrollHeight > f.clientHeight) f.scrollTop = Math.max(0, on.offsetTop - f.offsetTop - (f.clientHeight - on.offsetHeight) / 2);
     }
   } else setStyle(lg, "maxHeight", "");
-  // the mesh's list (above the legend, app.css .meshcard) ends above the legend's top, whatever the
-  // legend's height (its Japanese title may take another line): the list scrolls instead
-  if (meshCard && !meshCard.hidden) {
-    const room = lgIn && lg.offsetWidth ? lg.offsetTop - meshCard.offsetTop - 6 : null;
-    // (in px, as the browser keeps it: setStyle compares the string; 520: the CSS's calc(100% - 520px))
-    setStyle(meshCard, "maxHeight", room != null ? `${Math.max(0, Math.floor(Math.min(viewport.clientHeight - 520, room)))}px` : "");
-  }
 
   const nowEl = $("now");
   if (!nowEl.hidden && tg.offsetWidth && nowEl.parentElement === viewport) {
@@ -2541,46 +2433,15 @@ function animSeekFromPointer(ev) {
 }
 
 const board = new TileBoard($("grid-head"), $("tiles"));
-board.formulaTitle = formulaTitleOf;
 // ④'s 3D pictures (tile3d.js): one renderer for the tiles, always in the real look (black rubber
 // tyres, opaque parts) whichever look the workbench has
 const tileViews = new TileViews("real", () => (drawn.rev = -2));
 const TILE_PIC_WAIT_MS = 150;
 let tilePicTimer = null;
 
-// ④'s 「直して OK になった試験」 (tiles.js .vstory) on one line: the tests that do not fit are left out
-// and named by 「ほか n」 at the end (their lines in its title). Not on the film (its ④ as before).
-function fitStory() {
-  const ul = $("grid-head").querySelector(".vstory");
-  if (!ul || VIDEO_LAYOUT) return;
-  ul.querySelector(".vmore")?.remove();
-  const items = [...ul.children];
-  for (const li of items) li.hidden = false;
-  const room = ul.clientWidth - (parseFloat(getComputedStyle(ul).paddingRight) || 0);
-  if (!room) return; // (not laid out: ④ not shown)
-  const out = (li) => li.offsetLeft + li.offsetWidth > room;
-  let hidden = items.filter(out);
-  if (!hidden.length) return;
-  for (const li of hidden) li.hidden = true;
-  const more = document.createElement("li");
-  more.className = "vmore";
-  ul.appendChild(more);
-  for (;;) {
-    more.textContent = `ほか ${hidden.length}`;
-    more.title = hidden.map((li) => li.textContent).join("\n");
-    const shown = items.filter((li) => !li.hidden);
-    if (!out(more) || shown.length <= 1) break;
-    const last = shown[shown.length - 1];
-    last.hidden = true;
-    hidden = [last, ...hidden];
-  }
-}
-window.addEventListener("resize", () => fitStory());
-
 // A6: the tiles, then a banner when the run stopped at its round limit with reds left.
 function renderGrid(s) {
   const { reds, atLimit } = board.render(s, agentPets ? { has: (id) => agentPets.has(id), order: agentOrder(s) } : null);
-  fitStory();
   // the pictures kept are copied at once; new ones are drawn once the grid has settled and the
   // page has loaded, one a task (a record loading renders the grid at each event, and a picture
   // costs frames of the software renderer)
@@ -2629,18 +2490,12 @@ function renderGrid(s) {
     const code = s.stopCode ?? (/^cost limit\b/.test(s.stopReason ?? "") ? "cost_limit" : /^turn limit\b/.test(s.stopReason ?? "") ? "turn_limit" : s.stopReason);
     const words = code === "round_limit" ? `繰り返しの上限 (${s.project?.round_limit ?? "—"} 回) に達した` : STOP_CODE_JA[code];
     const why = words ?? (s.stopReason ? `止まった理由: ${esc(s.stopReason)}` : `繰り返しの上限 (${s.project?.round_limit ?? "—"} 回)`);
-    banner.innerHTML = `<b>${why}。NG が ${reds.length} つ残っている: ${reds.map((d) => esc(DOMAIN_JA[d])).join("・")}</b><span>${
-      // 「▶ その場で走らせる」 is at the top right only under ?dev=1 with a server (renderTopbar)
-      DEV && !STATIC
-        ? "新しく走らせるときは、右上の「その場で走らせる」から"
-        : `分野を押すと、その解析をビューアで見られます${STATIC ? "。「▶ 再生して見る」で、最初の設計から追えます" : ""}`
-    }</span>`;
+    banner.innerHTML = `<b>${why}。NG が ${reds.length} つ残っている: ${reds.map((d) => esc(DOMAIN_JA[d])).join("・")}</b><span>新しく走らせるときは、右上の「その場で走らせる」から</span>`;
   }
   // the newest report's next changes (none written yet, or no next: no block)
   const nx = $("report-next");
   // (the design numbers' paths said by their names, of the report's version; the paths under ?dev=1)
-  // (folded to one line for the judges; open as before under ?dev=1 and on the film)
-  const html = reportNextHtml(s.report, { design: s.designs[s.report?.design_version] ?? s.designs[s.currentVersion] ?? null, dev: DEV, cases: s.project?.load_cases, plain: !DEV && !VIDEO_LAYOUT, fold: !VIDEO_LAYOUT && !DEV });
+  const html = reportNextHtml(s.report, { design: s.designs[s.report?.design_version] ?? s.designs[s.currentVersion] ?? null, dev: DEV });
   if (nx.dataset.html !== html) {
     nx.dataset.html = html;
     nx.innerHTML = html;
@@ -2649,44 +2504,12 @@ function renderGrid(s) {
   nx.hidden = !html;
 }
 
-// A record that stopped before its first design: over the 3D (which has no vehicle to show), why it
-// stopped (labels.js stopWhyJa, from the record's run.finished). Not on the film.
-function renderStoppedNote(s) {
-  let el = document.getElementById("stopped-note");
-  const why =
-    !VIDEO_LAYOUT && s.currentVersion == null && (s.status === "stopped" || s.status === "failed")
-      ? stopWhyJa({ finished: true, end_status: s.status, stop_code: s.stopCode, stop_reason: s.stopReason, stop_after: s.project?.stop_after, last_version: null })
-      : "";
-  if (!why) {
-    if (el) el.hidden = true;
-    return;
-  }
-  if (!el) {
-    el = document.createElement("div");
-    el.id = "stopped-note";
-    el.className = "stopped-note";
-    el.setAttribute("role", "status");
-    viewport.append(el);
-  }
-  el.hidden = false;
-  if (el.textContent !== why) el.textContent = why;
-}
-
 // ① opened at the request's moment and still there (ui.moment): no footer line (what an agent did
 // last belongs to a later moment of the run, not to the request)
 const atMoment = () => ui.moment !== null && !player.playing && Math.abs(player.playhead - ui.moment) < 1e-6;
 function renderStatus(s) {
   const act = atMoment() ? null : s.activity;
-  // short (hookline.js), in plain words (plain.js); the line as recorded under the pointer
-  const line = act ? footerActivity(s, { dev: DEV }) : "";
-  const el = $("activity");
-  const html = act ? `<span class="dot"></span>${plainLine(s, line)}` : "";
-  if (el.dataset.html !== html) {
-    el.dataset.html = html;
-    el.innerHTML = html;
-  }
-  if (act && !isFilmWords() && plainHid(s, line)) el.title = line;
-  else el.removeAttribute("title");
+  $("activity").innerHTML = act ? `<span class="dot"></span>${esc(footerActivity(s, { dev: DEV }))}` : ""; // short (hookline.js)
 }
 
 // A rule whose stops were all done later says 解決済み (resolvedHooks), apart from one still open.
@@ -2700,10 +2523,7 @@ function renderHooks(s, playhead, resolved) {
     if (playhead - d.t < SHOW_S) recent[d.rule] = true;
   }
   const state = (r) => (!counts[r.id] ? " ✓" : ` ×${counts[r.id]}${open[r.id] ? "" : `<span class="resolved">解決済み</span>`}`);
-  // the rules' ids (HK1 ...) and keys only under ?dev=1 (and in the film); else the rules in words
-  const ids = DEV || VIDEO_LAYOUT;
-  const html = (ids ? `hooks: ` : `守るための決まり (${RULES.length} つ): `) +
-    RULES.map((r) => `<span class="rule ${recent[r.id] ? "hit" : ""} ${counts[r.id] && !open[r.id] ? "done" : ""}"${ids ? ` title="${esc(r.key)}"` : ""}>${ids ? `<span class="hk">${r.id}</span> ` : ""}${esc(r.ja)}${state(r)}</span>`).join("");
+  const html = `hooks: ` + RULES.map((r) => `<span class="rule ${recent[r.id] ? "hit" : ""} ${counts[r.id] && !open[r.id] ? "done" : ""}" title="${esc(r.key)}"><span class="hk">${r.id}</span> ${esc(r.ja)}${state(r)}</span>`).join("");
   if (html !== hooksHtml) $("hooks").innerHTML = hooksHtml = html;
 }
 let hooksHtml = "";
@@ -2731,9 +2551,7 @@ function renderTransient(s, playhead, chain, resolved) {
     hn.innerHTML = `<span class="hn-head">hooks が止めた</span> ${esc(hookLineText(den.rule, { dev: DEV }))}`;
   }
   // the hooks' stop: one line near the middle of the screen on every tab (hookline.js; the recorded words are in the log)
-  // (not over ④ and ⑤: their words fill the stage where the line goes; the film as before)
-  hookLine.render(s, playhead, { off: !VIDEO_LAYOUT && ["grid", "A7"].includes(currentTab(s)) });
-  renderStoppedNote(s);
+  hookLine.render(s, playhead);
   // the cause of a mismatch Claude wrote, until a verdict of its load case is OK (present.js openCause)
   // (?off=cause: not shown, e.g. a shot where the card would cover the vehicle)
   const cause = CAUSE_OFF ? null : openCause(s);
@@ -3061,18 +2879,11 @@ function drawNow() {
     // what is going on, in one sentence; and the present mode's card for this scene
     const now = withoutRuleIds(nowSentence(s, chain, (tool) => toolTitle(s, tool)), { dev: DEV });
     // (the record's ids and English words in span.rec: ③'s strip leaves them to くわしく)
-    // the いま line telling the verdict just recorded (its activity is the verdict's event) on the
-    // tool's value after the load path was checked by hand: why it is OK / NG, under it (why_line.js)
-    // (as nowSentence: not while an analysis runs, nor once the run has ended)
-    const saysActivity = !chain.running && !Object.keys(s.running ?? {}).length && !["done", "stopped", "failed"].includes(s.status);
-    const nowVerdict = saysActivity && s.activity ? Object.values(s.verdicts).find((v) => s.firstSeqOf[v.verdict_id] === s.activity.seq) : null;
-    const justJudged = nowVerdict ? pathCheckedWhy(s, nowVerdict, formulaTitleOf) : null;
-    // (the space before the why: the line's text and its tooltip read the same)
-    const nowHtml = markRecordWords(now) + (justJudged ? ` <span class="now-why" data-role="why">${esc(justJudged.text)}</span>` : "");
+    const nowHtml = markRecordWords(now);
     if ($("now").innerHTML !== nowHtml) $("now").innerHTML = nowHtml;
-    $("now").title = justJudged ? `${now} ${justJudged.text}` : now;   // the whole of what the line says
+    $("now").title = now;
     $("now").hidden = !now;
-    const scene = presentScene({ s, chain, contour, tab: view, toolTitle: (tool) => toolTitle(s, tool), formulaTitle: formulaTitleOf });
+    const scene = presentScene({ s, chain, contour, tab: view, toolTitle: (tool) => toolTitle(s, tool) });
     document.body.dataset.presentScene = scene.key;
     if (ui.present) $("present-card").innerHTML = presentCardHtml(scene, now, { dev: DEV });
     drawn = { ...drawn, rev: s.rev, lc: lcId, tab, toggles: togglesKey, present: ui.present, over, view, dom: span?.domain ?? null };
@@ -3168,9 +2979,6 @@ async function seekAndDraw(t) {
   ui.frozen = true;
   player.pause();
   player.seek(t >= player.duration - END_SNAP_S ? player.duration : t);
-  // the formulas' titles in (or failed), so the frame at t names them every time (the prediction's
-  // title, the path_checked line's 上限: why_line.js)
-  await formulasIn;
   draw();
   await nextFrame();
   draw();
@@ -3678,11 +3486,8 @@ async function showRunList(message = "", runs = null) {
         r.when ? `<span class="nw when">${esc(r.when)}</span>` : "",
         r.want ? `<span class="rwant" title="${esc(r.want)}">依頼: ${esc(wantShort(r.want))}</span>` : "",
       ].filter(Boolean);
-      // a run that stopped: why, in one line (labels.js stopWhyJa; the whole as the tooltip)
-      const why = stopWhyJa(r);
       return (
-        `<tr data-run="${esc(r.run_id)}"><td><div class="rsum">${esc(runSummaryJa(r) || "記録")}</div><div class="rmeta">${meta.join('<span class="sep"> · </span>')}</div>` +
-        `${why ? `<div class="rwhy" data-role="stop-why" title="${esc(why)}">${esc(why)}</div>` : ""}</td>` +
+        `<tr data-run="${esc(r.run_id)}"><td><div class="rsum">${esc(runSummaryJa(r) || "記録")}</div><div class="rmeta">${meta.join('<span class="sep"> · </span>')}</div></td>` +
         `<td class="state" data-state="${state}">${RUN_STATE_JA[state]}</td><td><a href="${href}">見る</a></td></tr>`
       );
     };
@@ -4055,7 +3860,7 @@ $("view-intake").addEventListener("change", (ev) => {
 });
 
 fitStage();
-// the module names (an older record's designer.<module> → 「枠の設計」) from the start, so a record still being read
+// the module names (an older record's designer.<module> → 「枠の設計役」) from the start, so a record still being read
 // does not show the ids; drawn again once they are in
 loadModuleNames().then(() => (drawn.rev = -1));
 // the viewer's answers provisional or not, and the fields with no sample (viewer_link.js); drawn again once in

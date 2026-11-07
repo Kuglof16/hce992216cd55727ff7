@@ -10,7 +10,7 @@
 //   rule_check.recorded  a rule applied to a design; the newest design version wins     (A5)
 //   design.created     the chat ends, rules have a design to be applied to
 
-import { DOMAINS, CATEGORIES, TESTS } from "./data.js?v=69cf6a9dff99";
+import { DOMAINS, CATEGORIES, TESTS } from "./data.js?v=86604a8fce06";
 
 const NOTE_KINDS = new Set(["domains.picked", "hearing.asked", "hearing.answered"]); // what A1's chat tells; the knowledge has A5
 
@@ -269,7 +269,7 @@ export function allRules(m) {
 /** What a rule did on the newest design: targets, hits, rules that could not be judged. */
 export function ruleState(m, rule) {
   const c = m.checks.get(rule.rule_id);
-  if (!c) return { checked: false, targets: 0, hits: [], advice: [], isAdvice: false, notEvaluable: [], pass: null }; // (advice: [] as below, so a rule picked before any check shows its detail)
+  if (!c) return { checked: false, targets: 0, hits: [], notEvaluable: [], pass: null };
   if (c.level === "advice") // an advice rule: its hits are notes, never a failure; the parts it cannot judge are not shown
     return { checked: true, targets: c.targets.length, hits: [], advice: c.hits, isAdvice: true, notEvaluable: [], pass: true, designVersion: c.design_version };
   return { checked: true, targets: c.targets.length, hits: c.hits, advice: [], isAdvice: false, notEvaluable: c.not_evaluable || [], pass: c.pass, designVersion: c.design_version };

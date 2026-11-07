@@ -469,7 +469,7 @@ export const DEMOS = {
    "run_id": "20261103-100000-offroad-4w",
    "kind": "domains.picked",
    "agent": "lead",
-   "text": "確かめる分野を 7 つ、試験を 27 個選びました",
+   "text": "確かめる分野を 7 つ、試験を 26 個選びました",
    "data": {
     "want": "林道を走れる 2 人乗りの小さなオフロード車両 (4 輪、最高 40 km/h、積載 150 kg)",
     "flags": {
@@ -498,10 +498,9 @@ export const DEMOS = {
      {
       "domain": "handling",
       "shown_name": "操安",
-      "reason": "置・走・悪 に当てはまるので、S1 静的な転倒 (傾斜台・縁の荷重)・S2 旋回での転倒 (J ターン・定常円)・S3 回避 (ダブルレーンチェンジ)・S4 制動と前のめり・S5 凸凹の横斜面・S6 小回り (最小回転半径) を当てる",
+      "reason": "置・走・悪 に当てはまるので、S1 静的な転倒 (傾斜台・縁の荷重)・S3 回避 (ダブルレーンチェンジ)・S4 制動と前のめり・S5 凸凹の横斜面・S6 小回り (最小回転半径) を当てる。S2 旋回での転倒 (J ターン・定常円) は荷重条件の作り方がまだ無いので、この実行では見ない",
       "test_ids": [
        "S1",
-       "S2",
        "S3",
        "S4",
        "S5",
@@ -1518,7 +1517,7 @@ export const DEMOS = {
       "rule_id": "SY-01",
       "doc_id": "KN-SY",
       "category": "system",
-      "text": "走る製品は、動力源 (kind が motor か engine の部品) から駆動輪 (actuation.drive が true の接地点) まで、トルクを伝える鎖 (connects_to の carries: torque) が切れずにつながる",
+      "text": "走る製品は、動力源から駆動輪まで、トルクを伝える鎖が切れずにつながる",
       "check": "system:drive_chain",
       "origin": "builtin",
       "trust": 3,
@@ -1528,7 +1527,7 @@ export const DEMOS = {
       "rule_id": "SY-02",
       "doc_id": "KN-SY",
       "category": "system",
-      "text": "人が乗って走る製品は、ハンドル (kind が steering の部品) から操舵輪 (actuation.steer が true の接地点) まで、操舵の鎖 (connects_to の carries: steer) が切れずにつながる",
+      "text": "人が乗って走る製品は、ハンドルから操舵輪まで、操舵の鎖が切れずにつながる",
       "check": "system:steer_chain",
       "origin": "builtin",
       "trust": 3,
@@ -1538,7 +1537,7 @@ export const DEMOS = {
       "rule_id": "SY-03",
       "doc_id": "KN-SY",
       "category": "system",
-      "text": "走る製品は、制動の入力 (kind が brake_pedal・brake_lever・brake_controller の部品) から制動する輪 (actuation.brake が true の接地点) まで、制動の鎖 (connects_to の carries: brake) が切れずにつながる",
+      "text": "走る製品は、制動の入力から制動する輪まで、制動の鎖が切れずにつながる",
       "check": "system:brake_chain",
       "origin": "builtin",
       "trust": 3,
@@ -1815,7 +1814,7 @@ export const DEMOS = {
    "run_id": "20261103-100000-offroad-4w",
    "kind": "hearing.answered",
    "agent": "lead",
-   "text": "7 つ答えてもらいました。答えのなかった 3 つは標準の値です。もともと聞かない項目 17 個も標準の値です。設計を始めます",
+   "text": "7 つ答えてもらいました。分からない所は標準の値で進めました。設計を始めます",
    "data": {
     "answers": [
      {
@@ -25652,7 +25651,7 @@ export const DEMOS = {
     "off": [
      {
       "domain": "aero",
-      "reason": "この製品の性質では当てはまる試験が無い: F1 横風 (外∧走)・F2 空気抵抗 (走∧速=車)・F3 液体のこぼれ (液∧走)・F4 流れの計算で横風 (¬常)…"
+      "reason": "この製品の性質では当てはまる試験が無い: F1 横風 (外∧走)・F2 空気抵抗 (走∧速=車)・F3 液体のこぼれ (液∧走)"
      },
      {
       "domain": "crash",
@@ -26606,7 +26605,7 @@ export const DEMOS = {
       "rule_id": "SY-01",
       "doc_id": "KN-SY",
       "category": "system",
-      "text": "走る製品は、動力源 (kind が motor か engine の部品) から駆動輪 (actuation.drive が true の接地点) まで、トルクを伝える鎖 (connects_to の carries: torque) が切れずにつながる",
+      "text": "走る製品は、動力源から駆動輪まで、トルクを伝える鎖が切れずにつながる",
       "check": "system:drive_chain",
       "origin": "builtin",
       "trust": 3,
@@ -26616,7 +26615,7 @@ export const DEMOS = {
       "rule_id": "SY-02",
       "doc_id": "KN-SY",
       "category": "system",
-      "text": "人が乗って走る製品は、ハンドル (kind が steering の部品) から操舵輪 (actuation.steer が true の接地点) まで、操舵の鎖 (connects_to の carries: steer) が切れずにつながる",
+      "text": "人が乗って走る製品は、ハンドルから操舵輪まで、操舵の鎖が切れずにつながる",
       "check": "system:steer_chain",
       "origin": "builtin",
       "trust": 3,
@@ -26626,7 +26625,7 @@ export const DEMOS = {
       "rule_id": "SY-03",
       "doc_id": "KN-SY",
       "category": "system",
-      "text": "走る製品は、制動の入力 (kind が brake_pedal・brake_lever・brake_controller の部品) から制動する輪 (actuation.brake が true の接地点) まで、制動の鎖 (connects_to の carries: brake) が切れずにつながる",
+      "text": "走る製品は、制動の入力から制動する輪まで、制動の鎖が切れずにつながる",
       "check": "system:brake_chain",
       "origin": "builtin",
       "trust": 3,
@@ -26962,7 +26961,7 @@ export const DEMOS = {
    "run_id": "20261103-100000-care-bed",
    "kind": "hearing.answered",
    "agent": "lead",
-   "text": "3 つ答えてもらいました。答えのなかった 8 つは標準の値です。もともと聞かない項目 17 個も標準の値です。設計を始めます",
+   "text": "3 つ答えてもらいました。分からない所は標準の値で進めました。設計を始めます",
    "data": {
     "answers": [
      {
@@ -27053,15 +27052,6 @@ export const DEMOS = {
       "basis": "JIS T 9254 (copy): 利用者の荷重 1350 N (約 135 kg), 9.2.1 a, https:\/\/kikakurui.com/t9/T9254-2009-01.html; read 2026-11-03 in a source check",
       "value": 1350,
       "unit": "N"
-     },
-     {
-      "key": "Q41",
-      "name": "荷の位置",
-      "source": "default",
-      "trust": 3,
-      "basis": "assumption: HIRAKU's own default value, not checked in any source. The height of the cargo's centre of gravity above the floor it stands on, taken as 150 mm (a cup or a plate on a tray). The demo vehicle's cargo is also 150 mm above its deck (data/requirements/offroad-4w.yaml, Q41). It stands in when a requirements file gives a sentence (\"the top shelf\") for this item, because the load case needs a number",
-      "value": 150,
-      "unit": "mm"
      },
      {
       "key": "Q60",
@@ -27305,7 +27295,7 @@ export const DEMOS = {
      },
      {
       "domain": "aero",
-      "reason": "この製品の性質では当てはまる試験が無い: F1 横風 (外∧走)・F2 空気抵抗 (走∧速=車)・F3 液体のこぼれ (液∧走)・F4 流れの計算で横風 (¬常)…"
+      "reason": "この製品の性質では当てはまる試験が無い: F1 横風 (外∧走)・F2 空気抵抗 (走∧速=車)・F3 液体のこぼれ (液∧走)"
      },
      {
       "domain": "crash",
@@ -28264,7 +28254,7 @@ export const DEMOS = {
       "rule_id": "SY-01",
       "doc_id": "KN-SY",
       "category": "system",
-      "text": "走る製品は、動力源 (kind が motor か engine の部品) から駆動輪 (actuation.drive が true の接地点) まで、トルクを伝える鎖 (connects_to の carries: torque) が切れずにつながる",
+      "text": "走る製品は、動力源から駆動輪まで、トルクを伝える鎖が切れずにつながる",
       "check": "system:drive_chain",
       "origin": "builtin",
       "trust": 3,
@@ -28274,7 +28264,7 @@ export const DEMOS = {
       "rule_id": "SY-02",
       "doc_id": "KN-SY",
       "category": "system",
-      "text": "人が乗って走る製品は、ハンドル (kind が steering の部品) から操舵輪 (actuation.steer が true の接地点) まで、操舵の鎖 (connects_to の carries: steer) が切れずにつながる",
+      "text": "人が乗って走る製品は、ハンドルから操舵輪まで、操舵の鎖が切れずにつながる",
       "check": "system:steer_chain",
       "origin": "builtin",
       "trust": 3,
@@ -28284,7 +28274,7 @@ export const DEMOS = {
       "rule_id": "SY-03",
       "doc_id": "KN-SY",
       "category": "system",
-      "text": "走る製品は、制動の入力 (kind が brake_pedal・brake_lever・brake_controller の部品) から制動する輪 (actuation.brake が true の接地点) まで、制動の鎖 (connects_to の carries: brake) が切れずにつながる",
+      "text": "走る製品は、制動の入力から制動する輪まで、制動の鎖が切れずにつながる",
       "check": "system:brake_chain",
       "origin": "builtin",
       "trust": 3,
@@ -28453,7 +28443,7 @@ export const DEMOS = {
    "run_id": "20261103-100000-electric-guitar",
    "kind": "hearing.answered",
    "agent": "lead",
-   "text": "答えはなかったので、聞いたことは標準の値で進めました。もともと聞かない項目 2 個も標準の値です。答えも標準の値も無い 3 つは、要件に入っていません",
+   "text": "答えはなかったので、標準の値で進めました。答えも標準の値も無い 3 つは、要件に入っていません",
    "data": {
     "answers": [
      {
@@ -28532,7 +28522,7 @@ export const DEMOS = {
    "run_id": "20261103-100000-serving-robot",
    "kind": "domains.picked",
    "agent": "lead",
-   "text": "確かめる分野を 7 つ、試験を 16 個選びました",
+   "text": "確かめる分野を 7 つ、試験を 15 個選びました",
    "data": {
     "want": "飲食店で料理と飲み物を運ぶ配膳ロボを作りたい。お客さんのすぐそばを歩く速さで動き、飲み物をこぼさないようにしたい",
     "flags": {
@@ -28561,10 +28551,9 @@ export const DEMOS = {
      {
       "domain": "handling",
       "shown_name": "操安",
-      "reason": "置・走 に当てはまるので、S1 静的な転倒 (傾斜台・縁の荷重)・S2 旋回での転倒 (J ターン・定常円)・S4 制動と前のめり・S6 小回り (最小回転半径) を当てる",
+      "reason": "置・走 に当てはまるので、S1 静的な転倒 (傾斜台・縁の荷重)・S4 制動と前のめり・S6 小回り (最小回転半径) を当てる。S2 旋回での転倒 (J ターン・定常円) は荷重条件の作り方がまだ無いので、この実行では見ない",
       "test_ids": [
        "S1",
-       "S2",
        "S4",
        "S6"
       ]
@@ -29568,7 +29557,7 @@ export const DEMOS = {
       "rule_id": "SY-01",
       "doc_id": "KN-SY",
       "category": "system",
-      "text": "走る製品は、動力源 (kind が motor か engine の部品) から駆動輪 (actuation.drive が true の接地点) まで、トルクを伝える鎖 (connects_to の carries: torque) が切れずにつながる",
+      "text": "走る製品は、動力源から駆動輪まで、トルクを伝える鎖が切れずにつながる",
       "check": "system:drive_chain",
       "origin": "builtin",
       "trust": 3,
@@ -29578,7 +29567,7 @@ export const DEMOS = {
       "rule_id": "SY-02",
       "doc_id": "KN-SY",
       "category": "system",
-      "text": "人が乗って走る製品は、ハンドル (kind が steering の部品) から操舵輪 (actuation.steer が true の接地点) まで、操舵の鎖 (connects_to の carries: steer) が切れずにつながる",
+      "text": "人が乗って走る製品は、ハンドルから操舵輪まで、操舵の鎖が切れずにつながる",
       "check": "system:steer_chain",
       "origin": "builtin",
       "trust": 3,
@@ -29588,7 +29577,7 @@ export const DEMOS = {
       "rule_id": "SY-03",
       "doc_id": "KN-SY",
       "category": "system",
-      "text": "走る製品は、制動の入力 (kind が brake_pedal・brake_lever・brake_controller の部品) から制動する輪 (actuation.brake が true の接地点) まで、制動の鎖 (connects_to の carries: brake) が切れずにつながる",
+      "text": "走る製品は、制動の入力から制動する輪まで、制動の鎖が切れずにつながる",
       "check": "system:brake_chain",
       "origin": "builtin",
       "trust": 3,
@@ -29714,10 +29703,9 @@ export const DEMOS = {
        }
       ],
       "default": {
-       "value": 0.5,
-       "unit": "1",
-       "trust": 3,
-       "basis": "assumption: the friction coefficient between the wheel and a dry indoor floor (tile, wood, carpet), 0.5, HIRAKU's own value, not read in any source. The floors themselves are the ones of the JARI robot stability test facility's course, p.1, https:\/\/img.jari.or.jp/v=1740017440/files/user/pdf/stability_tests_of_robots_and_robotic_devices_2020.pdf; read 2026-11-03 in a source check (that page lists the surfaces, not a coefficient)"
+       "value": "タイル・木・カーペット",
+       "trust": 1,
+       "basis": "JARI のロボット安定性試験設備の走行路の路面, p.1, https:\/\/img.jari.or.jp/v=1740017440/files/user/pdf/stability_tests_of_robots_and_robotic_devices_2020.pdf; read 2026-11-03 in a source check"
       }
      },
      {
@@ -29966,7 +29954,7 @@ export const DEMOS = {
    "run_id": "20261103-100000-serving-robot",
    "kind": "hearing.answered",
    "agent": "lead",
-   "text": "6 つ答えてもらいました。答えのなかった 11 つは標準の値です。もともと聞かない項目 23 個も標準の値です。設計を始めます",
+   "text": "2 つ答えてもらいました。分からない所は標準の値で進めました。答えも標準の値も無い 4 つは、要件に入っていません",
    "data": {
     "answers": [
      {
@@ -30091,27 +30079,8 @@ export const DEMOS = {
       "name": "荷の位置",
       "source": "default",
       "trust": 3,
-      "basis": "assumption: HIRAKU's own default value, not checked in any source. The height of the cargo's centre of gravity above the shelf it stands on, 150 mm (a cup or a plate on a tray); the demo vehicle's cargo is 150 mm above its deck as well. The shelf's own height is the design's, not this value",
-      "value": 150,
-      "unit": "mm"
-     },
-     {
-      "key": "Q52",
-      "name": "停止距離",
-      "source": "default",
-      "trust": 3,
-      "basis": "assumption: HIRAKU's own value for a robot that walks beside guests (1.2 m/s): it stops within 0.5 m. Not taken from a standard or a maker's page. (The vehicle's 14 m is the 細目告示 table's, for a road vehicle.)",
-      "value": 0.5,
-      "unit": "m"
-     },
-     {
-      "key": "Q53",
-      "name": "止まっていられる坂",
-      "source": "default",
-      "trust": 3,
-      "basis": "assumption: the robot stays still on the steepest slope it is allowed to drive on, the 1/12 (= 8.33 %) of Q13 (バリアフリー法施行令 第19条, read 2026-11-03 in a source check); that parking uses the same slope is HIRAKU's choice",
-      "value": 8.33,
-      "unit": "%"
+      "basis": "assumption (the unfavourable side for tipping)",
+      "value": "一番高い段"
      },
      {
       "key": "Q55",
@@ -30136,9 +30105,8 @@ export const DEMOS = {
       "name": "人に当たったときの力",
       "source": "default",
       "trust": 2,
-      "basis": "ISO/TS 15066 の体のモデルの表を載せた論文, Table 1, https:\/\/arxiv.org/pdf/2311.13814; read 2026-11-03 in a source check. The table's quasi-static values by body part (lower leg 130, thigh 220, chest 140, head 130 N) are borrowed from industrial robots (not a standard's value for a serving robot); 130 N is the smallest of them (computed: min), the safe side for one number",
-      "value": 130,
-      "unit": "N"
+      "basis": "ISO/TS 15066 の体のモデルの表を載せた論文, Table 1, https:\/\/arxiv.org/pdf/2311.13814; read 2026-11-03 in a source check. 産業用ロボットの値を借りる (配膳ロボの規格の値ではない)",
+      "value": "ISO/TS 15066 の部位ごとの値 (準静的、下腿 130・大腿 220・胸 140・頭 130 N) を借用"
      },
      {
       "key": "Q63",
@@ -30146,8 +30114,7 @@ export const DEMOS = {
       "source": "default",
       "trust": 1,
       "basis": "ISO 13854:1996 の試し読み, Table 1, https:\/\/cdn.standards.iteh.ai/samples/22598/44d1054ccf4f41e1adefb8020dbaaa13/ISO-13854-1996.pdf; read 2026-11-03 in a source check",
-      "value": 25,
-      "unit": "mm"
+      "value": "ISO 13854 (指 25 mm)"
      },
      {
       "key": "Q72",
@@ -30185,10 +30152,9 @@ export const DEMOS = {
       "key": "Q11",
       "name": "路面・床と摩擦係数",
       "source": "default",
-      "trust": 3,
-      "basis": "assumption: the friction coefficient between the wheel and a dry indoor floor (tile, wood, carpet), 0.5, HIRAKU's own value, not read in any source. The floors themselves are the ones of the JARI robot stability test facility's course, p.1, https:\/\/img.jari.or.jp/v=1740017440/files/user/pdf/stability_tests_of_robots_and_robotic_devices_2020.pdf; read 2026-11-03 in a source check (that page lists the surfaces, not a coefficient)",
-      "value": 0.5,
-      "unit": "1"
+      "trust": 1,
+      "basis": "JARI のロボット安定性試験設備の走行路の路面, p.1, https:\/\/img.jari.or.jp/v=1740017440/files/user/pdf/stability_tests_of_robots_and_robotic_devices_2020.pdf; read 2026-11-03 in a source check",
+      "value": "タイル・木・カーペット"
      },
      {
       "key": "Q15",
@@ -30209,14 +30175,6 @@ export const DEMOS = {
       "unit": "degC"
      },
      {
-      "key": "Q20",
-      "name": "水・ほこり (IP)",
-      "value": "IPX4",
-      "source": "hearing",
-      "trust": 3,
-      "basis": "assumption (a sample answer: drinks may splash on a restaurant robot)"
-     },
-     {
       "key": "Q34",
       "name": "弱い人がいるか",
       "source": "default",
@@ -30234,15 +30192,6 @@ export const DEMOS = {
       "unit": "kg"
      },
      {
-      "key": "Q42",
-      "name": "液体のこぼれまでの余裕角",
-      "value": 5,
-      "source": "hearing",
-      "trust": 3,
-      "basis": "assumption (a sample answer: a full cup spills at about 5 degrees of tilt)",
-      "unit": "deg"
-     },
-     {
       "key": "Q50",
       "name": "最高速度",
       "value": 1.2,
@@ -30250,15 +30199,6 @@ export const DEMOS = {
       "trust": 1,
       "basis": "Pudu BellaBot, https:\/\/www.pudurobotics.com/en/products/bellabot; read 2026-11-03 in a source check",
       "unit": "m/s"
-     },
-     {
-      "key": "Q51",
-      "name": "加速",
-      "value": 3,
-      "source": "hearing",
-      "trust": 3,
-      "basis": "assumption (a sample answer: 3 seconds from standing to 1.2 m/s, gentle for guests)",
-      "unit": "s"
      },
      {
       "key": "Q54",
@@ -30295,15 +30235,6 @@ export const DEMOS = {
       "basis": "assumption",
       "value": 1.5,
       "unit": "1"
-     },
-     {
-      "key": "Q74",
-      "name": "電池の電圧",
-      "value": 24,
-      "source": "hearing",
-      "trust": 3,
-      "basis": "assumption (a sample answer: a 24 V battery pack)",
-      "unit": "V"
      },
      {
       "key": "Q80",
@@ -30972,7 +30903,7 @@ export const DEMOS = {
    "run_id": "20261103-100000-offroad-4w-file",
    "kind": "domains.picked",
    "agent": "lead",
-   "text": "確かめる分野を 7 つ、試験を 27 個選びました",
+   "text": "確かめる分野を 7 つ、試験を 26 個選びました",
    "data": {
     "want": "林道を走れる 2 人乗りの小さなオフロード車両 (4 輪、最高 40 km/h、積載 150 kg)",
     "flags": {
@@ -31001,10 +30932,9 @@ export const DEMOS = {
      {
       "domain": "handling",
       "shown_name": "操安",
-      "reason": "置・走・悪 に当てはまるので、S1 静的な転倒 (傾斜台・縁の荷重)・S2 旋回での転倒 (J ターン・定常円)・S3 回避 (ダブルレーンチェンジ)・S4 制動と前のめり・S5 凸凹の横斜面・S6 小回り (最小回転半径) を当てる",
+      "reason": "置・走・悪 に当てはまるので、S1 静的な転倒 (傾斜台・縁の荷重)・S3 回避 (ダブルレーンチェンジ)・S4 制動と前のめり・S5 凸凹の横斜面・S6 小回り (最小回転半径) を当てる。S2 旋回での転倒 (J ターン・定常円) は荷重条件の作り方がまだ無いので、この実行では見ない",
       "test_ids": [
        "S1",
-       "S2",
        "S3",
        "S4",
        "S5",
@@ -32021,7 +31951,7 @@ export const DEMOS = {
       "rule_id": "SY-01",
       "doc_id": "KN-SY",
       "category": "system",
-      "text": "走る製品は、動力源 (kind が motor か engine の部品) から駆動輪 (actuation.drive が true の接地点) まで、トルクを伝える鎖 (connects_to の carries: torque) が切れずにつながる",
+      "text": "走る製品は、動力源から駆動輪まで、トルクを伝える鎖が切れずにつながる",
       "check": "system:drive_chain",
       "origin": "builtin",
       "trust": 3,
@@ -32031,7 +31961,7 @@ export const DEMOS = {
       "rule_id": "SY-02",
       "doc_id": "KN-SY",
       "category": "system",
-      "text": "人が乗って走る製品は、ハンドル (kind が steering の部品) から操舵輪 (actuation.steer が true の接地点) まで、操舵の鎖 (connects_to の carries: steer) が切れずにつながる",
+      "text": "人が乗って走る製品は、ハンドルから操舵輪まで、操舵の鎖が切れずにつながる",
       "check": "system:steer_chain",
       "origin": "builtin",
       "trust": 3,
@@ -32041,7 +31971,7 @@ export const DEMOS = {
       "rule_id": "SY-03",
       "doc_id": "KN-SY",
       "category": "system",
-      "text": "走る製品は、制動の入力 (kind が brake_pedal・brake_lever・brake_controller の部品) から制動する輪 (actuation.brake が true の接地点) まで、制動の鎖 (connects_to の carries: brake) が切れずにつながる",
+      "text": "走る製品は、制動の入力から制動する輪まで、制動の鎖が切れずにつながる",
       "check": "system:brake_chain",
       "origin": "builtin",
       "trust": 3,
@@ -32127,7 +32057,7 @@ export const DEMOS = {
    "run_id": "20261103-100000-offroad-4w-file",
    "kind": "hearing.answered",
    "agent": "lead",
-   "text": "要件が先に決まっている記録なので、はじめの質問はありません。書かれていない 20 個は、まず標準の値で進めます (そのうち 3 個は、本来は人に確かめたい項目なので、あとで聞くことがあります)",
+   "text": "聞くことはありませんでした。分からない所は標準の値で進めました",
    "data": {
     "answers": [
      {

@@ -38,17 +38,17 @@ import { LineSegments2 } from "three/addons/lines/LineSegments2.js";
 import { LineSegmentsGeometry } from "three/addons/lines/LineSegmentsGeometry.js";
 import { GRAY, OVER_COLOR, colorOf } from "./colormap.js?v=3da7f9194f51";
 import { overOf } from "./fields.js?v=f89cf047484b";
-import { maxTagClass } from "./judged.js?v=bac514613e42"; // the largest-value tag's colour (one rule)
-import { FIX_R_COLOR, FIX_T_COLOR, FREE_EDGE_COLOR, LOAD_COLOR } from "./quality.js?v=70f5ce5e0276";
-import { esc, fmt, fmtVU, vectorName } from "./labels.js?v=db073242a4ac";
+import { maxTagClass } from "./judged.js?v=f87bbbefe926"; // the largest-value tag's colour (one rule)
+import { FIX_R_COLOR, FIX_T_COLOR, FREE_EDGE_COLOR, LOAD_COLOR } from "./quality.js?v=dd89949febfd";
+import { esc, fmt, fmtVU, vectorName } from "./labels.js?v=8576a93ebc08";
 import { CONTOUR_FADE, DUMMY_BODY, DUMMY_JOINT, GROUND_MM, Look, cutLookOf, occupantSub } from "./look.js?v=ea9123c575c2";
 import { RealPost, sharedPost, skipsDepth } from "./realpost.js?v=1c240587ce83";
-import { SceneProps, liftIsLimit, sceneOf } from "./scene.js?v=fedaab148880";
+import { SceneProps, liftIsLimit, sceneOf } from "./scene.js?v=991cd93a552f";
 import { edgePairs, outerFaces } from "./meshkind.js?v=42be1b82154c";
-import { ANGLE, lerpAt, wheelName } from "./series.js?v=4affcced9d05";
+import { ANGLE, lerpAt, wheelName } from "./series.js?v=e2b2209bd489";
 import { mergePieces, occupantDummyPieces, occupantSegmentPieces, partPieces, personOf, segmentOf, wheelPieces } from "./shapes.js?v=9089beb8e323";
-import { JointMarks } from "./joints.js?v=ab971e2dd2fd"; // joints: the joint marks (toggle 接合)
-import { frameEnds, tubeGeometry, tubeSection } from "./tubes.js?v=ab971e2dd2fd"; // the frame's hollow tubes
+import { JointMarks } from "./joints.js?v=ae77cc8ea94f"; // joints: the joint marks (toggle 接合)
+import { frameEnds, tubeGeometry, tubeSection } from "./tubes.js?v=ae77cc8ea94f"; // the frame's hollow tubes
 
 const INK = "#1d1d1f";
 const MUTED = "#6b665c";
@@ -402,10 +402,6 @@ export class Workbench3D {
       this.controls = new OrbitControls(this.camera, this.renderer.domElement);
       this.controls.enableDamping = false;
       this.controls.screenSpacePanning = true;
-      // turned or moved by hand since the last framing (fitPoints / fit clear it): app.js leaves
-      // such a camera where it is when the 3D's size changes
-      this.handMoved = false;
-      this.controls.addEventListener("start", () => { this.handMoved = true; });
     } else {
       this.labelRenderer = null;
       this.controls = { target: new THREE.Vector3(), update: () => this.camera.lookAt(this.controls.target) };
@@ -613,7 +609,6 @@ export class Workbench3D {
       ring.visible = false;
       group.add(ring);
       const tag = label(esc(s.id), "lbl-id");
-      tag.visible = !!this.toggles?.names; // (as setToggles: a design loaded after the toggles were set shows no names unless 名前 is on)
       tag.position.set(0, 0, r + 60);
       if (this.labelRenderer) group.add(tag); // a shared renderer draws no labels: kept out of its scene
       this.wheels.add(group);
@@ -723,8 +718,6 @@ export class Workbench3D {
       const tag = label(same.length > 1 ? `${esc(short)}<small>部品 ${same.length} 個</small>` : `${esc(short)}${mass}`, "lbl-part");
       tag.element.title = same.length > 1 ? `${short}: ${same.map((x) => x.name ?? x.id).join("、")}` : p.name ?? p.id;
       if (same.length > 1 && same[0] !== p) tag.element.dataset.named = "0"; // named by the first one's tag
-      // (as setToggles: the names only while 名前 is on, also for a design loaded after the toggles were set)
-      tag.visible = !!this.toggles?.names && tag.element.dataset.named !== "0";
       tag.position.copy(c).add(new THREE.Vector3(0, 0, sz[2] / 2 + 40));
       if (this.labelRenderer) g.add(tag); // a shared renderer draws no labels: kept out of its scene
       this.parts.add(g);
@@ -1077,7 +1070,6 @@ export class Workbench3D {
     this.controls.update();
     this.followBase = null;
     this.followApplied = null;
-    this.handMoved = false;
   }
 
   // A mesh (the contract's mesh record: shells, solids or both) as faces and element edges,
@@ -1436,7 +1428,6 @@ export class Workbench3D {
   // the result). It swings once a second of replay, so a frame at a given ?t=
   // is always the same.
   setModeShape(contour) {
-    if (this.modeShape) this.poseParts(0);
     this.modeShape = null;
     this.poseMembers(0);
     for (const o of Object.values(this.shellObjs)) this.poseShell(o, null, 0);
@@ -1447,77 +1438,7 @@ export class Workbench3D {
     if (!(dmax > 0)) return;
     const size = this.bboxIso.getSize(new THREE.Vector3()).length();
     const scale = (0.08 * size) / dmax;
-    this.modeShape = shellModes
-      ? { shell: this.shellObj(contour.mesh.rec), shellModes, scale, ...(contour.kind === "mode_shape" ? this.modeParts(contour.field.per_node) : {}) }
-      : { modes: contour.modes, scale };
-  }
-
-  // A shell mode shape's per_node (modal_shell: the design nodes, on the mesh's scale, and the
-  // linkage's points) as each part's and each wheel's move (unscaled), as the model carries
-  // their masses: a part by the mean of its carried_by nodes' vectors, moved without turning
-  // (its mass shared equally on them, no rotary inertia); an occupant's segment without
-  // carried_by as its person's part that has them; a part without carried_by at a wheel (inside
-  // its radius) and the wheel drawn from a support by "<support>.wheel_center". A part with none
-  // of these in per_node stays put. { parts: {id: [x, y, z]}, wheels: {support id: [x, y, z]} }.
-  modeParts(perNode) {
-    const vec = (n) => {
-      const d = perNode?.[n];
-      return Array.isArray(d) && d.length === 3 && d.every(Number.isFinite) ? d : null;
-    };
-    const mean = (names) => {
-      const ds = (names ?? []).map(vec);
-      if (!ds.length || ds.some((d) => !d)) return null;
-      return [0, 1, 2].map((j) => ds.reduce((s, d) => s + d[j], 0) / ds.length);
-    };
-    const wheels = {};
-    for (const s of this.design?.supports ?? []) {
-      const d = vec(`${s.id}.wheel_center`);
-      if (d) wheels[s.id] = d;
-    }
-    const parts = {};
-    const byPerson = {};
-    const design = this.design?.parts ?? [];
-    for (const p of design) {
-      const d = mean(p.carried_by);
-      if (d) parts[p.id] = d;
-      if (d && p.kind === "occupant" && !byPerson[personOf(p)]) byPerson[personOf(p)] = d;
-    }
-    for (const p of design) {
-      if (parts[p.id] || p.carried_by?.length) continue;
-      if (p.kind === "occupant" && byPerson[personOf(p)]) {
-        parts[p.id] = byPerson[personOf(p)];
-        continue;
-      }
-      const c = v3(p.box.center_mm);
-      let near = null;
-      for (const s of this.design?.supports ?? []) {
-        const dist = v3(s.position_mm).distanceTo(c);
-        if (wheels[s.id] && dist < (s.radius_mm ?? 0) && (!near || dist < near.dist)) near = { dist, d: wheels[s.id] };
-      }
-      if (near) parts[p.id] = near.d;
-    }
-    for (const id of Object.keys(parts)) if (!this.partObjs[id]) delete parts[id];
-    for (const id of Object.keys(wheels)) if (!this.wheelObjs[id]) delete wheels[id];
-    return { parts, wheels };
-  }
-
-  // Move the parts and the wheels of a shell mode shape by s times their vectors (s = 0: at
-  // rest); a wheel from where the motion's frame (or the design) puts it.
-  poseParts(s) {
-    const ms = this.modeShape;
-    for (const [id, d] of Object.entries(ms?.parts ?? {})) {
-      const o = this.partObjs[id];
-      if (o) o.group.position.set(d[0] * s, d[1] * s, d[2] * s);
-    }
-    if (!ms?.wheels || !Object.keys(ms.wheels).length) return;
-    const byId = Object.fromEntries((this.frame?.wheels ?? []).map((w) => [w.id, w]));
-    for (const [id, d] of Object.entries(ms.wheels)) {
-      const o = this.wheelObjs[id];
-      if (!o) continue;
-      o.group.matrix.copy(this.wheelPose(id, byId[id], this.body.matrix));
-      for (let j = 0; j < 3; j += 1) o.group.matrix.elements[12 + j] += d[j] * s;
-      o.group.matrixWorldNeedsUpdate = true;
-    }
+    this.modeShape = shellModes ? { shell: this.shellObj(contour.mesh.rec), shellModes, scale } : { modes: contour.modes, scale };
   }
 
   // Move a shell's nodes by k times their scaled vectors (k = 0: at rest).
@@ -1545,10 +1466,8 @@ export class Workbench3D {
   // A mode shape (or displacement) at k of its swing, on the beams or on a shell.
   poseShape(k) {
     const ms = this.modeShape;
-    if (ms?.shell) {
-      this.poseShell(ms.shell, ms.shellModes, k * ms.scale);
-      this.poseParts(k * ms.scale);
-    } else this.poseMembers(k);
+    if (ms?.shell) this.poseShell(ms.shell, ms.shellModes, k * ms.scale);
+    else this.poseMembers(k);
   }
 
   poseMembers(k) {
@@ -2242,7 +2161,6 @@ export class Workbench3D {
     this.controls.update();
     this.followBase = null;
     this.followApplied = null;
-    this.handMoved = false;
     // a cut's sun is fixed to the world from its first framing (look.js fixSun)
     if (this.look.stage) this.look.fixSun(this.camera, this.controls.target);
   }

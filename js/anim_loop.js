@@ -15,7 +15,7 @@
 // (where the motion starts to where it ends, with the step) is in the frame: the vehicle drives
 // across it.
 
-import { VIEWS } from "./workbench3d.js?v=1e5764164332";
+import { VIEWS } from "./workbench3d.js?v=e10d1ac8d1c8";
 
 export const LOOP_CAMS = ["follow", "side", "wide"];
 

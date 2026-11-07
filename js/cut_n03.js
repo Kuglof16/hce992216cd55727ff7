@@ -37,9 +37,9 @@
 import * as THREE from "three";
 import { clearOfBand, rateLabel, squeeze } from "./compose.js?v=453a16e757af";
 import { contourOf } from "./fields.js?v=f89cf047484b";
-import { NG_WORD, OK_WORD, esc, fmt, unitLabel } from "./labels.js?v=db073242a4ac";
-import { channelsOf, extent, motionOf, nearestAt, nearestIndex } from "./series.js?v=4affcced9d05";
-import { VIEWS, cutView } from "./workbench3d.js?v=1e5764164332";
+import { NG_WORD, OK_WORD, esc, fmt, unitLabel } from "./labels.js?v=8576a93ebc08";
+import { channelsOf, extent, motionOf, nearestAt, nearestIndex } from "./series.js?v=e2b2209bd489";
+import { VIEWS, cutView } from "./workbench3d.js?v=e10d1ac8d1c8";
 
 const $ = (id) => document.getElementById(id);
 const params = new URLSearchParams(location.search);

@@ -55,13 +55,13 @@
 import * as THREE from "three";
 import { clearOfBand, cubicBezier, squeeze } from "./compose.js?v=453a16e757af";
 import { fieldsOf, overOf } from "./fields.js?v=f89cf047484b";
-import { LENGTH, motionOf } from "./series.js?v=4affcced9d05";
-import { AssemblyStage } from "./assembly.js?v=06d6cdc38454";
-import { VIEWS, cutView } from "./workbench3d.js?v=1e5764164332";
-import { FEATURE_KEYS, answerOf, listRects, requireKeys, storyOf } from "./cut_n03.js?v=e28a5abfa7a5";
-import { tileContour } from "./cut_grid.js?v=ffb686adf059";
+import { LENGTH, motionOf } from "./series.js?v=e2b2209bd489";
+import { AssemblyStage } from "./assembly.js?v=6491d2e3557e";
+import { VIEWS, cutView } from "./workbench3d.js?v=e10d1ac8d1c8";
+import { FEATURE_KEYS, answerOf, listRects, requireKeys, storyOf } from "./cut_n03.js?v=56e18e40c5dc";
+import { tileContour } from "./cut_grid.js?v=8d087f54a1eb";
 import { PACE_LIMIT_DEG_S, pacer } from "./pace.js?v=206021786fb2";
-import { fmt, fmtQ } from "./labels.js?v=db073242a4ac";
+import { fmt, fmtQ } from "./labels.js?v=8576a93ebc08";
 
 const $ = (id) => document.getElementById(id);
 

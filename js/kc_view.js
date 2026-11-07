@@ -6,8 +6,8 @@
 // stroke (read off the line between its samples); a stroke beyond the line's ends is marked at the
 // end, open. No bench in the record: no K&C graphs (kcFor returns null).
 
-import { esc, fmt, quantityName, unitLabel } from "./labels.js?v=db073242a4ac";
-import { extent } from "./series.js?v=4affcced9d05";
+import { esc, fmt, quantityName, unitLabel } from "./labels.js?v=8576a93ebc08";
+import { extent } from "./series.js?v=e2b2209bd489";
 
 // The lines shown first (then any other line against travel), with short names.
 const ORDER = ["camber", "toe", "track_change", "roll_center_height", "wheelbase_change", "damper_length", "motion_ratio"];

@@ -5,19 +5,18 @@
 // interferences in red, and a small chart of its first series group. Every
 // number printed is a recorded value.
 
-import { DOMAINS, DOMAIN_JA, JUDGED_JA, esc, fmt, fmtQ, fmtVU, judgedWords, keepAsides, opLabel, quantityName, unitLabel, verLabel } from "./labels.js?v=db073242a4ac";
+import { DOMAINS, DOMAIN_JA, JUDGED_JA, esc, fmt, fmtQ, fmtVU, judgedWords, keepAsides, opLabel, quantityName, unitLabel, verLabel } from "./labels.js?v=8576a93ebc08";
 import { OVER_COLOR, colorOf } from "./colormap.js?v=3da7f9194f51";
 import { FIELD_JA, atFrame, contourOf, fieldsOf, frameIndex, overOf } from "./fields.js?v=f89cf047484b";
-import { abscissa, channelsOf, chartGroups, extent, seriesName, xSeriesOf } from "./series.js?v=4affcced9d05";
-import { domainVerdicts, isSafeSide, judgementState, roundsUsed } from "./state.js?v=785e17a042a3";
-import { gridPlaceOf, petRowHtml } from "./agent_pets.js?v=db2772c3edc5";
-import { heldBandHtml, heldCases, referenceCases, referenceRowsHtml } from "./held.js?v=8a2a0fab46a3";
-import { builtLine } from "./proposals.js?v=37554121f851"; // modules:
-import { judgedContour } from "./judged.js?v=bac514613e42";
-import { analysisEdge, edgeFlips, edgeLineHtml, edgeRaw } from "./edge_note.js?v=bf1b59b1184d";
-import { MATERIAL_JA, pictureOf } from "./tile_pictures.js?v=4f224d6b9f01";
-import { domainIconSvg } from "./domain_icons.js?v=ccf3505069b3";
-import { pathCheckedWhy } from "./why_line.js?v=302cd261e182";
+import { abscissa, channelsOf, chartGroups, extent, seriesName, xSeriesOf } from "./series.js?v=e2b2209bd489";
+import { domainVerdicts, isSafeSide, judgementState, roundsUsed } from "./state.js?v=01ef3929e266";
+import { gridPlaceOf, petRowHtml } from "./agent_pets.js?v=dad33e2edb07";
+import { heldBandHtml, heldCases, referenceCases, referenceRowsHtml } from "./held.js?v=26f6d9e02fda";
+import { builtLine } from "./proposals.js?v=611994c557b9"; // modules:
+import { judgedContour } from "./judged.js?v=f87bbbefe926";
+import { analysisEdge, edgeFlips, edgeLineHtml, edgeRaw } from "./edge_note.js?v=37d8bdc1194a";
+import { MATERIAL_JA, pictureOf } from "./tile_pictures.js?v=993bb34185b0";
+import { domainIconSvg } from "./domain_icons.js?v=45df1eaa0b38";
 
 const W = 300;
 const H = 150;
@@ -333,31 +332,6 @@ export class TileBoard {
         return `<span class="vbox ${r ? "red" : "green"} ${ver === v ? "cur" : ""}" data-ver="${esc(String(ver))}" title="${esc(tip)}">${verLabel(ver)} NG ${r}${now.size ? `<small class="vred">${esc([...now].join("・"))}</small>` : ""}</span>`;
       })
       .join(`<span class="varrow">→</span>`);
-    // What the versions fixed: each test that was NG in a version and is OK in the last version it
-    // was judged in, one line (its value then and now, from the verdicts as recorded)
-    const firstNg = new Map();
-    const lastSeen = new Map();
-    for (const ver of s.versions) {
-      for (const d of DOMAINS) {
-        for (const x of domainVerdicts(s, d, ver)) {
-          const key = x.load_case_id ?? x.test_id;
-          if (!key) continue;
-          if (x.pass === false && !firstNg.has(key)) firstNg.set(key, { ver, x });
-          lastSeen.set(key, { ver, x });
-        }
-      }
-    }
-    const valueOf = (x) => (x.value && typeof x.value === "object" ? fmtVU(x.value.value, x.value.unit) : x.value != null ? fmt(x.value) : "");
-    const titleOf = (key, x) => {
-      const lc = (s.project?.load_cases ?? []).find((c) => c.load_case_id === key);
-      const short = lc?.title ? String(lc.title).split(/[:：(（]/)[0].trim() : quantityName(x.quantity);
-      return `${x.test_id ?? key} ${short}`;
-    };
-    const story = [...firstNg]
-      .map(([key, f]) => [key, f, lastSeen.get(key)])
-      .filter(([, f, l]) => l && l.x.pass === true && l.ver !== f.ver)
-      .map(([key, f, l]) => `<li><b>${esc(titleOf(key, f.x))}</b>: ${verLabel(f.ver)} ${esc(valueOf(f.x))} <span class="sng">NG</span> → ${verLabel(l.ver)} ${esc(valueOf(l.x))} <span class="sok">OK</span></li>`);
-    const storyHtml = story.length ? `<ul class="vstory" aria-label="直して OK になった試験">${story.join("")}</ul>` : "";
     const design = v != null ? s.designs[v] : null;
     // modules: a version built from module designers' proposals names each module's change (proposals.js)
     const built = design ? builtLine(s, v) : "";
@@ -371,7 +345,7 @@ export class TileBoard {
     const headN = headIds.length;
     this.head.innerHTML =
       `<h2>${verLabel(v)} の判定</h2><span class="muted">繰り返し ${roundsUsed(s)} / ${s.project?.round_limit ?? "—"} 回・NG ${reds.length}</span>` +
-      `<span class="flow">${flow}</span>${change}${storyHtml}` +
+      `<span class="flow">${flow}</span>${change}` +
       (pets ? `<div class="headpets${headN > 3 ? " many" : ""}">${headIds.map((id) => petRowHtml(id, s.agents[id]?.status, { tag: "div", why: s.agents[id]?.stopWhy })).join("")}</div>` : "");
     this.head.classList.toggle("wrap", headN > 3); // modules: the module designers' pets on their own row
 
@@ -449,10 +423,6 @@ export class TileBoard {
           })()}><span class="nq">${esc(`${big.test_id ?? big.load_case_id ?? ""} ${quantityName(s.comparisons[big.comparison_id]?.quantity ?? big.quantity)}`.trim())}</span>` +
           `<b class="nv${big.pass === false ? " ng" : ""}">${esc(fmtQ(big.value, 3))}</b><span class="nl">${esc(`${opLabel(big.op)} ${fmtQ(big.limit, 3)}`)}</span></div>`
         : `<div class="num none" data-role="number"><span class="nq">${esc(why)}</span></div>`;
-      // the tile's verdict made on the tool's value after the load path was checked by hand: why it
-      // is OK / NG in one line (why_line.js), cut to two lines here, whole in its tooltip
-      const pathWhy = big ? pathCheckedWhy(s, big, this.formulaTitle ?? undefined) : null;
-      const pathWhyHtml = pathWhy ? `<div class="pathwhy clamp2" data-role="why" title="${esc(pathWhy.text)}">${esc(pathWhy.text)}</div>` : "";
       // 境目 under the number when the crash tool's note on the break angle names a verdict's
       // quantity as changing inside the band (edge_note.js; the record's note and the verdict as the tooltip)
       const edgeOf = (x) => {
@@ -466,7 +436,7 @@ export class TileBoard {
         `<div class="tile ${j.state}${held.length ? " held" : ""}" data-domain="${d}">` +
         `<div class="th"><h3>${domainIconSvg(d)}${esc(DOMAIN_JA[d])}</h3><span class="mark ${j.state}" data-role="mark">${mark}${held.length ? `<small>保留 ${held.length}</small>` : ""}</span></div>` +
         `<div class="tbody"><div class="pic"><canvas class="tile3d" data-domain="${d}"${picAttrs}></canvas></div>` +
-        `<div class="side">${number}${pathWhyHtml}${edgeHtml}<div class="tf" data-say-host>${safe}${tilePet(s, d, pets)}</div></div></div>` +
+        `<div class="side">${number}${edgeHtml}<div class="tf" data-say-host>${safe}${tilePet(s, d, pets)}</div></div></div>` +
         // the words and the small drawings: only when the tile is opened
         `<details class="more"><summary>くわしく</summary>` +
         `<div class="state"${wordTitle}>${esc(word)}</div>` +

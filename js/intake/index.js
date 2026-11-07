@@ -26,10 +26,10 @@
 // Without a callback the matching control is shown disabled, so a replay of a saved run is read-only.
 
 import { fill, h } from "./dom.js?v=b644293c522f";
-import { buildModel } from "./model.js?v=1ea72531035b";
-import { renderA1 } from "./a1.js?v=f6ec7151faac";
-import { renderA2, submit } from "./a2.js?v=c3e7d13b7226";
-import { renderA5 } from "./a5.js?v=ae49d9952bf7";
+import { buildModel } from "./model.js?v=d4bcf7b32292";
+import { renderA1 } from "./a1.js?v=f865ced2ea62";
+import { renderA2, submit } from "./a2.js?v=d5bca513eb2c";
+import { renderA5 } from "./a5.js?v=af3cb76e9165";
 
 const SCREENS = [["A1", "作りたいもの", renderA1], ["A2", "確認したいこと", renderA2], ["A5", "守るルール", renderA5]];
 

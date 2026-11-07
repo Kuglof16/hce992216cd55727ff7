@@ -12,7 +12,7 @@
 // The last three are not coloured (not green, red or orange): the tiles list them as 参考
 // (判定しない) rows. A count of 0 is not held (nothing missing) and not shown.
 
-import { DOMAIN_JA, esc, fmt, fmtVU, quantityName } from "./labels.js?v=db073242a4ac";
+import { DOMAIN_JA, esc, fmt, fmtVU, quantityName } from "./labels.js?v=8576a93ebc08";
 
 // A quantity that counts what is missing (held when not 0): its unit is 1 (or none) and its name
 // has one of these words. The names come from the assembly tool's results (joint_gap_count,

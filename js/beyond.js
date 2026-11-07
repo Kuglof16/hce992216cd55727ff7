@@ -3,7 +3,7 @@
 // failing side), so the cuts count them apart from the other reds, and a domain's colour is
 // read without them.
 
-import { domainVerdicts } from "./state.js?v=785e17a042a3";
+import { domainVerdicts } from "./state.js?v=01ef3929e266";
 
 export const BEYOND_SUFFIX = "-beyond";
 export const BEYOND_TITLE = "限界の外";

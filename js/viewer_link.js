@@ -11,7 +11,7 @@
 // viewer's own sample of the field, which the line beside the button says, and a field with no sample
 // cannot be opened. A reason only the record can tell is shown by the viewer's page itself.
 
-import { esc } from "./labels.js?v=db073242a4ac";
+import { esc } from "./labels.js?v=8576a93ebc08";
 
 export const VIEWER_FIELD = {
   frame_static: "strength",
@@ -115,8 +115,8 @@ export function viewerUrl(runId, analysisId, field) {
 // viewer/src/common.py design_key; the server gives each run's keys, viewer_link.py info): a row on
 // that domain's tile of a run that has the design opens it in the viewer, read only when pressed.
 export const VIEWER_EXTRAS = [
-  { id: "aero_cfd", domain: "aero", designKey: "7caab1a546ac", label: "空気の流れ (CFD)", note: "", page: "index.html?data=fixtures/aero_cfd.json#aero_cfd", field: "aero_cfd" },
-  { id: "water", domain: "aero", designKey: "7caab1a546ac", label: "冠水路の水", note: "", page: "index.html#water", field: "water" },
+  { id: "aero_cfd", domain: "aero", designKey: "7caab1a546ac", label: "空気の流れ (CFD)", note: "この v5 の形で計算。実験と比べて確かめていない", page: "index.html?data=fixtures/aero_cfd.json#aero_cfd", field: "aero_cfd" },
+  { id: "water", domain: "aero", designKey: "7caab1a546ac", label: "冠水路の水", note: "見せるための計算で、走破の判定ではない", page: "index.html#water", field: "water" },
 ];
 
 // the extras of the run's designs on that domain's tile (none until the server's info is in)
