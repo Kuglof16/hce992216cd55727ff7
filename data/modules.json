@@ -1,0 +1,1 @@
+{"modules": ["package", "frame", "suspension", "steering", "occupant", "powertrain", "body"], "names": {"package": "レイアウト", "frame": "枠", "suspension": "足まわり", "steering": "操作系", "occupant": "乗員まわり", "powertrain": "動力", "body": "車体"}, "designers": ["designer.structure", "designer.mechanism", "designer.electric"]}
