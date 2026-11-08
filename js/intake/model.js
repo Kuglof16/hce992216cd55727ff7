@@ -10,7 +10,7 @@
 //   rule_check.recorded  a rule applied to a design; the newest design version wins     (A5)
 //   design.created     the chat ends, rules have a design to be applied to
 
-import { DOMAINS, CATEGORIES, TESTS } from "./data.js?v=fa3311704571";
+import { DOMAINS, CATEGORIES, TESTS } from "./data.js?v=933a072f1c19";
 
 const NOTE_KINDS = new Set(["domains.picked", "hearing.asked", "hearing.answered"]); // what A1's chat tells; the knowledge has A5
 

@@ -283,3 +283,8 @@ body.video .in-pane.a1 .in-headrow .in-pet canvas { width: 72px; height: 72px; }
 body.video .in-pane.a1 .in-msg.in-reply { display: none; }
 .in-example { margin: 8px 0 0; font-size: 13px; color: var(--i-muted); }
 body.video .in-example { display: none; }
+.in-example-block { margin-top: 20px; padding-top: 14px; border-top: 1.5px dashed var(--i-line); }
+.in-example-block h3 { margin: 0 0 4px; font-size: 16px; }
+.in-example-note { margin: 0 0 10px; font-size: 13px; color: var(--i-muted); }
+body.video .in-example-block { display: none; }
+.in-example-cards { display: flex; flex-direction: column; gap: 10px; }

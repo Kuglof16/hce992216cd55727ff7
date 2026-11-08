@@ -1,8 +1,8 @@
 // A5 - knowledge: categories -> rules, the parts a rule hits, and a place to drop a file of rules (N14).
 
-import { CATEGORIES, FACTS } from "./data.js?v=fa3311704571";
+import { CATEGORIES, FACTS } from "./data.js?v=933a072f1c19";
 import { fill, h } from "./dom.js?v=b644293c522f";
-import { allRules, checkedRows, ruleNeeds, ruleState, ruleTree, showValue, TRUST_JA } from "./model.js?v=06291aa72404";
+import { allRules, checkedRows, ruleNeeds, ruleState, ruleTree, showValue, TRUST_JA } from "./model.js?v=3358840ce4ee";
 
 const MODES = [["category", "種類で分ける"], ["source", "出どころで分ける"]];
 const FILTERS = [["all", "すべて"], ["builtin", "最初から入っているもの"], ["dropped", "あなたが読み込んだもの"], ["hit", "引っかかったもの"]];

@@ -22,8 +22,8 @@
 
 import { DOMAINS, DOMAIN_JA, agentName } from "./labels.js?v=230f55e45d39";
 import { MOTIONS, PET_FPS, petPose } from "./agent_pets.js?v=9d57eb7dddbf";
-import { inTurn, REPLY_STEP_S } from "./intake/a1.js?v=3ddc89886d83";
-import { domainCards } from "./intake/model.js?v=06291aa72404";
+import { inTurn, REPLY_STEP_S } from "./intake/a1.js?v=ae19f9c4df15";
+import { domainCards } from "./intake/model.js?v=3358840ce4ee";
 
 // A1's card order (js/intake/a1.js renderA1 sorts the cards so before inTurn). As the cards show them at
 // t: lit, the time each picked domain answers (in turn, REPLY_STEP_S apart, only when the intake answers

@@ -1,8 +1,8 @@
 // A2 - hearing: the missing requirements asked once (left), the requirements and where each came from (right) (N14).
 
 import { fill, h } from "./dom.js?v=b644293c522f";
-import { EXAMPLE_RUN, ITEM_CHOICES, ITEM_CHOICES_ALT, ITEM_HELP } from "./data.js?v=fa3311704571";
-import { assumptions, hearingRows, pastRounds, RULE_CHOICE_JA, ruleRows, showValue, SOURCE_JA, tradeoffChoiceJa, tradeoffRows, TRUST_JA } from "./model.js?v=06291aa72404";
+import { EXAMPLE_RUN, ITEM_CHOICES, ITEM_CHOICES_ALT, ITEM_HELP } from "./data.js?v=933a072f1c19";
+import { assumptions, hearingRows, pastRounds, RULE_CHOICE_JA, ruleRows, showValue, SOURCE_JA, tradeoffChoiceJa, tradeoffRows, TRUST_JA } from "./model.js?v=3358840ce4ee";
 
 const STATE_JA = { asking: "答えを待っています", answered: "答えました", defaulted: "標準の値のまま", open: "答えなしで進みました", ended: "実行が終わりました" };
 
@@ -41,7 +41,7 @@ function question(q, api, ui) {
     q.ask === "must" && !q.answer && q.state !== "ended" ? h("p", { class: "in-default must" }, "この質問に答えるまで先へ進めません") : null,
     q.state === "ended" ? h("p", { class: "in-default must" }, "実行が終わったので、この質問への答えは使われません") : null,
     q.answer
-      ? h("p", { class: "in-answer" }, h("b", {}, q.answer.source === "hearing" ? "あなたの答え" : "標準の値"), " ",
+      ? h("p", { class: "in-answer" }, h("b", {}, q.answerWho || (q.answer.source === "hearing" ? "あなたの答え" : "標準の値")), " ",
           choiceLabel(q, q.answer.value) || showValue(q.answer.value, q.answer.unit))
       : null);
 }
@@ -194,13 +194,32 @@ export async function submit(api, ui, body) {
 
 /** For a record that asked nothing: a link to a run where Claude did ask and the person answered (the numbers counted from that
  *  run's record when the tables were written). null when this record asked something, or there is no such run to show. */
-export function exampleButton(m) {
-  const asked = (m.hearing.asked?.questions?.length || 0) + (m.hearing.asked?.rule_questions?.length || 0) + (m.hearing.asked?.tradeoff_questions?.length || 0);
-  if (asked || !m.hearing.answered || !EXAMPLE_RUN) return null;
+function exampleHref() {
   const dev = /[?&]dev=1(&|$)/.test(globalThis.location?.search || "") ? "&dev=1" : "";
+  return `?run=${encodeURIComponent(EXAMPLE_RUN.run)}&tab=A2&t=${EXAMPLE_RUN.t}&live=0&pace=0&autoplay=0${dev}`;
+}
+
+function noQuestionAsked(m) {
+  const asked = (m.hearing.asked?.questions?.length || 0) + (m.hearing.asked?.rule_questions?.length || 0) + (m.hearing.asked?.tradeoff_questions?.length || 0);
+  return !asked && !!m.hearing.answered && !!EXAMPLE_RUN;
+}
+
+export function exampleButton(m) {
+  if (!noQuestionAsked(m)) return null;
   return h("p", { class: "in-example", dataset: { example: EXAMPLE_RUN.run } },
-    h("a", { class: "in-btn", href: `?run=${encodeURIComponent(EXAMPLE_RUN.run)}&tab=A2&t=${EXAMPLE_RUN.t}&live=0&pace=0&autoplay=0${dev}` }, "質問のやり取りの例を見る"),
+    h("a", { class: "in-btn", href: exampleHref() }, "質問のやり取りの例を見る"),
     h("small", {}, ` (Claude が回した記録、質問 ${EXAMPLE_RUN.asked} つ)`));
+}
+
+/** Under the box of a record that asked nothing: a few of the questions of the example run, as that run asked them and as the person
+ *  answered (the cards of ②, read from its record; titled as another run's, not this one's), and the way to all of them. */
+export function exampleBlock(m) {
+  if (!noQuestionAsked(m) || !EXAMPLE_RUN.items?.length) return null;
+  return h("section", { class: "in-example-block", dataset: { exampleBlock: EXAMPLE_RUN.run } },
+    h("h3", {}, `例: Claude が回した記録での質問と答え (${EXAMPLE_RUN.title}${/[?&]dev=1(&|$)/.test(globalThis.location?.search || "") ? `・${EXAMPLE_RUN.run}` : ""})`),
+    h("p", { class: "in-example-note" }, `この依頼の質問ではありません。別の記録で、Claude が ${EXAMPLE_RUN.asked} つ聞いて答えをもらった中から ${EXAMPLE_RUN.items.length} つです。 `,
+      h("a", { class: "in-btn", href: exampleHref() }, `${EXAMPLE_RUN.asked} つ全部を見る`)),
+    h("div", { class: "in-example-cards" }, EXAMPLE_RUN.items.map((q) => question({ ...q, state: "answered", answerWho: "そのときの答え", answer: { ...q.answer, source: "hearing" } }, {}, { answers: {} }))));
 }
 
 /** A hearing with no question: one short box, in the positive: what was left to the standard values, as a list of the values.
@@ -212,8 +231,7 @@ function noQuestions(m) {
   return h("section", { class: "in-compact" },
     h("p", { class: "in-compact-title" }, `質問は無く、分からない ${std.length} つは標準の値で進めました`),
     h("ul", { class: "in-compact-list" }, std.map((a) => h("li", {}, h("b", {}, a.name), `: ${showValue(a.value, a.unit)}`))),
-    unchecked ? h("p", { class: "in-compact-note" }, "確かめていない値として、最後の報告に載ります") : null,
-    exampleButton(m));
+    unchecked ? h("p", { class: "in-compact-note" }, "確かめていない値として、最後の報告に載ります") : null);
 }
 
 /** The rounds asked before this one, in the order they were asked, each with what it asked and how it was answered (read only). */
@@ -249,7 +267,7 @@ export function renderA2(el, m, api, ui) {
       h("h2", {}, "HIRAKU からの質問", h("small", {}, rows.length || rules.length || trades.length ? `${[rows.length ? `確認したいこと ${rows.length} 件` : "", rules.length ? `ルール ${rules.length} 件` : "", trades.length ? `優先の相談 ${trades.length} 件` : ""].filter(Boolean).join("・")}` : "")),
       h("div", { class: "in-qs", dataset: { keepScroll: "a2-qs" } },
         rows.length || rules.length || trades.length ? [...rows.map((q) => question(q, api, ui)), ...rules.map((q) => ruleQuestion(q, api, ui)), ...trades.map((q) => tradeoffQuestion(q, api, ui))]
-          : noQuestions(m)),
+          : [noQuestions(m), exampleBlock(m)]),
       pastBlock(m, api, ui),
       rows.length || rules.length || trades.length
         ? h("div", { class: "in-composer" },

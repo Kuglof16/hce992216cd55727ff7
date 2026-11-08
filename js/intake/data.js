@@ -4,7 +4,74 @@ export const EXAMPLE_RUN = {
   "run": "20261105-160725-offroad-4w",
   "asked": 8,
   "rounds": 2,
-  "t": 189.39
+  "t": 189.39,
+  "title": "林道を走れる 2 人乗りの小さなオフロード車両、11/5 の Claude の実行",
+  "items": [
+    {
+      "req_key": "Q03",
+      "name": "使う頻度・年数",
+      "text": "どのくらいの頻度で、何年くらい使いますか。",
+      "ask": "confirm",
+      "choices": [],
+      "answer": {
+        "value": "週末ごと、5 年"
+      }
+    },
+    {
+      "req_key": "Q20",
+      "name": "水・ほこり (IP)",
+      "text": "水やほこりへの強さ (IP) はどのくらい要りますか。",
+      "ask": "confirm",
+      "choices": [
+        {
+          "label": "対策なし",
+          "value": "IPX0"
+        },
+        {
+          "label": "水の飛まつ",
+          "value": "IPX4"
+        },
+        {
+          "label": "水・ほこりに強い",
+          "value": "IP54"
+        },
+        {
+          "label": "水に浸かっても",
+          "value": "IP67"
+        }
+      ],
+      "answer": {
+        "value": "IP54"
+      }
+    },
+    {
+      "req_key": "Q34",
+      "name": "弱い人がいるか",
+      "text": "子どもや高齢者など、力の弱い人が使ったり、そばにいたりしますか。",
+      "ask": "confirm",
+      "choices": [
+        {
+          "label": "いない",
+          "value": "いない"
+        },
+        {
+          "label": "高齢者",
+          "value": "高齢者"
+        },
+        {
+          "label": "子ども",
+          "value": "子ども"
+        },
+        {
+          "label": "高齢者と子ども",
+          "value": "高齢者と子ども"
+        }
+      ],
+      "answer": {
+        "value": "いない"
+      }
+    }
+  ]
 };
 
 export const FLAGS = [
