@@ -132,14 +132,30 @@ HV.strengthShell = async function (D, ctx) {
   // hot spot marker
   const hotM = new T.Mesh(new T.SphereGeometry(12, 16, 12), new T.MeshBasicMaterial({ color: 0xff00ff, depthTest: false, transparent: true, opacity: 0.85 }));
   hotM.renderOrder = 9; ctx.root.add(hotM);
+  // the record's places drawn with a short tag (the hot spot the verdict reads, the largest element): a sprite kept
+  // in front, its text from the record's values
+  const tag = (text, colour, below) => {
+    const cv = document.createElement('canvas'), g = cv.getContext('2d'), f = 'bold 26px "BIZ UDPGothic", "Yu Gothic", Meiryo, sans-serif';
+    g.font = f; const w = Math.ceil(g.measureText(text).width) + 24; cv.width = w; cv.height = 44;
+    g.font = f; g.fillStyle = 'rgba(255,255,255,0.92)'; g.fillRect(0, 0, w, 44); g.strokeStyle = colour; g.lineWidth = 4; g.strokeRect(2, 2, w - 4, 40);
+    g.fillStyle = '#1d1d1f'; g.fillText(text, 12, 31);
+    const sp = new T.Sprite(new T.SpriteMaterial({ map: new T.CanvasTexture(cv), depthTest: false, sizeAttenuation: false }));
+    sp.center.set(0, below ? 1.4 : -0.4); sp.scale.set(0.032 * w / 44, 0.032, 1); sp.renderOrder = 10; ctx.root.add(sp); return sp;
+  };
+  const hot0 = D.hot.find(h => h);
+  const hotTag = hot0 ? tag(`ここがいちばん高い: ホットスポット ${HV.fmt(Math.abs(hot0.value))} MPa`, '#c0c', false) : null;
+  const elTag = D.el_max_pos ? tag(`要素の最大 ${HV.fmt(D.el_max[0][0])} MPa (${D.el_max[0][2]})`, '#e9893a', true) : null;
+  if (elTag) elTag.position.set(...D.el_max_pos);
   const S = { k: Math.max(0, D.hot.reduce((b, h, i, a) => (h && (!a[b] || Math.abs(h.value) > Math.abs(a[b].value)) ? i : b), 0)), scale: 50,
-              range: (D.marks || []).length ? 'yield' : 'all', grey: true, log: false, sel: -1 };
+              range: D.limit ? 'limit' : (D.marks || []).length ? 'yield' : 'all', grey: true, log: false, sel: -1 };
   const vmAt = (k, e) => vm[k * E + e] / 10;
   const frameMax = k => { let m = 0; for (let e = 0; e < E; e++) if (!excl[e]) m = Math.max(m, vm[k * E + e]); return Math.max(m / 10, 1e-6); };
   const yieldTop = () => Math.max(...(D.marks || []).map(m => m.v), 1);
-  const RNOTE = { yield: '上端 = フレームの降伏 (それ以上は赤)', all: '範囲は全時刻の最大', now: '範囲はこの時刻の最大' };
-  const spec = () => { const mx = S.range === 'yield' ? yieldTop() : S.range === 'all' ? D.vm_max : frameMax(S.k);
-    return { min: S.log ? Math.max(0.1, mx * 1e-3) : 0, max: mx, log: S.log, unit: 'MPa', title: '要素の相当応力 (外面と内面の大きい方)', marks: D.marks || [],
+  const RNOTE = { yield: '上端 = フレームの降伏 (それ以上は赤)', all: '範囲は全時刻の最大', now: '範囲はこの時刻の最大',
+                  limit: D.limit ? `上端 = この試験の許容 ${HV.fmt(D.limit.v)} MPa (ホットスポットの基準)。それ以上は最上の色` : '' };
+  const spec = () => { const mx = S.range === 'limit' && D.limit ? D.limit.v : S.range === 'yield' ? yieldTop() : S.range === 'all' ? D.vm_max : frameMax(S.k);
+    return { min: S.log ? Math.max(0.1, mx * 1e-3) : 0, max: mx, log: S.log, unit: 'MPa', title: '要素の相当応力 (外面と内面の大きい方)',
+             marks: S.range === 'limit' && D.limit ? [D.limit] : D.marks || [],
              note: RNOTE[S.range] + (S.grey ? '。灰色 = 除外の要素' : '') }; };
   const cur = new Float32Array(N * 3);
   function update() {
@@ -156,6 +172,7 @@ HV.strengthShell = async function (D, ctx) {
     for (let j = 0; j < np; j++) { const b = (k * np + j) * 3; boxes.off[j] = [S.scale * poff[b], S.scale * poff[b + 1], S.scale * poff[b + 2]]; }
     boxes.update();
     const h = D.hot[k]; hotM.visible = !!h; if (h) hotM.position.set(...h.pos);
+    if (hotTag) { hotTag.visible = !!h; if (h) hotTag.position.set(...h.pos); }
     paths.forEach((p, j) => { const c = j === S.sel ? [0, 0, 0] : (MCOL[p.m.support] || [0.2, 0.2, 0.2]); for (let i = 0; i < p.xyz.length; i += 3) pc.set(c, p.o + i); });
     pg.attributes.color.needsUpdate = true;
   }
@@ -169,8 +186,10 @@ HV.strengthShell = async function (D, ctx) {
     setScale(v) { S.scale = v; update(); },
     setTime(i) { S.k = i; update(); },
     setLog(on) { S.log = on; update(); },
-    timeText(k) { return (D.single ? '記録の 1 時刻 (時系列なし)' : `t = ${D.t[k].toFixed(3)} s`) + `   ${hotText(k)}   要素の最大 ${HV.fmt(D.el_max[k][0])} MPa (${D.el_max[k][2]})`; },
-    hud() { return [D.single ? `変形 ×${S.scale}、実寸ではない   矢印 = 記録の輪の反力 (1 kN = 100 mm)   時系列は記録にない (1 時刻)`
+    // one record instant with a headline (src/strength_records.py): the explanations live in くわしく (D.notes)
+    timeText(k) { return (D.single ? (D.headline ? '' : '記録の 1 時刻 (時系列なし)   ') : `t = ${D.t[k].toFixed(3)} s   `) + `${hotText(k)}   要素の最大 ${HV.fmt(D.el_max[k][0])} MPa (${D.el_max[k][2]})`; },
+    hud() { if (D.single && D.headline) return [];
+            return [D.single ? `変形 ×${S.scale}、実寸ではない   矢印 = 記録の輪の反力 (1 kN = 100 mm)   時系列は記録にない (1 時刻)`
                              : `変形 ×${S.scale}、実寸ではない   矢印 = 取付の力 (t = ${D.forces_at_t_s} s、1 kN = 100 mm)、点 = その力を受け持つ節点`,
                     `色: 要素の相当応力   紫の球 = ホットスポット`]; },
     contour: spec,
@@ -198,7 +217,7 @@ HV.strengthShell = async function (D, ctx) {
       const add = (tag, html) => { const e = document.createElement(tag); e.innerHTML = html; div.appendChild(e); return e; };
       if (D.single) { add('h3', '記録の 1 時刻'); const n = add('div', ''); n.className = 'muted'; n.id = 'stSingle'; n.textContent = D.single; }
       add('h3', '色と表示 (シェル)');
-      const r1 = add('div', `<label><input type="checkbox" id="stGrey" checked> 除外の要素を灰色</label> <select id="stRange"><option value="yield">降伏までで色</option><option value="all">全時刻の最大で色</option><option value="now">この時刻の最大で色</option></select>`);
+      const r1 = add('div', `<label><input type="checkbox" id="stGrey" checked> 除外の要素を灰色</label> <select id="stRange">${D.limit ? '<option value="limit">許容までで色</option>' : ''}<option value="yield">降伏までで色</option><option value="all">全時刻の最大で色</option><option value="now">この時刻の最大で色</option></select>`);
       r1.className = 'row'; div.querySelector('#stRange').value = S.range;
       div.querySelector('#stGrey').onchange = e => { S.grey = e.target.checked; update(); HV.refresh(); };
       div.querySelector('#stRange').onchange = e => { S.range = e.target.value; update(); HV.refresh(); };

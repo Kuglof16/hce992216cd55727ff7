@@ -3415,6 +3415,8 @@ $("tabs").addEventListener("click", (ev) => {
   if (!b) return;
   // a tab pressed (④ again, or another) ends ④'s domain replay: the replay goes back where it was
   if (ui.gridDomain) closeDomain();
+  // 「④ 解析結果」 pressed while a tile's viewer is open: back to ④'s list, as 「← 解析結果の一覧へ」
+  if (b.dataset.tab === "grid" && ui.gridViewer) closeGridViewer();
   ui.pinnedTab = b.dataset.tab;
   ui.tabPlan = []; // a tab pressed by hand ends ?tabs=
 });
