@@ -11,7 +11,7 @@
 //   the design of that time). The parts' ids in the data (the 3D lights them) are left as they are.
 
 import { agentName } from "./labels.js?v=f0690de096b9";
-import { RULE_CHOICE_JA, tradeoffChoiceJa } from "./intake/model.js?v=1ea72531035b";
+import { RULE_CHOICE_JA, tradeoffChoiceJa } from "./intake/model.js?v=06291aa72404";
 
 export function hearingRounds(events) {
   const rounds = [];

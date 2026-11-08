@@ -1,9 +1,9 @@
 // A1 - a new design: the request and the reply, the product's properties as chips, the domain cards (N09).
 
-import { FLAGS, SPEED_CLASSES } from "./data.js?v=69cf6a9dff99";
+import { FLAGS, SPEED_CLASSES } from "./data.js?v=fa3311704571";
 import { fill, h } from "./dom.js?v=b644293c522f";
-import { askingPanel } from "./a2.js?v=7ee9c4056eb1";
-import { DOMAIN_PLAIN, addedTests, domainCards, saidOf } from "./model.js?v=1ea72531035b";
+import { askingPanel, exampleButton } from "./a2.js?v=5fe30edac35d";
+import { DOMAIN_PLAIN, addedTests, domainCards, saidOf } from "./model.js?v=06291aa72404";
 
 const GLOW_S = 0.5; // seconds the glow of a newly lit card lasts
 export const REPLY_STEP_S = 0.5; // with a playback time, the domains answer one after another, this many seconds apart
@@ -42,7 +42,7 @@ function withReply(chat, m) {
 
 function replyBubble(m) {
   const text = replyText(m);
-  return text ? h("div", { class: "in-msg lead in-reply", dataset: { reply: "1" } }, h("div", { class: "in-who" }, "HIRAKU・まとめ"), h("p", {}, text)) : null;
+  return text ? h("div", { class: "in-msg lead in-reply", dataset: { reply: "1" } }, h("div", { class: "in-who" }, "HIRAKU・まとめ"), h("p", {}, text), exampleButton(m)) : null;
 }
 
 function bubble(msg) {

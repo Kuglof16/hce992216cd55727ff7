@@ -26,15 +26,15 @@
 // Without a callback the matching control is shown disabled, so a replay of a saved run is read-only.
 
 import { fill, h } from "./dom.js?v=b644293c522f";
-import { buildModel } from "./model.js?v=1ea72531035b";
-import { renderA1 } from "./a1.js?v=7eca9d65975e";
-import { renderA2, submit } from "./a2.js?v=7ee9c4056eb1";
-import { renderA5 } from "./a5.js?v=ae49d9952bf7";
+import { buildModel } from "./model.js?v=06291aa72404";
+import { renderA1 } from "./a1.js?v=3ddc89886d83";
+import { renderA2, submit } from "./a2.js?v=5fe30edac35d";
+import { renderA5 } from "./a5.js?v=6989cbd0b411";
 
 const SCREENS = [["A1", "作りたいもの", renderA1], ["A2", "確認したいこと", renderA2], ["A5", "守るルール", renderA5]];
 
 function ensureCss() {
-  const href = new URL("./intake.css?v=4963e1ceb2f5", import.meta.url).href;
+  const href = new URL("./intake.css?v=7bee888e7883", import.meta.url).href;
   if ([...document.querySelectorAll("link[rel=stylesheet]")].some((l) => l.href === href)) return;
   document.head.append(h("link", { rel: "stylesheet", href }));
 }

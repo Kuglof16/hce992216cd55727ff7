@@ -41,8 +41,8 @@ import { SeriesChart } from "./chart.js?v=6100c2bd5dca";
 import { FIELD_JA, FIELD_ORDER, atFrame, contourOf, convergenceLine, fieldLabel, fieldsOf, frameIndex, onSharedScale, preferredField, sameField, variantName, variantOf } from "./fields.js?v=f89cf047484b";
 import { motionOf, motionSpan, nearestAt, wheelName, xSeriesOf } from "./series.js?v=1b96ff84885a";
 import { NodeMotionView, nodeMotionAt, nodeMotionOf, nodeMotionPlaySpan, nodeMotionTau } from "./node_motion.js?v=156a05287cbe";
-import { mountIntake } from "./intake/index.js?v=e0420ca50389";
-import { REPLY_STEP_S } from "./intake/a1.js?v=7eca9d65975e";
+import { mountIntake } from "./intake/index.js?v=ad257b61b9ae";
+import { REPLY_STEP_S } from "./intake/a1.js?v=3ddc89886d83";
 import { lookFromParams, looksReady, qualityFromParams } from "./look.js?v=ea9123c575c2";
 import { DUMMY_NOTE_JA } from "./hybrid3.js?v=ba304c38166a"; // the workbench's くわしく under a dummy
 import { mountShelf } from "./shelf.js?v=0fb7283030e3";
@@ -55,8 +55,8 @@ import { AssemblyPanel, assemblyRecord } from "./assembly.js?v=cff4a97295e5";
 import { renderJointLegend } from "./joints.js?v=2434412392c5"; // joints:
 import { MODE_JA, MODE_ORDER, drawableMetrics, METRIC_JA, modeCardHtml, modeLegendParts, qualityContourOf, qualityOf, setupContourOf, setupOf, thicknessContourOf } from "./quality.js?v=9fc19fa9430b";
 import { AgentPets, PET_PAINTS, glRendererName, isSoftwareRenderer, petRowHtml, stopWhyHtml } from "./agent_pets.js?v=73a37d0a31d9";
-import { IntakePets } from "./intake_pets.js?v=9f023c5812c5"; // the CAE agents' pets on A1, the asker's on A2
-import { hearingRounds, plainHearingEvents, roundAt, roundLine, roundTitle } from "./hearing_rounds.js?v=0c03df2087b0"; // ②: when each hearing was
+import { IntakePets } from "./intake_pets.js?v=bb250f78dd2d"; // the CAE agents' pets on A1, the asker's on A2
+import { hearingRounds, plainHearingEvents, roundAt, roundLine, roundTitle } from "./hearing_rounds.js?v=000ef6f08303"; // ②: when each hearing was
 import { reportNextHtml } from "./report_next.js?v=c18574158c68";
 import { analysisEdge, assumptionText, edgeFlips, edgeLineHtml, edgeRaw, edgeText, nearLineHtml } from "./edge_note.js?v=4b88a15a355b";
 import { causeNoteHtml, hookWords, nowSentence, openCause, presentCardHtml, presentScene, resolvedHooks, verdictLine, verdictSentence } from "./present.js?v=893534271884";
@@ -691,6 +691,13 @@ function showGridViewer(s) {
   }
   el.dataset.field = g.field;
   if (frame.getAttribute("src") !== g.url) frame.setAttribute("src", g.url);
+}
+
+// The aero tile's picture opens the design's air flow (CFD, viewer_link.js VIEWER_EXTRAS aero_cfd) when the
+// run has it; null otherwise (the tile opens its headline's analysis)
+function tileCfd(s, d) {
+  if (d !== "aero") return null;
+  return viewerExtras(viewerRunId(s), d).find((e) => e.id === "aero_cfd") ?? null;
 }
 
 // The rows of the records kept for the run's design (viewer_link.js viewerExtras), on their tile
@@ -2619,8 +2626,10 @@ function renderGrid(s) {
   if (GRID_FIXED) {
     for (const el of $("tiles").querySelectorAll(".tile[data-domain], .offchip[data-domain]")) {
       const ana = tileAnalysis(s, el.dataset.domain);
-      el.classList.toggle("can-open", !!ana);
-      if (ana) el.title = `押すと、${DOMAIN_JA[el.dataset.domain] ?? el.dataset.domain}の解析 (${ana.tool}) をビューアで見ます`;
+      const cfd = tileCfd(s, el.dataset.domain);
+      el.classList.toggle("can-open", !!(ana || cfd));
+      if (cfd) el.title = `押すと、${cfd.label}をビューアで見ます (数を押すと、その解析 (${ana?.tool ?? ""}))`;
+      else if (ana) el.title = `押すと、${DOMAIN_JA[el.dataset.domain] ?? el.dataset.domain}の解析 (${ana.tool}) をビューアで見ます`;
     }
     for (const b of $("grid-head").querySelectorAll(".vbox[data-ver]")) b.classList.add("pick");
     showGridNote();
@@ -3322,6 +3331,13 @@ $("tiles").addEventListener("click", (ev) => {
     const tile = ev.target.closest(".tile[data-domain], .offchip[data-domain]");
     if (!tile || ev.target.closest("a, summary, [data-role=viewer-none]")) return;
     if (!row && ev.target.closest("details")) return;
+    // the aero tile's picture: the design's air flow (CFD) when the run has it; its number (the crosswind)
+    // still opens its own analysis
+    const cfd = !row ? tileCfd(s, tile.dataset.domain) : null;
+    if (cfd) {
+      openGridExtra(s, tile.dataset.domain, cfd);
+      return;
+    }
     const ana = row ? s.analyses[row.dataset.ana] : tileAnalysis(s, tile.dataset.domain);
     if (ana) openGridAnalysis(s, tile.dataset.domain, ana);
     return;
