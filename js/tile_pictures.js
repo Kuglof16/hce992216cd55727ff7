@@ -23,10 +23,10 @@
 // field, else the vehicle alone; `missing` names what was looked for and not found.
 
 import { atFrame, fieldsOf, frameIndex } from "./fields.js?v=f89cf047484b";
-import { judgedContour } from "./judged.js?v=f87bbbefe926";
-import { channelsOf, motionOf } from "./series.js?v=e2b2209bd489";
-import { nodeMotionAt, nodeMotionOf } from "./node_motion.js?v=c57b7ee51599";
-import { HEAT_PLAY_S, heatInputs } from "./energy_flow.js?v=52110c00265f";
+import { judgedContour } from "./judged.js?v=266a04db0468";
+import { channelsOf, motionOf } from "./series.js?v=1b96ff84885a";
+import { nodeMotionAt, nodeMotionOf } from "./node_motion.js?v=156a05287cbe";
+import { HEAT_PLAY_S, heatInputs } from "./energy_flow.js?v=3a3c64f32656";
 
 // what each domain's picture is made of, in words (the tile's くわしく)
 export const MATERIAL_JA = {

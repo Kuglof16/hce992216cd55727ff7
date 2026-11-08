@@ -33,9 +33,9 @@
 // Positions, sizes, colours, the length and the times come from layout.json n13; a missing
 // key is named on the page.
 
-import { requireKeys, storyOf } from "./cut_n03.js?v=56e18e40c5dc";
-import { GREEN, MUTED, RED, panel, showFrom, spread, textPx, toolTitle } from "./cut_panels.js?v=60e063a341a6";
-import { checkSourceShort, esc, plainName, plainToolName, plainValue } from "./labels.js?v=8576a93ebc08";
+import { requireKeys, storyOf } from "./cut_n03.js?v=136ac889da57";
+import { GREEN, MUTED, RED, panel, showFrom, spread, textPx, toolTitle } from "./cut_panels.js?v=95716b4e8ab8";
+import { checkSourceShort, esc, plainName, plainToolName, plainValue } from "./labels.js?v=f0690de096b9";
 import { getUrl } from "./source.js?v=e332c3f13242";
 
 const params = new URLSearchParams(location.search);

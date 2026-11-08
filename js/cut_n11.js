@@ -21,12 +21,12 @@
 // key is named on the page.
 
 import * as THREE from "three";
-import { requireKeys, storyOf } from "./cut_n03.js?v=56e18e40c5dc";
-import { GREEN, PANEL_BORDER_PX, RED, panel, requestedSetting, showFrom, spread, textPx } from "./cut_panels.js?v=60e063a341a6";
-import { esc, fmtVU, formulaInputName, quantityName, ruleOf } from "./labels.js?v=8576a93ebc08";
+import { requireKeys, storyOf } from "./cut_n03.js?v=136ac889da57";
+import { GREEN, PANEL_BORDER_PX, RED, panel, requestedSetting, showFrom, spread, textPx } from "./cut_panels.js?v=95716b4e8ab8";
+import { esc, fmtVU, formulaInputName, quantityName, ruleOf } from "./labels.js?v=f0690de096b9";
 import { PACE_LIMIT_DEG_S, pacer } from "./pace.js?v=206021786fb2";
-import { motionOf } from "./series.js?v=e2b2209bd489";
-import { VIEWS, cutView } from "./workbench3d.js?v=e10d1ac8d1c8";
+import { motionOf } from "./series.js?v=1b96ff84885a";
+import { VIEWS, cutView } from "./workbench3d.js?v=57b3d74d8b2f";
 
 const BOX = ["x", "y", "w", "h", "title_px", "text_px"];
 export const N11_KEYS = [

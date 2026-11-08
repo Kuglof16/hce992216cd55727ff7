@@ -3,8 +3,8 @@
 // a K&C bench's camber against wheel travel), named from x.quantity and x.unit.
 // Values printed next to the legend are the recorded samples nearest to the cursor.
 
-import { esc, fmt, quantityName, unitLabel } from "./labels.js?v=8576a93ebc08";
-import { abscissa, chartGroups, extent, nearestAt, seriesName } from "./series.js?v=e2b2209bd489";
+import { esc, fmt, quantityName, unitLabel } from "./labels.js?v=f0690de096b9";
+import { abscissa, chartGroups, extent, nearestAt, seriesName } from "./series.js?v=1b96ff84885a";
 
 const W = 380;
 const H = 150;

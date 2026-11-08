@@ -87,9 +87,9 @@ export function plainReason(reason) {
 }
 
 export const ROLE_JA = {
-  lead: "まとめ役",
-  designer: "設計役",
-  packager: "パッケージ役",
+  lead: "まとめ",
+  designer: "設計",
+  packager: "パッケージ",
   system: "HIRAKU",
   user: "あなた",
 };
@@ -141,7 +141,7 @@ export const AGENT_STOP_NOTE_CHARS = 40; // a stop_reason up to this long is sho
 // reason: stop_reason, trimmed), or null when the record says neither (records from before a31e520).
 export function agentStopWhy(d) {
   const code = typeof d?.stop_code === "string" ? d.stop_code : null;
-  const reason = typeof d?.stop_reason === "string" && d.stop_reason.trim() ? d.stop_reason.trim() : null;
+  const reason = typeof d?.stop_reason === "string" && d.stop_reason.trim() ? roleNames(d.stop_reason.trim()) : null;
   const words = AGENT_STOP_JA[code] ?? null;
   if (!words && !reason) return null;
   return { code, words, reason };
@@ -170,6 +170,7 @@ export const BASE_JA = {
 const QUANTITY_JA = {
   // frame (K1)
   max_stress: "最大応力",
+  cycles_to_failure: "壊れるまでの繰り返しの回数",
   min_safety_factor: "最小の安全率",
   max_displacement: "最大変位",
   vehicle_mass: "車両の質量",
@@ -784,13 +785,13 @@ export function agentName(id) {
   if (!id) return "";
   if (ROLE_JA[id]) return ROLE_JA[id];
   if (id.startsWith("cae.")) return DOMAIN_JA[id.slice(4)] ?? id;
-  if (designerRole(id)) return `${DESIGNER_ROLES_JA[designerRole(id)]}の設計役`; // designer.structure → 構造の設計役
-  if (designerModule(id)) return `${moduleName(designerModule(id))}の設計役`; // older records: designer.<module>
+  if (designerRole(id)) return `${DESIGNER_ROLES_JA[designerRole(id)]}の設計`; // designer.structure → 構造の設計
+  if (designerModule(id)) return `${moduleName(designerModule(id))}の設計`; // older records: designer.<module>
   return id;
 }
 
 export function agentLongName(id) {
-  if (id && id.startsWith("cae.")) return `${agentName(id)}の CAE 役`;
+  if (id && id.startsWith("cae.")) return `${agentName(id)}の CAE`;
   return agentName(id);
 }
 
@@ -894,6 +895,19 @@ export function runSummaryJa(r) {
   return [how, far].filter(Boolean).join("・");
 }
 
+// Why a run stopped, in one line for people (a stopped or failed run that is over; else ""): the
+// first sentence of the record's own stop_reason when it is in Japanese (its numbers as recorded),
+// else the stop_code's words. Before its first design (no version): 「v1 を作る前に止まりました」 first.
+export function stopWhyJa(r) {
+  if (!r?.finished || !["stopped", "failed"].includes(runState(r))) return "";
+  const raw = roleNames(String(r.stop_reason ?? "").trim());
+  const first = /[ぁ-んァ-ン一-龥]/.test(raw) ? raw.split("。")[0].trim() : "";
+  const why = first || STOP_CODE_JA[r.stop_code] || (raw ? `止まった理由: ${raw}` : "");
+  const v = Number.isInteger(r.last_version) ? r.last_version : null;
+  const head = v ? `${verLabel(v)} で止まりました` : `この記録は ${verLabel(1)} を作る前に止まりました`;
+  return why ? `${head} (${why})` : head;
+}
+
 // A record the list for people keeps under the closed 「この PC の記録」: one this PC ran that has no
 // project.driver (made before the field, while HIRAKU was being built), no design version, or that
 // ended at the domain picks. Saved records always stay on the list.
@@ -965,7 +979,8 @@ export function esc(s) {
 // than the line), so a line does not break inside a short aside.
 export function keepAsides(s, max = 40) {
   const re = new RegExp(`\\(((?:[^()]|\\([^()]*\\)){1,${max}})\\)`, "g");
-  return esc(s).replace(re, '<span class="aside">($1)</span>');
+  // (the agents by their plain names: roleNames)
+  return esc(roleNames(s)).replace(re, '<span class="aside">($1)</span>');
 }
 
 // A design generator's choices (revise_design choices; their meaning: hiraku/designgen/ladder_4w.py
@@ -987,10 +1002,10 @@ export const CHOICE_JA = {
 // 不合格 and for 緑 / 赤 meaning a verdict, 判定 for 合否, 比べ for 照合 (a prediction against an
 // analysis) and 不一致 for 食い違い, vN for 版 N. The record keeps its own words (beyond.js reads
 // them as written); only what is shown changes. 赤 / 緑 as a colour (赤い, 赤色, 半透明の赤 ...)
-// are kept.
+// are kept. The agents by their plain names (roleNames): 設計 / まとめ / パッケージ / CAE, not 「…役」.
 const NOT_ASCII = "[^\\s\\x00-\\x7f]";
 export function judgedWords(text) {
-  return String(text ?? "")
+  return roleNames(String(text ?? ""))
     // judge.py's 「まだ OK にできない試験」 (before: まだ合格にできない) names a test still held
     // back, often beside its NG value: no OK beside it on the screen
     .replace(/まだ\s*(?:合格|OK)\s*にできない/g, "まだ判定を出せない")
@@ -1003,6 +1018,12 @@ export function judgedWords(text) {
     .replace(/版\s*(\d+)/g, "v$1")
     .replace(new RegExp(`(${NOT_ASCII})(OK|NG|v\\d)`, "g"), "$1 $2")
     .replace(new RegExp(`(OK|NG)(${NOT_ASCII})`, "g"), (m, w, c) => ("、。・)）:：".includes(c) ? m : `${w} ${c}`));
+}
+
+// The agents' names as shown: 「設計」「まとめ」「パッケージ」「CAE」 (「…役」 reads as a part in a play).
+// Records, prompts and agent ids keep their own words; a record's text is read through this when shown.
+export function roleNames(text) {
+  return String(text ?? "").replace(/(設計|まとめ|パッケージ)役|CAE ?役/g, (m, w) => w ?? "CAE");
 }
 
 // What an agent said, as plain text: Markdown marks (bold, headings, code,

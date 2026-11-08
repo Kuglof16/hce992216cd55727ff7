@@ -6,8 +6,8 @@
 //
 // No three.js here: state.js uses proposalText for the log lines.
 
-import { CHOICE_JA, agentName, designNumberName, designerModule, designerRole, esc, fmt, judgedWords, moduleName, moduleOwner, unitLabel, verLabel } from "./labels.js?v=8576a93ebc08";
-import { markRecordWords } from "./benchnote.js?v=b7d2a9ddc529";
+import { CHOICE_JA, agentName, designNumberName, designerModule, designerRole, esc, fmt, judgedWords, moduleName, moduleOwner, unitLabel, verLabel } from "./labels.js?v=f0690de096b9";
+import { markRecordWords } from "./benchnote.js?v=8621659da09b";
 
 // The module colours: pet3d.js v10 ROLES (the rows with a module) when the page has them, else
 // the same values here. package is the packager's (its pet's colour, app.js PET_COLORS.packager).
@@ -137,7 +137,7 @@ export function roundCardHtml(s, playhead) {
     const base = s.designs[pending[0].baseVersion] ?? s.designs[s.currentVersion];
     const who = new Set(pending.map((p) => p.agent_id ?? moduleOwner(p.module_id, base))).size;
     return (
-      `<div class="rc-head" data-round="pending">${esc(verLabel(pending[0].baseVersion ?? s.currentVersion))} を直す提案: 設計役 ${who} 人が並べて出した</div>` +
+      `<div class="rc-head" data-round="pending">${esc(verLabel(pending[0].baseVersion ?? s.currentVersion))} を直す提案: 設計 ${who} 人が並べて出した</div>` +
       `<ol class="rc-list">${pending.map((p) => rowHtml(p, base)).join("")}</ol>` +
       `<div class="rc-foot">${esc(agentName("packager"))}が 1 つの設計にまとめるのを待っている</div>`
     );

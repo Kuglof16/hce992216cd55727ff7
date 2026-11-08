@@ -18,7 +18,7 @@
 // times the wall (inner radius that less the wall); the arcs and the round tube in so many pieces.
 
 import * as THREE from "three";
-import { THROUGH_COS } from "./joints.js?v=ae77cc8ea94f";
+import { THROUGH_COS } from "./joints.js?v=2434412392c5";
 
 export const TUBE = { corner_r_of_t: 1.5, corner_segments: 4, round_segments: 24, collinear_cos: 0.95, max_trim_of_length: 0.45, cut_gap_mm: 0.3 };
 export const TUBE_NOTE = `角管の角は外の半径を肉厚の ${TUBE.corner_r_of_t} 倍で丸めて描いている (画面の決め、出典なし)`;

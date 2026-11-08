@@ -46,10 +46,10 @@
 
 import * as THREE from "three";
 import { clearOfBand } from "./compose.js?v=453a16e757af";
-import { DOMAINS, DOMAIN_JA, DOMAIN_PLAIN_JA, esc, plainReason, plainSentence } from "./labels.js?v=8576a93ebc08";
-import { VIEWS, cutView } from "./workbench3d.js?v=e10d1ac8d1c8";
-import { storyOf } from "./cut_n03.js?v=56e18e40c5dc";
-import { applyEvent, initialState } from "./state.js?v=01ef3929e266";
+import { DOMAINS, DOMAIN_JA, DOMAIN_PLAIN_JA, esc, plainReason, plainSentence } from "./labels.js?v=f0690de096b9";
+import { VIEWS, cutView } from "./workbench3d.js?v=57b3d74d8b2f";
+import { storyOf } from "./cut_n03.js?v=136ac889da57";
+import { applyEvent, initialState } from "./state.js?v=1f73c312bee4";
 import { fetchAllEvents } from "./eventread.js?v=fe3d485af807";
 
 const $ = (id) => document.getElementById(id);

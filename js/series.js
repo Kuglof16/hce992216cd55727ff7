@@ -15,7 +15,7 @@
 //   reaction_{x,y,z}.<ID>, grip_{x,y,z}.<ID> (N)  force vectors on the tyre
 // All positions are in the road frame (x along the road, y left, z up).
 
-import { channelName, channelPartName, quantityName } from "./labels.js?v=8576a93ebc08";
+import { channelName, channelPartName, quantityName } from "./labels.js?v=f0690de096b9";
 
 // Factors to mm, rad and N.
 export const LENGTH = { mm: 1, m: 1000, km: 1e6 };

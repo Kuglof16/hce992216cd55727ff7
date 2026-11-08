@@ -8,13 +8,14 @@
 // The words for the hooks' notices (what happened / what comes next) and whether a stopped
 // action was later done are here too: the workbench uses them as well.
 
-import { DOMAINS, DOMAIN_JA, JUDGED_JA, agentLongName, esc, fmt, fmtQ, fmtVU, isYesNo, judgedWords, opLabel, quantityName, ruleOf, verLabel } from "./labels.js?v=8576a93ebc08";
+import { DOMAINS, DOMAIN_JA, JUDGED_JA, agentLongName, esc, fmt, fmtQ, keepAsides, fmtVU, isYesNo, judgedWords, opLabel, quantityName, ruleOf, verLabel } from "./labels.js?v=f0690de096b9";
 import { FIELD_JA } from "./fields.js?v=f89cf047484b";
-import { judgedVerdict, valueFromJa, judgementState } from "./state.js?v=01ef3929e266";
-import { judgedResult, referenceResults } from "./judged.js?v=f87bbbefe926";
-import { assemblyRecord } from "./assembly.js?v=6491d2e3557e";
-import { versionChangeLine } from "./proposals.js?v=611994c557b9";
-import { markRecordWords } from "./benchnote.js?v=b7d2a9ddc529";
+import { judgedVerdict, valueFromJa, judgementState } from "./state.js?v=1f73c312bee4";
+import { judgedResult, referenceResults } from "./judged.js?v=266a04db0468";
+import { assemblyRecord } from "./assembly.js?v=cff4a97295e5";
+import { versionChangeLine } from "./proposals.js?v=76a6b4998393";
+import { markRecordWords } from "./benchnote.js?v=8621659da09b";
+import { pathCheckedWhy } from "./why_line.js?v=fe9ac4294647";
 
 // ---- hooks: what happened, what comes next, resolved or not ---------------------------
 
@@ -24,7 +25,7 @@ const HOOK_WORDS = {
   HK3: { what: "予測と解析が不一致のまま進もうとしたので、止めました", next: "不一致の原因を書いてから進みます" },
   HK4: { what: "判定がそろう前に終わろうとしたので、止めました", next: "残りの判定を出してから終わります" },
   // modules: HK6 (docs/contract.md: a designer changes only its own module; build_version is refused on a clash or a part outside its space)
-  HK6: { what: "モジュールの持ち場の外を変えようとしたので、止めました", next: "自分のモジュールの中で直すか、パッケージ役に渡します" },
+  HK6: { what: "モジュールの持ち場の外を変えようとしたので、止めました", next: "自分のモジュールの中で直すか、パッケージに渡します" },
 };
 
 export function hookWords(rule) {
@@ -211,7 +212,9 @@ function verdictCard(c, numTool = null) {
   if (!verdict) return { crit: criterionLine(loadCase), verdict: null };
   const tool = c.s.analyses[c.s.comparisons[verdict.comparison_id]?.analysis_id]?.tool;
   const from = tool && numTool && tool !== numTool ? `判定 (${c.toolTitle(tool)}): ` : "";
-  return { crit: from + verdictLine(verdict), verdict: verdictSentence(verdict) };
+  // basis path_checked: why the tool's value decides, in one line (why_line.js)
+  const why = pathCheckedWhy(c.s, verdict, c.formulaTitle)?.text ?? null;
+  return { crit: from + verdictLine(verdict), verdict: verdictSentence(verdict), why };
 }
 
 // The quantity a verdict judged: its comparison's (frame_shell: the hot-spot stress for a
@@ -391,7 +394,7 @@ function withNotJudged(c, card) {
 // opts.dev (?dev=1): the card's record words with ids (card.dev) folded under くわしく; else not shown.
 export function presentCardHtml(scene, now, opts = {}) {
   const c = scene.card;
-  const head = `<div class="pc-now">${esc(now)}</div>`;
+  const head = `<div class="pc-now">${keepAsides(now)}</div>`;   // 「… = 1 (shape example)」: not broken inside the brackets
   if (!c) return head;
   const num = c.value
     ? `<div class="pc-num" data-kind="number"><div class="pc-what">${esc(c.what)}</div><div class="pc-val">${esc(c.value)}</div>${c.src ? `<div class="pc-src">${esc(c.src)}</div>` : ""}</div>`
@@ -403,6 +406,7 @@ export function presentCardHtml(scene, now, opts = {}) {
     (c.crit ? `<div class="pc-crit">${esc(c.crit)}</div>` : "") +
     // ok null: a statement that is not a verdict (no colour)
     (c.verdict ? `<div class="pc-verdict ${c.verdict.ok == null ? "plain" : c.verdict.ok ? "ok" : "bad"}">${esc(c.verdict.text)}</div>` : "") +
+    (c.why ? `<div class="pc-why" data-role="why">${esc(c.why)}</div>` : "") +
     // values shown beside the judged one that the verdict does not use, small and under their heading
     (c.ref?.length ? `<div class="pc-ref" data-role="reference"><div class="pc-ref-h">${esc(JUDGED_JA.ref)}</div><ul>${c.ref.map((x) => `<li>${esc(x)}</li>`).join("")}</ul></div>` : "") +
     (c.note ? `<div class="pc-note" data-role="not-judged">${esc(c.note)}</div>` : "") +

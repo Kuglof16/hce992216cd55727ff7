@@ -31,6 +31,7 @@
   button.on { border-color: var(--ink); background: var(--ink); color: var(--panel); font-weight: 600; }
   button:disabled { opacity: 0.5; cursor: default; }
   #switch { display: flex; flex-wrap: wrap; gap: 4px; }
+  #switch[hidden], #switchHead[hidden] { display: none; }   /* one field with data: no switch (js/main.js) */
   #switch button { font-size: 14px; padding: 3px 12px; }
   /* nothing is drawn over the 3D view: the header sits above it, the rest in the side panel and the bottom pane */
   #hud { position: absolute; left: 0; top: 0; right: 340px; height: 86px; overflow: hidden; padding: 4px 16px; background: var(--paper); border-bottom: 1px solid var(--rule); }
@@ -73,6 +74,13 @@
   #fieldpanel .list { max-height: 260px; overflow-y: auto; border: 1.5px solid var(--line); border-radius: 8px; background: var(--card); }
   #fieldpanel .list div { padding: 1px 6px; cursor: pointer; }
   #fieldpanel .list div.on { background: var(--ink); color: var(--panel); }
+  /* the large play button at the 3D view's lower left (the panel's 「▶ 再生」 found at a glance): red with a white rim
+     until pressed (the one red that is not a criterion's NG, as the person asked), dark while it plays (「❚❚ 止める」) */
+  #bigplay { position: absolute; left: 16px; bottom: 252px; z-index: 5; font-size: 20px; font-weight: 700; padding: 10px 26px;
+    background: #d3352b; color: #fff; border: 2px solid #fff; box-shadow: 0 4px 16px rgba(0, 0, 0, .3); }
+  #bigplay:hover { background: #b02a21; border-color: #fff; }
+  #bigplay.playing, #bigplay.playing:hover { background: #1c1f24; }
+  #bigplay[hidden] { display: none; }
 </style>
 <!-- three.js r170 (0.170.0) from jsDelivr, the same version and URL form as web/index.html. -->
 <script type="importmap">
@@ -81,13 +89,13 @@
     "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
 } }
 </script>
-<script src="js/names.js?v=9bfd95ca"></script>
+<script src="js/names.js?v=03a259f3e84b"></script>
 <script src="js/look.js?v=3c6a09477154"></script>
-<script src="js/core.js?v=ddbd075a0916"></script>
+<script src="js/core.js?v=99961d0b2e5c"></script>
 <script src="js/plot.js?v=ed0069166d85"></script>
-<script src="js/main.js?v=cc45045c1ead"></script>
-<script src="js/nvh.js?v=82c35d9a1644"></script>
-<script src="js/crash.js?v=a2d44c63"></script>
+<script src="js/main.js?v=b7898d39e9cc"></script>
+<script src="js/nvh.js?v=10a56b3629e9"></script>
+<script src="js/crash.js?v=519618e57444"></script>
 <script src="js/assembly.js?v=16e6386b8810"></script>
 <script src="js/strength.js?v=8e8431e9c918"></script>
 <script src="js/fatigue.js?v=57b0ea68f597"></script>
@@ -97,12 +105,13 @@
 <script src="js/powertrain.js?v=5ff076585966"></script>
 <script src="js/aero.js?v=cb3f73aaf8de"></script>
 <script src="js/rops.js?v=beb5ef79c242"></script>
-<script src="js/aero_cfd.js?v=1c1b87eea012"></script>
-<script src="js/water.js?v=d1b373ee"></script>
+<script src="js/aero_cfd.js?v=1bdcd27e65c4"></script>
+<script src="js/water.js?v=bb51fbd04cab"></script>
 </head>
 <body>
 <div id="loading">読み込み中…</div>
 <div id="view"></div>
+<button id="bigplay" type="button" hidden>▶ 動きを再生</button>
 <div id="hud">
   <div id="head1"><span id="title"></span><span id="source"></span></div>
   <div id="tline"></div>
@@ -111,7 +120,7 @@
 <div id="bottom"><div id="plotwrap"><canvas id="plot"></canvas></div><div id="inputs"></div></div>
 
 <div id="panel">
-  <h3>分野</h3>
+  <h3 id="switchHead">分野</h3>
   <div id="switch"></div>
 
   <h3>選択</h3>
@@ -164,7 +173,5 @@ window.OrbitControls = OrbitControls;
 window.RoomEnvironment = RoomEnvironment;   // the sky light of web/js/look.js's real look without its HDRI
 await HV.main();
 </script>
-<script src="../js/judge_trim.js?v=5"></script>
-<script src="js/judge_viewer.js?v=4"></script>
 </body>
 </html>
