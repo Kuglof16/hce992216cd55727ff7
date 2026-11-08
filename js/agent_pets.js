@@ -17,11 +17,11 @@
 // pet3d's states and how long a reaction lasts. A pet's bubble is the agent's newest log
 // line (the same words as the log), cut short, for SAY_S seconds after its event.
 
-import { AGENT_STOP_SHORT_JA, DESIGNER_ROLES_JA, DOMAINS, agentName, designerModule, designerRole, esc } from "./labels.js?v=f0690de096b9";
+import { AGENT_STOP_SHORT_JA, DESIGNER_ROLES_JA, DOMAINS, agentName, designerModule, designerRole, esc } from "./labels.js?v=230f55e45d39";
 import { PetStage, loadPets, missingPetKeys, poseTime } from "./cut_pets.js?v=46c9c549c234";
 import { loadLayout } from "./compose.js?v=453a16e757af";
-import { designerColor } from "./proposals.js?v=76a6b4998393"; // modules:
-import { moduleStyle } from "./modules.js?v=45b1d4c17883"; // modules:
+import { designerColor } from "./proposals.js?v=c3a8e65518a5"; // modules:
+import { moduleStyle } from "./modules.js?v=8f5ea3afb9db"; // modules:
 
 export const SAY_S = 5; // seconds a bubble stays (as the 3D's bubble: app.js SHOW_S)
 export const SAY_CHARS = 26; // a bubble shows at most this many characters of the line

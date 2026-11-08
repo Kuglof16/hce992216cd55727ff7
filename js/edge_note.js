@@ -5,7 +5,7 @@
 // The screen reads it in one place (parseBreakBand) and says it in one line each:
 //  - 境目: on the verdict of a quantity the note names as changing (orange, not red: it is not a NG)
 //  - 参考: a member a little under the break angle, how far (computed here from the note's angles)
-import { esc, fmt, judgedWords, memberName } from "./labels.js?v=f0690de096b9";
+import { esc, fmt, judgedWords, memberName } from "./labels.js?v=230f55e45d39";
 
 export const EDGE_NOTE = "break angle band";
 

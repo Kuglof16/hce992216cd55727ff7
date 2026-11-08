@@ -25,9 +25,9 @@ import {
   plainToolName,
   quantityName,
   ruleOf,
-} from "./labels.js?v=f0690de096b9";
+} from "./labels.js?v=230f55e45d39";
 import { kindCountText, kindCountsText } from "./meshkind.js?v=42be1b82154c";
-import { proposalText } from "./proposals.js?v=76a6b4998393";
+import { proposalText } from "./proposals.js?v=c3a8e65518a5";
 
 const RECORDS = ["predictions", "analyses", "comparisons", "causes", "verdicts", "meshes"];
 

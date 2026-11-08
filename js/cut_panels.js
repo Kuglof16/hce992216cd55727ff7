@@ -3,7 +3,7 @@
 // come from the box; the colours from the cut's colors.
 
 import { clearOfBand } from "./compose.js?v=453a16e757af";
-import { esc } from "./labels.js?v=f0690de096b9";
+import { esc } from "./labels.js?v=230f55e45d39";
 
 export const PANEL_BORDER_PX = 2;
 export const PANEL_RADIUS_PX = 12;

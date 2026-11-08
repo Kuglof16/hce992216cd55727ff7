@@ -8,14 +8,14 @@
 // The words for the hooks' notices (what happened / what comes next) and whether a stopped
 // action was later done are here too: the workbench uses them as well.
 
-import { DOMAINS, DOMAIN_JA, JUDGED_JA, agentLongName, esc, fmt, fmtQ, keepAsides, fmtVU, isYesNo, judgedWords, opLabel, quantityName, ruleOf, verLabel } from "./labels.js?v=f0690de096b9";
+import { DOMAINS, DOMAIN_JA, JUDGED_JA, agentLongName, esc, fmt, fmtQ, keepAsides, fmtVU, isYesNo, judgedWords, opLabel, quantityName, ruleOf, verLabel } from "./labels.js?v=230f55e45d39";
 import { FIELD_JA } from "./fields.js?v=f89cf047484b";
-import { judgedVerdict, valueFromJa, judgementState } from "./state.js?v=1f73c312bee4";
-import { judgedResult, referenceResults } from "./judged.js?v=266a04db0468";
-import { assemblyRecord } from "./assembly.js?v=cff4a97295e5";
-import { versionChangeLine } from "./proposals.js?v=76a6b4998393";
-import { markRecordWords } from "./benchnote.js?v=8621659da09b";
-import { pathCheckedWhy } from "./why_line.js?v=fe9ac4294647";
+import { judgedVerdict, valueFromJa, judgementState } from "./state.js?v=5e8574b5d2c1";
+import { judgedResult, referenceResults } from "./judged.js?v=acae77fbcca4";
+import { assemblyRecord } from "./assembly.js?v=9fde7a5803c8";
+import { versionChangeLine } from "./proposals.js?v=c3a8e65518a5";
+import { markRecordWords } from "./benchnote.js?v=5447a1c02dd2";
+import { pathCheckedWhy } from "./why_line.js?v=105ec6cc1634";
 
 // ---- hooks: what happened, what comes next, resolved or not ---------------------------
 

@@ -7,7 +7,7 @@
 // unsupported_load, as hiraku/tools/judge.py path_check reads them). A clause whose record is
 // not there is left out; nothing is filled in. null for any other basis.
 
-import { fmtQ } from "./labels.js?v=f0690de096b9";
+import { fmtQ } from "./labels.js?v=230f55e45d39";
 
 const PATH_FORMULA = "load_path.free_parts"; // judge.py PATH_FORMULA
 // A K0 formula whose title says it bounds the value from above (library_loadpath.py grip_bound:

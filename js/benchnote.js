@@ -17,7 +17,7 @@
 
 // (the rule is plain.js's, the same as the footer's line and the log's; kept here under the names
 // the card's callers import)
-export { hasRecordWords, markRecordWords, plainWords } from "./plain.js?v=0522079b9d32";
+export { hasRecordWords, markRecordWords, plainWords } from "./plain.js?v=e8f09fb3c19d";
 
 export const NOTE_IDS = ["now", "roundcard", "causenote", "bubble", "hooknote"];
 

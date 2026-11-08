@@ -20,7 +20,7 @@
 // The name put in is in span.rn, which ?dev=1 hides (the record's own word shows there).
 // Numbers and units, OK / NG and vN are never record words, so they stay.
 
-import { BASE_JA, esc, plainToolName, quantityName, roleNames } from "./labels.js?v=f0690de096b9";
+import { BASE_JA, esc, plainToolName, quantityName, roleNames } from "./labels.js?v=230f55e45d39";
 
 // Lower-case words of the screen's own, not a record's English: units and names said as they are.
 const OWN_WORDS = new Set(["von", "hooks", "deg", "rpm", "rad"]);

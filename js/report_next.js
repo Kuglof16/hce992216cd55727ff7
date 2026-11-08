@@ -7,8 +7,8 @@
 // are said by their names (labels.js designNumberName); the path itself only under ?dev=1.
 // No next: no block.
 
-import { DOMAIN_JA, designNumberName, esc, judgedWords, variableName, verLabel } from "./labels.js?v=f0690de096b9";
-import { plainWords } from "./plain.js?v=0522079b9d32";
+import { DOMAIN_JA, designNumberName, esc, judgedWords, variableName, verLabel } from "./labels.js?v=230f55e45d39";
+import { plainWords } from "./plain.js?v=e8f09fb3c19d";
 
 // A word of the record in a change said by the design's own name (people's screen, not ?dev=1): a
 // variable (cross_t), a member (cross_B) or a part by its name up to its bracket, a load case

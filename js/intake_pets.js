@@ -20,8 +20,8 @@
 // PetStage, its pixel ratio, its still pictures without a GPU unless ?petmotion=on), so a pet is
 // drawn again only when its pose or size changes, at most PET_FPS times a second while it moves.
 
-import { DOMAINS, DOMAIN_JA, agentName } from "./labels.js?v=f0690de096b9";
-import { MOTIONS, PET_FPS, petPose } from "./agent_pets.js?v=73a37d0a31d9";
+import { DOMAINS, DOMAIN_JA, agentName } from "./labels.js?v=230f55e45d39";
+import { MOTIONS, PET_FPS, petPose } from "./agent_pets.js?v=9d57eb7dddbf";
 import { inTurn, REPLY_STEP_S } from "./intake/a1.js?v=3ddc89886d83";
 import { domainCards } from "./intake/model.js?v=06291aa72404";
 

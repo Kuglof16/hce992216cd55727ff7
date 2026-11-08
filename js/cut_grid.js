@@ -26,15 +26,15 @@
 import * as THREE from "three";
 import { clearOfBand } from "./compose.js?v=453a16e757af";
 import { contourOf, fieldsOf } from "./fields.js?v=f89cf047484b";
-import { esc, verLabel } from "./labels.js?v=f0690de096b9";
-import { channelsOf, motionOf, xSeriesOf } from "./series.js?v=1b96ff84885a";
-import { AssemblyStage, assemblyRecord } from "./assembly.js?v=cff4a97295e5";
-import { VIEWS, cutView } from "./workbench3d.js?v=57b3d74d8b2f";
+import { esc, verLabel } from "./labels.js?v=230f55e45d39";
+import { channelsOf, motionOf, xSeriesOf } from "./series.js?v=4e2164fcb0d6";
+import { AssemblyStage, assemblyRecord } from "./assembly.js?v=9fde7a5803c8";
+import { VIEWS, cutView } from "./workbench3d.js?v=31ce50a84f96";
 import { cutLookOf } from "./look.js?v=ea9123c575c2";
-import { FEATURE_KEYS, listRects, storyOf } from "./cut_n03.js?v=136ac889da57";
+import { FEATURE_KEYS, listRects, storyOf } from "./cut_n03.js?v=4e766247e2a4";
 import { TilePets, loadPets, missingPetKeys } from "./cut_pets.js?v=46c9c549c234";
 import { PACE_LIMIT_DEG_S, pacer } from "./pace.js?v=206021786fb2";
-import { beyondWords, tileOf } from "./beyond.js?v=aae936e3d13c";
+import { beyondWords, tileOf } from "./beyond.js?v=c9e6e58e4e03";
 
 const $ = (id) => document.getElementById(id);
 const params = new URLSearchParams(location.search);

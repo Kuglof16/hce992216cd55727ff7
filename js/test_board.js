@@ -14,8 +14,8 @@
 //
 // Everything comes from the record at the replay's time (state.js chainFor): ?t= draws the same.
 
-import { DOMAINS, DOMAIN_JA, caseShortNames, esc } from "./labels.js?v=f0690de096b9";
-import { chainFor, judgementState } from "./state.js?v=1f73c312bee4";
+import { DOMAINS, DOMAIN_JA, caseShortNames, esc } from "./labels.js?v=230f55e45d39";
+import { chainFor, judgementState } from "./state.js?v=5e8574b5d2c1";
 
 export const MAX_COLS = 6; // a group's boxes: at most this many side by side
 export const NAME_MAX = 7; // letters of a test's short name (then …)

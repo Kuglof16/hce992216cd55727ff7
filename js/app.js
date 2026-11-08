@@ -32,54 +32,54 @@
 // window.hiraku.seek(t) returns a promise that resolves once the frame at t is drawn;
 // window.hiraku.load(events, t) shows other events (already parsed) the same way.
 
-import { TAB_JA, tabWord, verLabel, judgedWords, roleNames, MISMATCH_STATUS, RED_STATUS, DEMO_LINE_JA, DOMAINS, DOMAIN_JA, DRIVEN_JA, DRIVER_JA, PICK_DEMO_ID, runSummaryJa, stopWhyJa, isOlderRecord, RUN_STATE_JA, runState, RULES, STOP_CODE_JA, DESIGNER_ROLES, designerRole, agentLongName, agentName, BASE_JA, caseShortNames, esc, keepAsides, fmt, fmtMargin, fmtPct, fmtQ, fmtSigned, fmtTime, fmtUsd, fmtVU, opLabel, formulaInputName, plainToolName, quantityName, unitLabel } from "./labels.js?v=f0690de096b9";
+import { TAB_JA, tabWord, verLabel, judgedWords, roleNames, MISMATCH_STATUS, RED_STATUS, DEMO_LINE_JA, DOMAINS, DOMAIN_JA, DRIVEN_JA, DRIVER_JA, PICK_DEMO_ID, runSummaryJa, stopWhyJa, isOlderRecord, RUN_STATE_JA, runState, RULES, STOP_CODE_JA, DESIGNER_ROLES, designerRole, agentLongName, agentName, BASE_JA, caseShortNames, esc, keepAsides, fmt, fmtMargin, fmtPct, fmtQ, fmtSigned, fmtTime, fmtUsd, fmtVU, opLabel, formulaInputName, plainToolName, quantityName, unitLabel } from "./labels.js?v=230f55e45d39";
 import { BAND_COLORS, BANDS, OVER_COLOR } from "./colormap.js?v=3da7f9194f51";
-import { EventFeed, Player, parseJsonl } from "./player.js?v=2c7b60bc0f2f";
-import { pathCheckedWhy } from "./why_line.js?v=fe9ac4294647";
-import { applyEvent, chainFor, domainVerdicts, initialState, isSafeSide, judgementState, roundsUsed, valueFromJa } from "./state.js?v=1f73c312bee4";
-import { SeriesChart } from "./chart.js?v=6100c2bd5dca";
+import { EventFeed, Player, parseJsonl } from "./player.js?v=7643c0591a98";
+import { pathCheckedWhy } from "./why_line.js?v=105ec6cc1634";
+import { applyEvent, chainFor, domainVerdicts, initialState, isSafeSide, judgementState, roundsUsed, valueFromJa } from "./state.js?v=5e8574b5d2c1";
+import { SeriesChart } from "./chart.js?v=62e6673af53d";
 import { FIELD_JA, FIELD_ORDER, atFrame, contourOf, convergenceLine, fieldLabel, fieldsOf, frameIndex, onSharedScale, preferredField, sameField, variantName, variantOf } from "./fields.js?v=f89cf047484b";
-import { motionOf, motionSpan, nearestAt, wheelName, xSeriesOf } from "./series.js?v=1b96ff84885a";
-import { NodeMotionView, nodeMotionAt, nodeMotionOf, nodeMotionPlaySpan, nodeMotionTau } from "./node_motion.js?v=156a05287cbe";
+import { motionOf, motionSpan, nearestAt, wheelName, xSeriesOf } from "./series.js?v=4e2164fcb0d6";
+import { NodeMotionView, nodeMotionAt, nodeMotionOf, nodeMotionPlaySpan, nodeMotionTau } from "./node_motion.js?v=5b0972e9ac24";
 import { mountIntake } from "./intake/index.js?v=ad257b61b9ae";
 import { REPLY_STEP_S } from "./intake/a1.js?v=3ddc89886d83";
 import { lookFromParams, looksReady, qualityFromParams } from "./look.js?v=ea9123c575c2";
 import { DUMMY_NOTE_JA } from "./hybrid3.js?v=ba304c38166a"; // the workbench's くわしく under a dummy
-import { mountShelf } from "./shelf.js?v=0fb7283030e3";
+import { mountShelf } from "./shelf.js?v=2b2469b636aa";
 import { parseZoom, zoomTransform } from "./zoom.js?v=2eaf5eae0f5b";
-import { liftIsLimit } from "./scene.js?v=8f08a9dfed1f";
-import { TileBoard, TILE_ORDER, headline, onlyTestsLine } from "./tiles.js?v=1612414d2b2c";
-import { TileViews } from "./tile3d.js?v=ab196c3ec728";
-import { VIEWS, Workbench3D } from "./workbench3d.js?v=57b3d74d8b2f";
-import { AssemblyPanel, assemblyRecord } from "./assembly.js?v=cff4a97295e5";
-import { renderJointLegend } from "./joints.js?v=2434412392c5"; // joints:
-import { MODE_JA, MODE_ORDER, drawableMetrics, METRIC_JA, modeCardHtml, modeLegendParts, qualityContourOf, qualityOf, setupContourOf, setupOf, thicknessContourOf } from "./quality.js?v=9fc19fa9430b";
-import { AgentPets, PET_PAINTS, glRendererName, isSoftwareRenderer, petRowHtml, stopWhyHtml } from "./agent_pets.js?v=73a37d0a31d9";
-import { IntakePets } from "./intake_pets.js?v=bb250f78dd2d"; // the CAE agents' pets on A1, the asker's on A2
-import { hearingRounds, plainHearingEvents, roundAt, roundLine, roundTitle } from "./hearing_rounds.js?v=000ef6f08303"; // ②: when each hearing was
-import { reportNextHtml } from "./report_next.js?v=c18574158c68";
-import { analysisEdge, assumptionText, edgeFlips, edgeLineHtml, edgeRaw, edgeText, nearLineHtml } from "./edge_note.js?v=4b88a15a355b";
-import { causeNoteHtml, hookWords, nowSentence, openCause, presentCardHtml, presentScene, resolvedHooks, verdictLine, verdictSentence } from "./present.js?v=893534271884";
-import { judgedContour, judgedResult, referenceResults } from "./judged.js?v=266a04db0468";
-import { JUDGED_JA } from "./labels.js?v=f0690de096b9";
-import { heldAll, heldBandHtml, heldCases } from "./held.js?v=61613cbb560d"; // held: load cases shown, not judged
-import { ModuleLayer, hasModules, loadModuleNames, renderModuleLegend, renderRoundCard } from "./modules.js?v=45b1d4c17883"; // modules:
-import { designerColor, roundCardHtml } from "./proposals.js?v=76a6b4998393"; // modules:
-import { TabContent, mountTabs } from "./tabs.js?v=1f07861b1e74";
-import { GripView } from "./grip_panel.js?v=8ba36e8ab50f"; // grip: the tyres of a driving record (toggle タイヤ, ?on=grip)
-import { hasGrip } from "./grip_view.js?v=b25cf5f28b5c"; // grip:
-import { kcFor } from "./kc_view.js?v=fce024ef4099"; // grip:
-import { EnergyFlow } from "./energy_flow.js?v=3a3c64f32656"; // heat: the energy's flow over the 3D
-import { VIEWER_WORDS, extraUrl, loadViewerInfo, viewerButtonHtml, viewerExtras, viewerInfo, viewerProvisional, viewerRunId, viewerTarget, viewerUrl } from "./viewer_link.js?v=0e01ade3c2d7"; // 「ビューアで見る」
+import { liftIsLimit } from "./scene.js?v=251d95401a08";
+import { TileBoard, TILE_ORDER, headline, onlyTestsLine } from "./tiles.js?v=9b1bbfa89aac";
+import { TileViews } from "./tile3d.js?v=3b730e8830e2";
+import { VIEWS, Workbench3D } from "./workbench3d.js?v=31ce50a84f96";
+import { AssemblyPanel, assemblyRecord } from "./assembly.js?v=9fde7a5803c8";
+import { renderJointLegend } from "./joints.js?v=597c4e2e3ee2"; // joints:
+import { MODE_JA, MODE_ORDER, drawableMetrics, METRIC_JA, modeCardHtml, modeLegendParts, qualityContourOf, qualityOf, setupContourOf, setupOf, thicknessContourOf } from "./quality.js?v=14ffb4d9ea92";
+import { AgentPets, PET_PAINTS, glRendererName, isSoftwareRenderer, petRowHtml, stopWhyHtml } from "./agent_pets.js?v=9d57eb7dddbf";
+import { IntakePets } from "./intake_pets.js?v=0fffc2e9d4d5"; // the CAE agents' pets on A1, the asker's on A2
+import { hearingRounds, plainHearingEvents, roundAt, roundLine, roundTitle } from "./hearing_rounds.js?v=2c3149b057cb"; // ②: when each hearing was
+import { reportNextHtml } from "./report_next.js?v=7f7ac782fd36";
+import { analysisEdge, assumptionText, edgeFlips, edgeLineHtml, edgeRaw, edgeText, nearLineHtml } from "./edge_note.js?v=c59ccadbb5da";
+import { causeNoteHtml, hookWords, nowSentence, openCause, presentCardHtml, presentScene, resolvedHooks, verdictLine, verdictSentence } from "./present.js?v=40b8b70502cb";
+import { judgedContour, judgedResult, referenceResults } from "./judged.js?v=acae77fbcca4";
+import { JUDGED_JA } from "./labels.js?v=230f55e45d39";
+import { heldAll, heldBandHtml, heldCases } from "./held.js?v=2ea1007b3a89"; // held: load cases shown, not judged
+import { ModuleLayer, hasModules, loadModuleNames, renderModuleLegend, renderRoundCard } from "./modules.js?v=8f5ea3afb9db"; // modules:
+import { designerColor, roundCardHtml } from "./proposals.js?v=c3a8e65518a5"; // modules:
+import { TabContent, mountTabs } from "./tabs.js?v=b458dd75c4e9";
+import { GripView } from "./grip_panel.js?v=1ea7dba7f08c"; // grip: the tyres of a driving record (toggle タイヤ, ?on=grip)
+import { hasGrip } from "./grip_view.js?v=9997a5ac1db1"; // grip:
+import { kcFor } from "./kc_view.js?v=95e38ea4b5a5"; // grip:
+import { EnergyFlow } from "./energy_flow.js?v=eb24098ef895"; // heat: the energy's flow over the 3D
+import { VIEWER_WORDS, extraUrl, loadViewerInfo, viewerButtonHtml, viewerExtras, viewerInfo, viewerProvisional, viewerRunId, viewerTarget, viewerUrl } from "./viewer_link.js?v=54a6c7adde2b"; // 「ビューアで見る」
 import { clampToSpan, domainLcAt, domainSpans } from "./domain_replay.js?v=5765330dc6ff";
-import { loopFromParams } from "./anim_loop.js?v=eb5242f8b031"; // ?play=loop&analysis=: one analysis' motion over and over
+import { loopFromParams } from "./anim_loop.js?v=14bd7302fab2"; // ?play=loop&analysis=: one analysis' motion over and over
 import { STATIC, getUrl } from "./source.js?v=e332c3f13242"; // a static export: its files in place of the server's routes, nothing POSTed
-import { domainIconSvg } from "./domain_icons.js?v=4d938bd35cdf";
-import { footerActivity, hookLineText, mountHookLine, withoutRuleIds } from "./hookline.js?v=a9cb9ba49504";
-import { mountBenchNote, noteKind } from "./benchnote.js?v=8621659da09b"; // ③'s sentence card under the 3D
-import { filmWords, isFilmWords, markRecordWords, plainLineHtml, plainWords, shownText } from "./plain.js?v=0522079b9d32"; // plain words: the card's, the footer's and the log's
-import { roundSeq } from "./proposals.js?v=76a6b4998393";
-import { boardHtml } from "./test_board.js?v=2242a9fdbe8f"; // ③'s tests at a glance
+import { domainIconSvg } from "./domain_icons.js?v=2781c86ce818";
+import { footerActivity, hookLineText, mountHookLine, withoutRuleIds } from "./hookline.js?v=c823b0dac1f2";
+import { mountBenchNote, noteKind } from "./benchnote.js?v=5447a1c02dd2"; // ③'s sentence card under the 3D
+import { filmWords, isFilmWords, markRecordWords, plainLineHtml, plainWords, shownText } from "./plain.js?v=e8f09fb3c19d"; // plain words: the card's, the footer's and the log's
+import { roundSeq } from "./proposals.js?v=c3a8e65518a5";
+import { boardHtml } from "./test_board.js?v=4249e4321e22"; // ③'s tests at a glance
 import { askAll, heavyPending, heavyReady, heavyWaiting, onHeavy, prefetch, quietly, tracked } from "./heavy.js?v=141f2a9f5c50"; // a static export's heavy parts, read when drawn
 
 const $ = (id) => document.getElementById(id);
@@ -1935,16 +1935,16 @@ const TAB_HEADS = {
     if (mt) {
       const unread = mt.querySelectorAll(".mt-row .mt-tag.unread").length;
       return [
-        sum ? `材質: ${sum}` : "材質カードを読んでいる",
-        ["出典", unread ? `読んでいない値のある材質 ${unread}` : sum ? "どの材質の値も、出典を読んで確かめた" : "—", unread ? "warn" : sum ? "ok" : ""],
-        "材質を選ぶと、カードの値と出どころが右に出る",
+        sum || "材料カードを読んでいる",
+        ["出典", unread ? `読んでいない値のある材料 ${unread}` : sum ? "どの材料の値も、出典を読んで確かめた" : "—", unread ? "warn" : sum ? "ok" : ""],
+        "材料を選ぶと、カードの値と出どころが右に出ます",
       ];
     }
     const bad = host.querySelectorAll(".sh-chk.bad, .sh-chk.noval").length;
     return [
-      sum ? `棚: ${sum}` : "棚を読んでいる",
-      ["確かめ", bad ? `通っていないツール ${bad}` : sum ? "どのツールも、答えの分かっている問題で確かめた" : "—", bad ? "warn" : sum ? "ok" : ""],
-      "ツールを選ぶと、確かめた問題と結果が右に出る",
+      sum || "解析ツールを読み込んでいる",
+      ["検証", bad ? `未検証のツール ${bad}` : sum ? "どのツールも、答えが分かっている問題 (理論解・手計算) で検証しました" : "—", bad ? "warn" : sum ? "ok" : ""],
+      "ツールを選ぶと、検証に使った問題と結果が右に出ます",
     ];
   },
   A7(s) {

@@ -6,8 +6,8 @@
 //
 // No three.js here: state.js uses proposalText for the log lines.
 
-import { CHOICE_JA, agentName, designNumberName, designerModule, designerRole, esc, fmt, judgedWords, moduleName, moduleOwner, unitLabel, verLabel } from "./labels.js?v=f0690de096b9";
-import { markRecordWords } from "./benchnote.js?v=8621659da09b";
+import { CHOICE_JA, agentName, designNumberName, designerModule, designerRole, esc, fmt, judgedWords, moduleName, moduleOwner, unitLabel, verLabel } from "./labels.js?v=230f55e45d39";
+import { markRecordWords } from "./benchnote.js?v=5447a1c02dd2";
 
 // The module colours: pet3d.js v10 ROLES (the rows with a module) when the page has them, else
 // the same values here. package is the packager's (its pet's colour, app.js PET_COLORS.packager).

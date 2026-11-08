@@ -14,7 +14,7 @@
 // in `dwell`; the seek bar, ?t= and window.hiraku.seek all use display time.
 
 import { fetchEvents } from "./eventread.js?v=fe3d485af807";
-import { applyEvent, initialState } from "./state.js?v=1f73c312bee4";
+import { applyEvent, initialState } from "./state.js?v=5e8574b5d2c1";
 
 export const SPEEDS = [0.5, 1, 2, 4, 8];
 export const CLOCKS = ["event", "paced", "real"];

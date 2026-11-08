@@ -9,8 +9,8 @@
 // playhead, or the live run's end); ⑤ also needs the analysis to carry the assembly steps
 // (assembly.js assemblyRecord, which reads the state).
 
-import { TAB_EMPTY_JA, TAB_FLOW, TAB_FLOW_JA, TAB_JA, TAB_SIDE, TAB_SIDE_JA, esc } from "./labels.js?v=f0690de096b9";
-import { assemblyRecord } from "./assembly.js?v=cff4a97295e5";
+import { TAB_EMPTY_JA, TAB_FLOW, TAB_FLOW_JA, TAB_JA, TAB_SIDE, TAB_SIDE_JA, esc } from "./labels.js?v=230f55e45d39";
+import { assemblyRecord } from "./assembly.js?v=9fde7a5803c8";
 
 // The event kinds that give a tab something to show (any one of them).
 export const TAB_NEEDS = {

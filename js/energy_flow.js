@@ -38,9 +38,9 @@ import { CSS2DObject } from "three/addons/renderers/CSS2DRenderer.js";
 import { LineMaterial } from "three/addons/lines/LineMaterial.js";
 import { LineSegments2 } from "three/addons/lines/LineSegments2.js";
 import { LineSegmentsGeometry } from "three/addons/lines/LineSegmentsGeometry.js";
-import { caseShortNames, esc, fmt } from "./labels.js?v=f0690de096b9";
-import { channelsOf, lerpAt } from "./series.js?v=1b96ff84885a";
-import { verdictVersion } from "./state.js?v=1f73c312bee4";
+import { caseShortNames, esc, fmt } from "./labels.js?v=230f55e45d39";
+import { channelsOf, lerpAt } from "./series.js?v=4e2164fcb0d6";
+import { verdictVersion } from "./state.js?v=5e8574b5d2c1";
 
 export const ELEC_COLOR = "#2f7fd0"; // electric power (via wire)
 export const ROT_COLOR = "#7a5cc2"; // rotating power (via spline: torque)

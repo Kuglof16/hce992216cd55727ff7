@@ -11,7 +11,7 @@
 // viewer's own sample of the field, which the line beside the button says, and a field with no sample
 // cannot be opened. A reason only the record can tell is shown by the viewer's page itself.
 
-import { esc } from "./labels.js?v=f0690de096b9";
+import { esc } from "./labels.js?v=230f55e45d39";
 
 export const VIEWER_FIELD = {
   frame_static: "strength",

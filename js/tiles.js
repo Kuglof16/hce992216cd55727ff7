@@ -5,19 +5,19 @@
 // interferences in red, and a small chart of its first series group. Every
 // number printed is a recorded value.
 
-import { DOMAINS, DOMAIN_JA, JUDGED_JA, esc, fmt, fmtQ, fmtVU, judgedWords, keepAsides, opLabel, quantityName, unitLabel, verLabel } from "./labels.js?v=f0690de096b9";
+import { DOMAINS, DOMAIN_JA, JUDGED_JA, esc, fmt, fmtQ, fmtVU, judgedWords, keepAsides, opLabel, quantityName, unitLabel, verLabel } from "./labels.js?v=230f55e45d39";
 import { OVER_COLOR, colorOf } from "./colormap.js?v=3da7f9194f51";
 import { FIELD_JA, atFrame, contourOf, fieldsOf, frameIndex, overOf } from "./fields.js?v=f89cf047484b";
-import { abscissa, channelsOf, chartGroups, extent, seriesName, xSeriesOf } from "./series.js?v=1b96ff84885a";
-import { domainVerdicts, isSafeSide, judgementState, roundsUsed } from "./state.js?v=1f73c312bee4";
-import { gridPlaceOf, petRowHtml } from "./agent_pets.js?v=73a37d0a31d9";
-import { heldBandHtml, heldCases, referenceCases, referenceRowsHtml } from "./held.js?v=61613cbb560d";
-import { builtLine } from "./proposals.js?v=76a6b4998393"; // modules:
-import { judgedContour } from "./judged.js?v=266a04db0468";
-import { analysisEdge, edgeFlips, edgeLineHtml, edgeRaw } from "./edge_note.js?v=4b88a15a355b";
-import { MATERIAL_JA, pictureOf } from "./tile_pictures.js?v=9ad04c265332";
-import { domainIconSvg } from "./domain_icons.js?v=4d938bd35cdf";
-import { pathCheckedWhy } from "./why_line.js?v=fe9ac4294647";
+import { abscissa, channelsOf, chartGroups, extent, seriesName, xSeriesOf } from "./series.js?v=4e2164fcb0d6";
+import { domainVerdicts, isSafeSide, judgementState, roundsUsed } from "./state.js?v=5e8574b5d2c1";
+import { gridPlaceOf, petRowHtml } from "./agent_pets.js?v=9d57eb7dddbf";
+import { heldBandHtml, heldCases, referenceCases, referenceRowsHtml } from "./held.js?v=2ea1007b3a89";
+import { builtLine } from "./proposals.js?v=c3a8e65518a5"; // modules:
+import { judgedContour } from "./judged.js?v=acae77fbcca4";
+import { analysisEdge, edgeFlips, edgeLineHtml, edgeRaw } from "./edge_note.js?v=c59ccadbb5da";
+import { MATERIAL_JA, pictureOf } from "./tile_pictures.js?v=b8d147fa4231";
+import { domainIconSvg } from "./domain_icons.js?v=2781c86ce818";
+import { pathCheckedWhy } from "./why_line.js?v=105ec6cc1634";
 
 const W = 300;
 const H = 150;

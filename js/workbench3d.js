@@ -38,17 +38,17 @@ import { LineSegments2 } from "three/addons/lines/LineSegments2.js";
 import { LineSegmentsGeometry } from "three/addons/lines/LineSegmentsGeometry.js";
 import { GRAY, OVER_COLOR, colorOf } from "./colormap.js?v=3da7f9194f51";
 import { overOf } from "./fields.js?v=f89cf047484b";
-import { maxTagClass } from "./judged.js?v=266a04db0468"; // the largest-value tag's colour (one rule)
-import { FIX_R_COLOR, FIX_T_COLOR, FREE_EDGE_COLOR, LOAD_COLOR } from "./quality.js?v=9fc19fa9430b";
-import { esc, fmt, fmtVU, vectorName } from "./labels.js?v=f0690de096b9";
+import { maxTagClass } from "./judged.js?v=acae77fbcca4"; // the largest-value tag's colour (one rule)
+import { FIX_R_COLOR, FIX_T_COLOR, FREE_EDGE_COLOR, LOAD_COLOR } from "./quality.js?v=14ffb4d9ea92";
+import { esc, fmt, fmtVU, vectorName } from "./labels.js?v=230f55e45d39";
 import { CONTOUR_FADE, DUMMY_BODY, DUMMY_JOINT, GROUND_MM, Look, cutLookOf, occupantSub } from "./look.js?v=ea9123c575c2";
 import { RealPost, sharedPost, skipsDepth } from "./realpost.js?v=1c240587ce83";
-import { SceneProps, liftIsLimit, sceneOf } from "./scene.js?v=8f08a9dfed1f";
+import { SceneProps, liftIsLimit, sceneOf } from "./scene.js?v=251d95401a08";
 import { edgePairs, outerFaces } from "./meshkind.js?v=42be1b82154c";
-import { ANGLE, lerpAt, wheelName } from "./series.js?v=1b96ff84885a";
+import { ANGLE, lerpAt, wheelName } from "./series.js?v=4e2164fcb0d6";
 import { mergePieces, occupantDummyPieces, occupantSegmentPieces, partPieces, personOf, segmentOf, wheelPieces } from "./shapes.js?v=9089beb8e323";
-import { JointMarks } from "./joints.js?v=2434412392c5"; // joints: the joint marks (toggle 接合)
-import { frameEnds, tubeGeometry, tubeSection } from "./tubes.js?v=2434412392c5"; // the frame's hollow tubes
+import { JointMarks } from "./joints.js?v=597c4e2e3ee2"; // joints: the joint marks (toggle 接合)
+import { frameEnds, tubeGeometry, tubeSection } from "./tubes.js?v=597c4e2e3ee2"; // the frame's hollow tubes
 
 const INK = "#1d1d1f";
 const MUTED = "#6b665c";

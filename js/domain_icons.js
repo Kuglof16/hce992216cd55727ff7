@@ -2,7 +2,7 @@
 // other screen (A1's cards, the tool shelf's headings) take them from domainIconSvg. Line icons
 // 20 × 20 drawn in currentColor (the tabs' style, js/tabs.js), as high as the letters.
 
-import { DOMAINS } from "./labels.js?v=f0690de096b9";
+import { DOMAINS } from "./labels.js?v=230f55e45d39";
 
 export const DOMAIN_ICON = {
   // a steering wheel

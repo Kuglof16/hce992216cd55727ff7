@@ -7,7 +7,7 @@
 // checks are shown as recorded (the mass difference is the record's mass_difference).
 
 import { BANDS, BAND_COLORS, GRAY, OVER_COLOR } from "./colormap.js?v=3da7f9194f51";
-import { esc, fmt, fmtVU, unitLabel } from "./labels.js?v=f0690de096b9";
+import { esc, fmt, fmtVU, unitLabel } from "./labels.js?v=230f55e45d39";
 import { shellFreeEdges } from "./meshkind.js?v=42be1b82154c";
 
 export const MODE_JA = { quality: "メッシュの品質", thickness: "板厚と材料", setup: "解く前の設定" };

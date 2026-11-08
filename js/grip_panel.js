@@ -13,11 +13,11 @@
 // Every number is a recorded one (a text: the sample nearest the time; a drawn point: between the
 // samples). Sliding is orange, never red.
 
-import { esc, fmt } from "./labels.js?v=f0690de096b9";
-import { extent, lerpAt, wheelName } from "./series.js?v=1b96ff84885a";
-import { CIRCLE_MM, GripLayer, LOAD_MM, MOUNT_MM, gripAt, gripOf } from "./grip_view.js?v=b25cf5f28b5c";
-import { kcLines, kcSvg } from "./kc_view.js?v=fce024ef4099";
-import { VIEWS } from "./workbench3d.js?v=57b3d74d8b2f";
+import { esc, fmt } from "./labels.js?v=230f55e45d39";
+import { extent, lerpAt, wheelName } from "./series.js?v=4e2164fcb0d6";
+import { CIRCLE_MM, GripLayer, LOAD_MM, MOUNT_MM, gripAt, gripOf } from "./grip_view.js?v=9997a5ac1db1";
+import { kcLines, kcSvg } from "./kc_view.js?v=95e38ea4b5a5";
+import { VIEWS } from "./workbench3d.js?v=31ce50a84f96";
 
 const TRAIL_S = 1; // the last second of a wheel's samples on its tyre graph
 const GRIP_ROOM_PX = 396; // the panel (grip.css: 372 px wide, 12 px from the right) and a gap

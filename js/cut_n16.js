@@ -20,11 +20,11 @@
 // again to the last one; lead_s is when the caption (the step's sentence) appears.
 
 import * as THREE from "three";
-import { AssemblySeek, AssemblyStage, assemblyRecord, nameOf, partNames, shortName, stepAt } from "./assembly.js?v=cff4a97295e5";
+import { AssemblySeek, AssemblyStage, assemblyRecord, nameOf, partNames, shortName, stepAt } from "./assembly.js?v=9fde7a5803c8";
 import { clearOfBand } from "./compose.js?v=453a16e757af";
-import { storyOf } from "./cut_n03.js?v=136ac889da57";
-import { esc } from "./labels.js?v=f0690de096b9";
-import { VIEWS, cutView } from "./workbench3d.js?v=57b3d74d8b2f";
+import { storyOf } from "./cut_n03.js?v=4e766247e2a4";
+import { esc } from "./labels.js?v=230f55e45d39";
+import { VIEWS, cutView } from "./workbench3d.js?v=31ce50a84f96";
 
 // The checks of a step in the viewers' words, when they fail: interference stops the
 // part (red); tool and hand make the step hard (orange).

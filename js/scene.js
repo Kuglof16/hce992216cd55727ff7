@@ -24,7 +24,7 @@ import * as THREE from "three";
 import { LineMaterial } from "three/addons/lines/LineMaterial.js";
 import { LineSegments2 } from "three/addons/lines/LineSegments2.js";
 import { LineSegmentsGeometry } from "three/addons/lines/LineSegmentsGeometry.js";
-import { ANGLE, LENGTH, lerpAt, nearestAt } from "./series.js?v=1b96ff84885a";
+import { ANGLE, LENGTH, lerpAt, nearestAt } from "./series.js?v=4e2164fcb0d6";
 import { HAZARD_BAND_MM } from "./look.js?v=ea9123c575c2";
 
 const PAPER = "#f4f1ea";

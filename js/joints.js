@@ -16,8 +16,8 @@
 // marks), in the body group (ISO mm), so they move with the body's pose.
 
 import * as THREE from "three";
-import { esc } from "./labels.js?v=f0690de096b9";
-import { frameEnds, TUBE, TUBE_NOTE } from "./tubes.js?v=2434412392c5"; // where each tube's end is cut (the bead goes there)
+import { esc } from "./labels.js?v=230f55e45d39";
+import { frameEnds, TUBE, TUBE_NOTE } from "./tubes.js?v=597c4e2e3ee2"; // where each tube's end is cut (the bead goes there)
 
 // ---- the table: what each kind is drawn as -------------------------------------------
 // mark: the shape (MARK_SHAPES); color: its colour (the same in both looks); ja: its name

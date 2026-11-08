@@ -19,10 +19,10 @@ import * as THREE from "three";
 import { LineMaterial } from "three/addons/lines/LineMaterial.js";
 import { LineSegments2 } from "three/addons/lines/LineSegments2.js";
 import { LineSegmentsGeometry } from "three/addons/lines/LineSegmentsGeometry.js";
-import { esc, fmt, keepAsides } from "./labels.js?v=f0690de096b9";
-import { VIEWS, Workbench3D } from "./workbench3d.js?v=57b3d74d8b2f";
-import { mountAssemblySwitch } from "./modules.js?v=45b1d4c17883"; // modules:
-import { assemblyJointControls, JOINT_KINDS } from "./joints.js?v=2434412392c5"; // joints:
+import { esc, fmt, keepAsides } from "./labels.js?v=230f55e45d39";
+import { VIEWS, Workbench3D } from "./workbench3d.js?v=31ce50a84f96";
+import { mountAssemblySwitch } from "./modules.js?v=8f5ea3afb9db"; // modules:
+import { assemblyJointControls, JOINT_KINDS } from "./joints.js?v=597c4e2e3ee2"; // joints:
 import { pendingLength } from "./heavy.js?v=141f2a9f5c50";
 
 export const CHECKS = [

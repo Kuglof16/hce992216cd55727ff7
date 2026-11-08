@@ -39,9 +39,9 @@
 import * as THREE from "three";
 import { OVER_COLOR } from "./colormap.js?v=3da7f9194f51";
 import { clearOfBand } from "./compose.js?v=453a16e757af";
-import { esc, fmt, plainSentence } from "./labels.js?v=f0690de096b9";
-import { VIEWS, cutView, isoToThree } from "./workbench3d.js?v=57b3d74d8b2f";
-import { storyOf } from "./cut_n03.js?v=136ac889da57";
+import { esc, fmt, plainSentence } from "./labels.js?v=230f55e45d39";
+import { VIEWS, cutView, isoToThree } from "./workbench3d.js?v=31ce50a84f96";
+import { storyOf } from "./cut_n03.js?v=4e766247e2a4";
 
 const $ = (id) => document.getElementById(id);
 const BORDER_PX = 2;

@@ -9,8 +9,8 @@
 //    the right panel's card, so the footer does not repeat them, and a hook's stop is said without
 //    the rule's id.
 
-import { agentLongName, esc } from "./labels.js?v=f0690de096b9";
-import { hookWords } from "./present.js?v=893534271884";
+import { agentLongName, esc } from "./labels.js?v=230f55e45d39";
+import { hookWords } from "./present.js?v=40b8b70502cb";
 
 // What was stopped / what the agent is made to do (the rules' meaning: present.js HOOK_WORDS).
 const HOOK_LINE = {

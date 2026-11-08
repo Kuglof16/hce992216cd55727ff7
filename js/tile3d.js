@@ -9,9 +9,9 @@
 // cheapest quality (look.js QUALITY low).
 
 import * as THREE from "three";
-import { VIEWS, Workbench3D } from "./workbench3d.js?v=57b3d74d8b2f";
-import { EnergyFlow } from "./energy_flow.js?v=3a3c64f32656";
-import { NodeMotionView } from "./node_motion.js?v=156a05287cbe";
+import { VIEWS, Workbench3D } from "./workbench3d.js?v=31ce50a84f96";
+import { EnergyFlow } from "./energy_flow.js?v=eb24098ef895";
+import { NodeMotionView } from "./node_motion.js?v=5b0972e9ac24";
 
 const TOGGLES = { parts: true, contour: true, arrows: false, cg: false, names: false, limit: false, graph: false, joints: false, modules: false, spaces: false, heat: false };
 const QUALITY = "low";
